@@ -1,0 +1,11 @@
+{% for label, messages in app.flashes %}
+    {% for message in messages %}
+        {% set alertClass = (label == 'error') ? 'danger' : label %}
+
+        {% if alertClass == 'success' %} ✅
+        {% elseif alertClass == 'danger' %} ⚠️
+        {% else %}  {% endif %}
+
+        {{ message|raw }}
+    {% endfor %}
+{% endfor %}
