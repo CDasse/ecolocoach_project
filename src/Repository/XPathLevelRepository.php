@@ -2,39 +2,39 @@
 
 namespace App\Repository;
 
-use App\Entity\EventPage;
+use App\Entity\XPathLevel;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @extends ServiceEntityRepository<EventPage>
+ * @extends ServiceEntityRepository<XPathLevel>
  */
-class EventPagesRepository extends ServiceEntityRepository
+class XPathLevelRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, EventPage::class);
+        parent::__construct($registry, XPathLevel::class);
     }
 
     //    /**
-    //     * @return EventPage[] Returns an array of EventPage objects
+    //     * @return XPathLevel[] Returns an array of XPathLevel objects
     //     */
     //    public function findByExampleField($value): array
     //    {
-    //        return $this->createQueryBuilder('e')
-    //            ->andWhere('e.exampleField = :val')
+    //        return $this->createQueryBuilder('x')
+    //            ->andWhere('x.exampleField = :val')
     //            ->setParameter('val', $value)
-    //            ->orderBy('e.id', 'ASC')
+    //            ->orderBy('x.id', 'ASC')
     //            ->setMaxResults(10)
     //            ->getQuery()
     //            ->getResult()
     //        ;
     //    }
 
-    //    public function findOneBySomeField($value): ?EventPage
+    //    public function findOneBySomeField($value): ?XPathLevel
     //    {
-    //        return $this->createQueryBuilder('e')
-    //            ->andWhere('e.exampleField = :val')
+    //        return $this->createQueryBuilder('x')
+    //            ->andWhere('x.exampleField = :val')
     //            ->setParameter('val', $value)
     //            ->getQuery()
     //            ->getOneOrNullResult()

@@ -2,22 +2,22 @@
 
 namespace App\Repository;
 
-use App\Entity\EventPage;
+use App\Entity\EventPart;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @extends ServiceEntityRepository<EventPage>
+ * @extends ServiceEntityRepository<EventPart>
  */
-class EventPagesRepository extends ServiceEntityRepository
+class EventPartRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, EventPage::class);
+        parent::__construct($registry, EventPart::class);
     }
 
     //    /**
-    //     * @return EventPage[] Returns an array of EventPage objects
+    //     * @return EventPart[] Returns an array of EventPart objects
     //     */
     //    public function findByExampleField($value): array
     //    {
@@ -31,7 +31,7 @@ class EventPagesRepository extends ServiceEntityRepository
     //        ;
     //    }
 
-    //    public function findOneBySomeField($value): ?EventPage
+    //    public function findOneBySomeField($value): ?EventPart
     //    {
     //        return $this->createQueryBuilder('e')
     //            ->andWhere('e.exampleField = :val')

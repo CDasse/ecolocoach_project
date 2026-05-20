@@ -24,11 +24,11 @@ class Tip extends BaseEntity
      * @var Collection<int, Level>
      */
     #[ORM\OneToMany(targetEntity: Level::class, mappedBy: 'tip')]
-    private Collection $levelId;
+    private Collection $level;
 
     public function __construct()
     {
-        $this->levelId = new ArrayCollection();
+        $this->level = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -51,15 +51,15 @@ class Tip extends BaseEntity
     /**
      * @return Collection<int, Level>
      */
-    public function getLevelId(): Collection
+    public function getLevel(): Collection
     {
-        return $this->levelId;
+        return $this->level;
     }
 
     public function addLevelId(Level $levelId): static
     {
-        if (!$this->levelId->contains($levelId)) {
-            $this->levelId->add($levelId);
+        if (!$this->level->contains($levelId)) {
+            $this->level->add($levelId);
             $levelId->setTip($this);
         }
 
@@ -69,7 +69,7 @@ class Tip extends BaseEntity
     public function removeLevelId(Level $levelId): static
     {
         // set the owning side to null (unless already changed)
-        if ($this->levelId->removeElement($levelId) && $levelId->getTip() === $this) {
+        if ($this->level->removeElement($levelId) && $levelId->getTip() === $this) {
             $levelId->setTip(null);
         }
 

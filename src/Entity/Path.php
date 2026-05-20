@@ -4,6 +4,8 @@ namespace App\Entity;
 
 use App\Entity\Impl\BaseEntity;
 use App\Repository\PathRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
@@ -26,6 +28,17 @@ class Path extends BaseEntity
 
     #[ORM\Column(type: Types::TEXT, length: 255)]
     private ?string $description = null;
+
+    /**
+     * @var Collection<int, XPathLevel>
+     */
+    #[ORM\OneToMany(targetEntity: XPathLevel::class, mappedBy: 'pathId', orphanRemoval: true)]
+    private Collection $xPathLevels;
+
+    public function __construct()
+    {
+        $this->xPathLevels = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -64,6 +77,36 @@ class Path extends BaseEntity
     public function setDescription(string $description): static
     {
         $this->description = $description;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, XPathLevel>
+     */
+    public function getXPathLevels(): Collection
+    {
+        return $this->xPathLevels;
+    }
+
+    public function addXPathLevel(XPathLevel $xPathLevel): static
+    {
+        if (!$this->xPathLevels->contains($xPathLevel)) {
+            $this->xPathLevels->add($xPathLevel);
+            $xPathLevel->setPath($this);
+        }
+
+        return $this;
+    }
+
+    public function removeXPathLevel(XPathLevel $xPathLevel): static
+    {
+        if ($this->xPathLevels->removeElement($xPathLevel)) {
+            // set the owning side to null (unless already changed)
+            if ($xPathLevel->getPath() === $this) {
+                $xPathLevel->setPath(null);
+            }
+        }
 
         return $this;
     }
