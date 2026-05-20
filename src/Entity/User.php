@@ -45,9 +45,8 @@ class User extends BaseEntity implements UserInterface, PasswordAuthenticatedUse
     #[ORM\Column(type: 'float', options: ['default' => 0.0])]
     private ?float $co2Impact = 0.0;
 
-    public function __construct() {
-        parent::__construct();
-    }
+    #[ORM\ManyToOne]
+    private ?Path $path = null;
 
     public function getId(): ?int
     {
@@ -156,6 +155,18 @@ class User extends BaseEntity implements UserInterface, PasswordAuthenticatedUse
     public function setCo2Impact(float $co2Impact): static
     {
         $this->co2Impact = $co2Impact;
+
+        return $this;
+    }
+
+    public function getPath(): ?Path
+    {
+        return $this->path;
+    }
+
+    public function setPath(?Path $path): static
+    {
+        $this->path = $path;
 
         return $this;
     }
