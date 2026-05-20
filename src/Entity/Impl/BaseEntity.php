@@ -5,32 +5,41 @@ namespace App\Entity\Impl;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use App\Entity\User;
+use Symfony\Component\Uid\Uuid;
 
 abstract class BaseEntity
 {
+    #[ORM\Column(type: Types::GUID, unique: true, nullable: false)]
+    protected ?string $uid = null;
+
     #[ORM\Column(name: 'created_date', type: Types::DATETIME_MUTABLE, nullable: false, options: ['default' => "CURRENT_TIMESTAMP"])]
     protected \DateTime $createdDate;
 
     #[ORM\ManyToOne]
-    #[ORM\JoinColumn(nullable: false)]
-    protected User $createdBy;
+    #[ORM\JoinColumn(nullable: true)]
+    protected null|User $createdBy;
 
     #[ORM\Column(name: 'updated_date', type: Types::DATETIME_MUTABLE, nullable: true)]
     protected null|\DateTime $updatedDate;
 
     #[ORM\ManyToOne]
-    #[ORM\JoinColumn(nullable: false)]
+    #[ORM\JoinColumn(nullable: true)]
     protected null|User $updatedBy;
 
     #[ORM\Column(name: 'deleted_date', type: Types::DATETIME_MUTABLE, nullable: true)]
     protected null|\DateTime $deletedDate;
 
     #[ORM\ManyToOne]
-    #[ORM\JoinColumn(nullable: false)]
+    #[ORM\JoinColumn(nullable: true)]
     protected null|User $deletedBy;
 
     #[ORM\Column(name: 'is_deleted', type: Types::BOOLEAN, nullable: false, options: ['default' => false])]
     protected bool $isDeleted = false;
+
+    public function __construct() {
+        $this->uid = Uuid::v4()->toRfc4122();
+        $this->createdDate = new \DateTime();
+    }
 
     public function getCreatedDate(): \DateTime {
         return $this->createdDate;
@@ -40,6 +49,10 @@ abstract class BaseEntity
         $this->createdDate = $createdDate;
 
         return $this;
+    }
+
+    public function getUid(): ?string {
+        return $this->uid;
     }
 
     public function getCreatedBy(): ?User {
@@ -101,5 +114,4 @@ abstract class BaseEntity
 
         return $this;
     }
-
 }
