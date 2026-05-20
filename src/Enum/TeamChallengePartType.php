@@ -2,12 +2,10 @@
 
 namespace App\Enum;
 
-enum EventPartType: string
+enum TeamChallengePartType: string
 {
     case PICTURE = 'Image';
-    case QUESTION = 'Question';
-    case ANSWER = 'Réponse';
+    case LABEL = 'Label';
     case DESCRIPTION = 'Description';
     case TAG = 'Tag';
-    case LABEL = 'Label';
 }

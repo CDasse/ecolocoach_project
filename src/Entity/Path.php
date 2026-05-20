@@ -35,9 +35,16 @@ class Path extends BaseEntity
     #[ORM\OneToMany(targetEntity: XPathLevel::class, mappedBy: 'pathId', orphanRemoval: true)]
     private Collection $xPathLevels;
 
+    /**
+     * @var Collection<int, User>
+     */
+    #[ORM\OneToMany(targetEntity: User::class, mappedBy: 'path')]
+    private Collection $users;
+
     public function __construct()
     {
         $this->xPathLevels = new ArrayCollection();
+        $this->users = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -105,6 +112,36 @@ class Path extends BaseEntity
             // set the owning side to null (unless already changed)
             if ($xPathLevel->getPath() === $this) {
                 $xPathLevel->setPath(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, User>
+     */
+    public function getUsers(): Collection
+    {
+        return $this->users;
+    }
+
+    public function addUser(User $user): static
+    {
+        if (!$this->users->contains($user)) {
+            $this->users->add($user);
+            $user->setPath($this);
+        }
+
+        return $this;
+    }
+
+    public function removeUser(User $user): static
+    {
+        if ($this->users->removeElement($user)) {
+            // set the owning side to null (unless already changed)
+            if ($user->getPath() === $this) {
+                $user->setPath(null);
             }
         }
 

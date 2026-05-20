@@ -5,6 +5,8 @@ namespace App\Entity;
 use App\Entity\Impl\BaseEntity;
 use App\Enum\EventType;
 use App\Repository\XLevelEventRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: XLevelEventRepository::class)]
@@ -28,6 +30,17 @@ class XLevelEvent extends BaseEntity
 
     #[ORM\Column]
     private ?int $sequenceNumberEvent = null;
+
+    /**
+     * @var Collection<int, UserEventProgress>
+     */
+    #[ORM\OneToMany(targetEntity: UserEventProgress::class, mappedBy: 'event', orphanRemoval: true)]
+    private Collection $userEventProgress;
+
+    public function __construct()
+    {
+        $this->userEventProgress = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -78,6 +91,36 @@ class XLevelEvent extends BaseEntity
     public function setSequenceNumberEvent(int $sequenceNumberEvent): static
     {
         $this->sequenceNumberEvent = $sequenceNumberEvent;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, UserEventProgress>
+     */
+    public function getUserEventProgress(): Collection
+    {
+        return $this->userEventProgress;
+    }
+
+    public function addUserEventProgress(UserEventProgress $userEventProgress): static
+    {
+        if (!$this->userEventProgress->contains($userEventProgress)) {
+            $this->userEventProgress->add($userEventProgress);
+            $userEventProgress->setEvent($this);
+        }
+
+        return $this;
+    }
+
+    public function removeUserEventProgress(UserEventProgress $userEventProgress): static
+    {
+        if ($this->userEventProgress->removeElement($userEventProgress)) {
+            // set the owning side to null (unless already changed)
+            if ($userEventProgress->getEvent() === $this) {
+                $userEventProgress->setEvent(null);
+            }
+        }
 
         return $this;
     }

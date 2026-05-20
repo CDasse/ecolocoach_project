@@ -54,7 +54,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @var Collection<int, Follow>
      */
     #[ORM\OneToMany(targetEntity: Follow::class, mappedBy: 'followerId', orphanRemoval: true)]
-    private Collection $follows;
+    private Collection $followers;
 
     /**
      * @var Collection<int, Follow>
@@ -62,10 +62,37 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(targetEntity: Follow::class, mappedBy: 'followedId', orphanRemoval: true)]
     private Collection $followed;
 
+    #[ORM\ManyToOne(inversedBy: 'users')]
+    private ?Path $path = null;
+
+    #[ORM\ManyToOne(inversedBy: 'users')]
+    private ?Team $team = null;
+
+    /**
+     * @var Collection<int, UserLevelProgress>
+     */
+    #[ORM\OneToMany(targetEntity: UserLevelProgress::class, mappedBy: 'targetUser', orphanRemoval: true)]
+    private Collection $userLevelProgress;
+
+    /**
+     * @var Collection<int, UserEventProgress>
+     */
+    #[ORM\OneToMany(targetEntity: UserEventProgress::class, mappedBy: 'targetUser', orphanRemoval: true)]
+    private Collection $userEventProgress;
+
+    /**
+     * @var Collection<int, XUserTeamChallengeProgress>
+     */
+    #[ORM\OneToMany(targetEntity: XUserTeamChallengeProgress::class, mappedBy: 'targetUser', orphanRemoval: true)]
+    private Collection $xUserTeamChallengeProgress;
+
     public function __construct()
     {
-        $this->follows = new ArrayCollection();
+        $this->followers = new ArrayCollection();
         $this->followed = new ArrayCollection();
+        $this->userLevelProgress = new ArrayCollection();
+        $this->userEventProgress = new ArrayCollection();
+        $this->xUserTeamChallengeProgress = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -194,15 +221,15 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * @return Collection<int, Follow>
      */
-    public function getFollows(): Collection
+    public function getFollowers(): Collection
     {
-        return $this->follows;
+        return $this->followers;
     }
 
     public function addFollow(Follow $follow): static
     {
-        if (!$this->follows->contains($follow)) {
-            $this->follows->add($follow);
+        if (!$this->followers->contains($follow)) {
+            $this->followers->add($follow);
             $follow->setFollower($this);
         }
 
@@ -211,7 +238,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     public function removeFollow(Follow $follow): static
     {
-        if ($this->follows->removeElement($follow)) {
+        if ($this->followers->removeElement($follow)) {
             // set the owning side to null (unless already changed)
             if ($follow->getFollower() === $this) {
                 $follow->setFollower(null);
@@ -245,6 +272,120 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
             // set the owning side to null (unless already changed)
             if ($followed->getFollowed() === $this) {
                 $followed->setFollowed(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getPath(): ?Path
+    {
+        return $this->path;
+    }
+
+    public function setPath(?Path $path): static
+    {
+        $this->path = $path;
+
+        return $this;
+    }
+
+    public function getTeam(): ?Team
+    {
+        return $this->team;
+    }
+
+    public function setTeam(?Team $team): static
+    {
+        $this->team = $team;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, UserLevelProgress>
+     */
+    public function getUserLevelProgress(): Collection
+    {
+        return $this->userLevelProgress;
+    }
+
+    public function addUserLevelProgress(UserLevelProgress $userLevelProgress): static
+    {
+        if (!$this->userLevelProgress->contains($userLevelProgress)) {
+            $this->userLevelProgress->add($userLevelProgress);
+            $userLevelProgress->setTargetUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeUserLevelProgress(UserLevelProgress $userLevelProgress): static
+    {
+        if ($this->userLevelProgress->removeElement($userLevelProgress)) {
+            // set the owning side to null (unless already changed)
+            if ($userLevelProgress->getTargetUser() === $this) {
+                $userLevelProgress->setTargetUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, UserEventProgress>
+     */
+    public function getUserEventProgress(): Collection
+    {
+        return $this->userEventProgress;
+    }
+
+    public function addUserEventProgress(UserEventProgress $userEventProgress): static
+    {
+        if (!$this->userEventProgress->contains($userEventProgress)) {
+            $this->userEventProgress->add($userEventProgress);
+            $userEventProgress->setTargetUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeUserEventProgress(UserEventProgress $userEventProgress): static
+    {
+        if ($this->userEventProgress->removeElement($userEventProgress)) {
+            // set the owning side to null (unless already changed)
+            if ($userEventProgress->getTargetUser() === $this) {
+                $userEventProgress->setTargetUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, XUserTeamChallengeProgress>
+     */
+    public function getXUserTeamChallengeProgress(): Collection
+    {
+        return $this->xUserTeamChallengeProgress;
+    }
+
+    public function addXUserTeamChallengeProgress(XUserTeamChallengeProgress $xUserTeamChallengeProgress): static
+    {
+        if (!$this->xUserTeamChallengeProgress->contains($xUserTeamChallengeProgress)) {
+            $this->xUserTeamChallengeProgress->add($xUserTeamChallengeProgress);
+            $xUserTeamChallengeProgress->setTargetUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeXUserTeamChallengeProgress(XUserTeamChallengeProgress $xUserTeamChallengeProgress): static
+    {
+        if ($this->xUserTeamChallengeProgress->removeElement($xUserTeamChallengeProgress)) {
+            // set the owning side to null (unless already changed)
+            if ($xUserTeamChallengeProgress->getTargetUser() === $this) {
+                $xUserTeamChallengeProgress->setTargetUser(null);
             }
         }
 
