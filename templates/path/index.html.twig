@@ -4,6 +4,8 @@
 
 {% block content %}
 
+        <p>{{ app.user.co2Impact | format_co2 }} de co2 économisé !</p>
+
     {% if user_current_level is not null %}
         <p>Niveau {{ user_current_level.sequenceNumber }}</p>
         <p>{{ user_current_level.name }}</p>

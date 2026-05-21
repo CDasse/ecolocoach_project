@@ -116,6 +116,7 @@ class AppFixtures extends Fixture
         $emile->setLogo("uploads/logos/emile.png");
         $emile->setPassword($this->passwordHasher->hashPassword($emile, "emile"));
         $emile->setPath($path);
+        $emile->setCo2Impact(95.2);
         $manager->persist($emile);
 
         $coline = new User();
@@ -124,6 +125,7 @@ class AppFixtures extends Fixture
         $coline->setLogo("uploads/logos/coline.png");
         $coline->setPassword($this->passwordHasher->hashPassword($coline, "coline"));
         $coline->setPath($path);
+        $coline->setCo2Impact(24.7);
         $manager->persist($coline);
 
 
