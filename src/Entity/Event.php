@@ -24,6 +24,9 @@ class Event extends BaseEntity
     #[ORM\Column(nullable: true)]
     private ?int $sequenceNumber = null;
 
+    #[ORM\Column(nullable: true)]
+    private ?float $co2Impact = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -61,6 +64,18 @@ class Event extends BaseEntity
     public function setSequenceNumber(?int $sequenceNumber): static
     {
         $this->sequenceNumber = $sequenceNumber;
+
+        return $this;
+    }
+
+    public function getCo2Impact(): ?float
+    {
+        return $this->co2Impact;
+    }
+
+    public function setCo2Impact(?float $co2Impact): static
+    {
+        $this->co2Impact = $co2Impact;
 
         return $this;
     }
