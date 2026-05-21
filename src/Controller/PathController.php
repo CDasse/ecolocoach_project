@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Service\EventService;
 use App\Service\XUserLevelEventService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -12,14 +13,17 @@ final class PathController extends AbstractController
     #[Route('/path', name: 'path')]
     public function path(
         XUserLevelEventService $xUserLevelEventService,
+        EventService $eventService,
     ): Response
     {
         $connectedUser = $this->getUser();
 
         $userCurrentLevel = $xUserLevelEventService->findUserCurrentLevel($connectedUser);
+        $eventsOfLevel = $eventService->findEventsInLevel($userCurrentLevel);
 
         return $this->render('path/index.html.twig', [
-            'user_current_level' => $userCurrentLevel
+            'user_current_level' => $userCurrentLevel,
+            'events_of_level' => $eventsOfLevel
         ]);
     }
 }

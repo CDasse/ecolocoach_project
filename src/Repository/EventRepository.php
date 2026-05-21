@@ -17,7 +17,7 @@ class EventRepository extends ServiceEntityRepository
         parent::__construct($registry, Event::class);
     }
 
-    public function findEventInLevel(?Level $level, int $sequenceNumber): ?Event
+    public function findOneEventInLevel(?Level $level, int $sequenceNumber): ?Event
     {
         return $this->createQueryBuilder('e')
             ->andWhere('e.level = :level')
@@ -28,4 +28,16 @@ class EventRepository extends ServiceEntityRepository
             ->getOneOrNullResult()
             ;
     }
+
+    public function findEventsInLevel(Level $level): array
+    {
+        return $this->createQueryBuilder('e')
+            ->andWhere('e.level = :level')
+            ->setParameter('level', $level)
+            ->orderBy('e.sequenceNumber', 'ASC')
+            ->getQuery()
+            ->getResult();
+    }
+
+
 }

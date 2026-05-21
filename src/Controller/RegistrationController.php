@@ -37,8 +37,8 @@ class RegistrationController extends AbstractController
             /** @var string $plainPassword */
             $plainPassword = $form->get('plainPassword')->getData();
             $defaultPath = $pathService->findDefaultPath();
-            $defaultLevel = $levelService->findLevelInPath($defaultPath, 1);
-            $defaultEvent = $eventService->findEventInLevel($defaultLevel, 1);
+            $defaultLevel = $levelService->findOneLevelInPath($defaultPath, 1);
+            $defaultEvent = $eventService->findOneEventInLevel($defaultLevel, 1);
 
             // encode the plain password
             $user->setPassword($userPasswordHasher->hashPassword($user, $plainPassword));

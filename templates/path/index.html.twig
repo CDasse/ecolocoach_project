@@ -10,4 +10,9 @@
     {% else %}
         <p>Aucun niveau actif trouvé pour cet utilisateur.</p>
     {% endif %}
+
+    {% for event in events_of_level %}
+        <a href="">{{ event.eventType.value }} {{ event.sequenceNumber }}</a>
+    {% endfor %}
+
 {% endblock %}
