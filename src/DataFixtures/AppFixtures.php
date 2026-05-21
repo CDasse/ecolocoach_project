@@ -82,18 +82,21 @@ class AppFixtures extends Fixture
         $level1->setName("Ma petite planète");
         $level1->setTip($tipAlim);
         $level1->setPath($path);
+        $level1->setSequenceNumber(1);
         $manager->persist($level1);
 
         $level2 = new Level();
         $level2->setName("2tonnes");
         $level2->setTip($tip2Tonnes);
         $level2->setPath($path);
+        $level2->setSequenceNumber(2);
         $manager->persist($level2);
 
         $level3 = new Level();
         $level3->setName("WWF");
         $level3->setTip($tipBio);
         $level3->setPath($path);
+        $level3->setSequenceNumber(3);
         $manager->persist($level3);
 
         // ------------------------------------------------------------------

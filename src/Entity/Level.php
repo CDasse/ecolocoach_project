@@ -28,6 +28,9 @@ class Level extends BaseEntity
     #[ORM\JoinColumn(nullable: true)]
     private ?Path $path = null;
 
+    #[ORM\Column(nullable: true)]
+    private ?int $sequenceNumber = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -65,6 +68,18 @@ class Level extends BaseEntity
     public function setPath(?Path $path): static
     {
         $this->path = $path;
+
+        return $this;
+    }
+
+    public function getSequenceNumber(): ?int
+    {
+        return $this->sequenceNumber;
+    }
+
+    public function setSequenceNumber(?int $sequenceNumber): static
+    {
+        $this->sequenceNumber = $sequenceNumber;
 
         return $this;
     }
