@@ -15,6 +15,11 @@
 
     {% for event in events_of_level %}
         <a href="">{{ event.eventType.value }} {{ event.sequenceNumber }}</a>
+
+        {# Affichage de l'astuce au milieu du niveau #}
+        {% if loop.index == (loop.length /2) |round(0, 'ceil') %}
+               <p>Astuce : {{ user_current_level.tip.content }}</p>
+        {% endif %}
     {% endfor %}
 
 {% endblock %}
