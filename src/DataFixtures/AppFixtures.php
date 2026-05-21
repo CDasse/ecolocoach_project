@@ -377,7 +377,7 @@ class AppFixtures extends Fixture
                     4 => [EventPartType::TAG, null, null, null, null, $d[1], null],
                     5 => [EventPartType::LABEL, null, null, null, null, null, $d[2]],
                     6 => [EventPartType::DESCRIPTION, null, null, null, $d[3], null, null],
-                    7 => [EventPartType::LABEL, null, $d[4], null, null, null, null],
+                    7 => [EventPartType::LABEL, null, null, null, null, null, $d[4]],
                     8 => [EventPartType::DESCRIPTION, null, null, null, $d[5], null, null]
                 ];
 
@@ -423,7 +423,7 @@ class AppFixtures extends Fixture
                         $p2 = new EventPart();
                         $p2->setEventPage($page);
                         $p2->setSequenceNumber(2);
-                        $p2->setEventPartType(EventPartType::LABEL);
+                        $p2->setEventPartType(EventPartType::QUESTION);
                         $p2->setQuestion($dataBlock[0]);
                         $manager->persist($p2);
 

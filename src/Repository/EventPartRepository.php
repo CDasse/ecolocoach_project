@@ -2,6 +2,7 @@
 
 namespace App\Repository;
 
+use App\Entity\EventPage;
 use App\Entity\EventPart;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
@@ -16,28 +17,13 @@ class EventPartRepository extends ServiceEntityRepository
         parent::__construct($registry, EventPart::class);
     }
 
-    //    /**
-    //     * @return EventPart[] Returns an array of EventPart objects
-    //     */
-    //    public function findByExampleField($value): array
-    //    {
-    //        return $this->createQueryBuilder('e')
-    //            ->andWhere('e.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->orderBy('e.id', 'ASC')
-    //            ->setMaxResults(10)
-    //            ->getQuery()
-    //            ->getResult()
-    //        ;
-    //    }
-
-    //    public function findOneBySomeField($value): ?EventPart
-    //    {
-    //        return $this->createQueryBuilder('e')
-    //            ->andWhere('e.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->getQuery()
-    //            ->getOneOrNullResult()
-    //        ;
-    //    }
+    public function findEventPartsInEventPage(EventPage $eventPage): array
+    {
+        return $this->createQueryBuilder('ep')
+            ->andWhere('ep.eventPage = :eventPage')
+            ->setParameter('eventPage', $eventPage)
+            ->orderBy('ep.sequenceNumber', 'ASC')
+            ->getQuery()
+            ->getResult();
+    }
 }

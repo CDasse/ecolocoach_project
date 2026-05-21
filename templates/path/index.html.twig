@@ -14,7 +14,7 @@
     {% endif %}
 
     {% for event in events_of_level %}
-        <a href="">{{ event.eventType.value }} {{ event.sequenceNumber }}</a>
+        <a href="{{ path('event', {'uid': event.uid, 'pageNumber': 1}) }}">{{ event.eventType.value }} {{ event.sequenceNumber }}</a>
 
         {# Affichage de l'astuce au milieu du niveau #}
         {% if loop.index == (loop.length /2) |round(0, 'ceil') %}

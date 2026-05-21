@@ -1,20 +1,28 @@
-{% extends 'base.html.twig' %}
+{% extends '_layouts/in_event.html.twig' %}
 
-{% block title %}Hello EventController!{% endblock %}
+{% block title %}Niveau {{ event.level.sequenceNumber}} : {{ event.eventType.value }} {{ event.sequenceNumber }} | EcoloCoach{% endblock %}
 
-{% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
-
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
-
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code>/home/clemence/Projets/ecolocoach_project/src/Controller/EventController.php</code></li>
-        <li>Your template at <code>/home/clemence/Projets/ecolocoach_project/templates/event/index.html.twig</code></li>
-    </ul>
-</div>
+{% block content %}
+    {% for part in event_parts %}
+        {% if part.eventPartType.name == 'PICTURE' %}
+            <img src="/{{ part.picturePath }}" alt="Illustration du cours">
+        {% endif %}
+        {% if part.eventPartType.name == 'QUESTION' %}
+            <p>{{ part.question }}</p>
+        {% endif %}
+        {% if part.eventPartType.name == 'ANSWER' %}
+            {% for answer in part.answers %}
+                <button>{{ answer }}</button>
+            {% endfor %}
+        {% endif %}
+        {% if part.eventPartType.name == 'TAG' %}
+            <p>{{ part.tag }}</p>
+        {% endif %}
+        {% if part.eventPartType.name == 'LABEL' %}
+            <p>{{ part.label }}</p>
+        {% endif %}
+        {% if part.eventPartType.name == 'DESCRIPTION' %}
+            <p>{{ part.description }}</p>
+        {% endif %}
+    {% endfor %}
 {% endblock %}
