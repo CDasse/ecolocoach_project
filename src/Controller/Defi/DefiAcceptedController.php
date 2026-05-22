@@ -3,7 +3,9 @@
 namespace App\Controller\Defi;
 
 use App\Entity\Event;
+use App\Entity\XUserLevelEvent;
 use App\Enum\EventStatus;
+use App\Service\EventService;
 use App\Service\XUserLevelEventService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bridge\Doctrine\Attribute\MapEntity;
@@ -18,6 +20,7 @@ final class DefiAcceptedController extends AbstractController
         #[MapEntity(mapping: ['uid' => 'uid'])]
         Event $event,
         EntityManagerInterface $entityManager,
+        EventService  $eventService,
         XUserLevelEventService $xUserLevelEventService
     ): Response
     {
@@ -28,12 +31,25 @@ final class DefiAcceptedController extends AbstractController
         if ($progression) {
             $progression->setEventStatus(EventStatus::ACCEPTED);
             $entityManager->persist($progression);
-            $entityManager->flush();
 
             $this->addFlash('success',
                 '<strong>BRAVO !</strong> Tu viens d’accepter le défi. <br>On a hâte que tu vives cette expérience ! <br>
 Tu peux retrouver tes défis en cours dans l’onglet “MON IMPACT” et les valider une fois réalisés.');
         }
+
+        $nextEvent = $eventService->findNextEvent($event);
+
+        if ($nextEvent) {
+            $newProgression = new XUserLevelEvent();
+            $newProgression->setTargetUser($connectedUser);
+            $newProgression->setLevel($event->getLevel());
+            $newProgression->setEvent($nextEvent);
+            $newProgression->setEventStatus(EventStatus::ACTIVE);
+
+            $entityManager->persist($newProgression);
+        }
+
+        $entityManager->flush();
 
         return $this->redirectToRoute('path');
     }

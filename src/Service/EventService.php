@@ -24,4 +24,9 @@ class EventService
         return $this->eventRepository->findEventsInLevel($level);
     }
 
+    public function findNextEvent(Event $currentEvent): ?Event
+    {
+        return $this->eventRepository->findNextEvent($currentEvent);
+    }
+
 }

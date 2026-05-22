@@ -3,7 +3,9 @@
 namespace App\Controller\Defi;
 
 use App\Entity\Event;
+use App\Entity\XUserLevelEvent;
 use App\Enum\EventStatus;
+use App\Service\EventService;
 use App\Service\XUserLevelEventService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bridge\Doctrine\Attribute\MapEntity;
@@ -18,6 +20,7 @@ final class DefiRefusedController extends AbstractController
     #[MapEntity(mapping: ['uid' => 'uid'])]
     Event $event,
     EntityManagerInterface $entityManager,
+    EventService $eventService,
     XUserLevelEventService $xUserLevelEventService
 ): Response
 {
@@ -28,12 +31,25 @@ final class DefiRefusedController extends AbstractController
     if ($progression) {
         $progression->setEventStatus(EventStatus::REFUSED);
         $entityManager->persist($progression);
-        $entityManager->flush();
 
         $this->addFlash('info',
             "<strong>CE N'EST PAS GRAVE !</strong> <br>Que tu ne sois pas prêt.e ou que tu ne puisses pas réaliser ce défi, ce n’est pas grave. Beaucoup d’autres défis t’attendent ! <br>
                         Si par la suite, tu souhaites retenter ce défi, rends-toi dans la liste de tes défis annulés.");
     }
+
+    $nextEvent = $eventService->findNextEvent($event);
+
+    if ($nextEvent) {
+        $newProgression = new XUserLevelEvent();
+        $newProgression->setTargetUser($connectedUser);
+        $newProgression->setLevel($event->getLevel());
+        $newProgression->setEvent($nextEvent);
+        $newProgression->setEventStatus(EventStatus::ACTIVE);
+
+        $entityManager->persist($newProgression);
+    }
+
+    $entityManager->flush();
 
     return $this->redirectToRoute('path');
 }

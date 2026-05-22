@@ -39,5 +39,16 @@ class EventRepository extends ServiceEntityRepository
             ->getResult();
     }
 
+    public function findNextEvent(Event $currentEvent): ?Event
+    {
+        return $this->createQueryBuilder('e')
+            ->andWhere('e.level = :level')
+            ->andWhere('e.sequenceNumber = :sequenceNumber')
+            ->setParameter('level', $currentEvent->getLevel())
+            ->setParameter('sequenceNumber', $currentEvent->getSequenceNumber() + 1)
+            ->getQuery()
+            ->getOneOrNullResult();
+    }
+
 
 }
