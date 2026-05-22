@@ -3,6 +3,7 @@
 namespace App\Service;
 
 use App\Entity\EventPage;
+use App\Entity\EventPart;
 use App\Repository\EventPartRepository;
 
 class EventPartService
@@ -16,6 +17,11 @@ class EventPartService
     public function findEventPartsInEventPage(EventPage $eventPage): array
     {
         return $this->eventPartRepository->findEventPartsInEventPage($eventPage);
+    }
+
+    public function findRightAnswerOfPreviousPage(EventPage $previousPage): ?EventPart
+    {
+        return $this->eventPartRepository->findRightAnswerOfPreviousPage($previousPage);
     }
 
 }

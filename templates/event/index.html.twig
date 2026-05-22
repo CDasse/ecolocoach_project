@@ -16,11 +16,22 @@
         <form method="POST" action="{{ path('event', {'uid': event.uid, 'pageNumber': page_number + 1}) }}">
     {% endif %}
 
+    {% if is_correct is not null %}
+
+        {% if is_correct %}
+            <p>Bonne réponse !</p>
+        {% else %}
+            <p>Mauvaise réponse</p>
+        {% endif %}
+
+    {% endif %}
+
 
     {% for part in event_parts %}
         {% if part.eventPartType.name == 'PICTURE' %}
             <img src="/{{ part.picturePath }}" alt="Illustration du cours">
         {% endif %}
+
         {% if part.eventPartType.name == 'QUESTION' %}
             <p>{{ part.question }}</p>
         {% endif %}

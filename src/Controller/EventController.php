@@ -3,7 +3,6 @@
 namespace App\Controller;
 
 use App\Entity\Event;
-use App\Entity\EventPage;
 use App\Service\EventPageService;
 use App\Service\EventPartService;
 use Symfony\Bridge\Doctrine\Attribute\MapEntity;
@@ -21,7 +20,7 @@ final class EventController extends AbstractController
         Event $event,
         int $pageNumber,
         EventPageService $eventPageService,
-        EventPartService $eventPartService
+        EventPartService $eventPartService,
     ): Response
     {
         $eventPage = $eventPageService->findOneEventPageInEvent($event, $pageNumber);
@@ -30,12 +29,27 @@ final class EventController extends AbstractController
 
         $totalPages = $eventPageService->countTotalPagesForEvent($event);
 
+        $isCorrect = null;
+
+        if ($request->isMethod('post')) {
+            $userAnswer = $request->request->get('selected_answer');
+            $previousPage = $eventPageService->findOneEventPageInEvent($event, $pageNumber - 1);
+
+            $rightAnswer = $eventPartService->findRightAnswerOfPreviousPage($previousPage)->getRightAnswer();
+
+            if ($userAnswer == $rightAnswer) {
+                $isCorrect = true;
+            } else {
+                $isCorrect = false;
+            }
+        }
 
         return $this->render('event/index.html.twig', [
             'event' => $event,
             'event_parts' => $eventParts,
             'page_number' => $pageNumber,
             'total_pages' => $totalPages,
+            'is_correct' => $isCorrect,
         ]);
     }
 }

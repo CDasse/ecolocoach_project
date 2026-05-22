@@ -432,14 +432,8 @@ class AppFixtures extends Fixture
                         $p3->setSequenceNumber(3);
                         $p3->setEventPartType(EventPartType::ANSWER);
                         $p3->setAnswers($dataBlock[1]);
+                        $p3->setRightAnswer($dataBlock[2]);
                         $manager->persist($p3);
-
-                        $p4 = new EventPart();
-                        $p4->setEventPage($page);
-                        $p4->setSequenceNumber(4);
-                        $p4->setEventPartType(EventPartType::ANSWER);
-                        $p4->setRightAnswer($dataBlock[2]);
-                        $manager->persist($p4);
                     } else {
                         // Page Réponse/Explication : 2 parties
                         $p1 = new EventPart();

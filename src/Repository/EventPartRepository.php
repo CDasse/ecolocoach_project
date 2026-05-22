@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\EventPage;
 use App\Entity\EventPart;
+use App\Enum\EventPartType;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -25,5 +26,16 @@ class EventPartRepository extends ServiceEntityRepository
             ->orderBy('ep.sequenceNumber', 'ASC')
             ->getQuery()
             ->getResult();
+    }
+
+    public function findRightAnswerOfPreviousPage(EventPage $previousPage): ?EventPart
+    {
+        return $this->createQueryBuilder('ep')
+            ->andWhere('ep.eventPartType = :eventPartType')
+            ->andWhere('ep.eventPage = :eventPage')
+            ->setParameter('eventPartType', EventPartType::ANSWER)
+            ->setParameter('eventPage', $previousPage)
+            ->getQuery()
+            ->getOneOrNullResult();
     }
 }
