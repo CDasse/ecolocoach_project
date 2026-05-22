@@ -371,7 +371,7 @@ class AppFixtures extends Fixture
 
                 // Création ordonnée des 8 parties requises
                 $parts = [
-                    1 => [EventPartType::PICTURE, "uploads/events/defi_" . $id . ".png", null, null, null, null, null],
+                    1 => [EventPartType::PICTURE, "uploads/events/defi_" . $id . ".webp", null, null, null, null, null],
                     2 => [EventPartType::TAG, null, null, null, null, "Impact : " . $d[0], null],
                     3 => [EventPartType::TAG, null, null, null, null, $info['co2'] . " kg CO2", null],
                     4 => [EventPartType::TAG, null, null, null, null, $d[1], null],
@@ -417,7 +417,7 @@ class AppFixtures extends Fixture
                         $p1->setEventPage($page);
                         $p1->setSequenceNumber(1);
                         $p1->setEventPartType(EventPartType::PICTURE);
-                        $p1->setPicturePath("uploads/events/lesson_" . $id . "_p" . $p . ".png");
+                        $p1->setPicturePath("uploads/events/lesson_" . $id . "_p" . $p . ".webp");
                         $manager->persist($p1);
 
                         $p2 = new EventPart();
@@ -441,7 +441,7 @@ class AppFixtures extends Fixture
                         $p1->setSequenceNumber(1);
                         $p1->setEventPartType(EventPartType::PICTURE);
                         // Même visuel que la question associée pour la continuité
-                        $p1->setPicturePath("uploads/events/lesson_" . $id . "_p" . ($p - 1) . ".png");
+                        $p1->setPicturePath("uploads/events/lesson_" . $id . "_p" . ($p - 1) . ".webp");
                         $manager->persist($p1);
 
                         $p2 = new EventPart();
