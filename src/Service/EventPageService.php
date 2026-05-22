@@ -19,4 +19,9 @@ class EventPageService
         return $this->eventPageRepository->findOneEventPageInEvent($event, $sequenceNumber);
     }
 
+    public function countTotalPagesForEvent(Event $event): int
+    {
+        return $this->eventPageRepository->countTotalPagesForEvent($event);
+    }
+
 }

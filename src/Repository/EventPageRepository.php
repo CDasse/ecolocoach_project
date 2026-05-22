@@ -27,4 +27,15 @@ class EventPageRepository extends ServiceEntityRepository
             ->getQuery()
             ->getOneOrNullResult();
     }
+
+    public function countTotalPagesForEvent(Event $event): int
+    {
+        return $this->createQueryBuilder('ep')
+            ->select('COUNT(ep.id)')
+            ->andWhere('ep.event = :event')
+            ->setParameter('event', $event)
+            ->getQuery()
+            ->getSingleScalarResult();
+    }
+
 }

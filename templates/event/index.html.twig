@@ -1,8 +1,22 @@
 {% extends '_layouts/in_event.html.twig' %}
 
-{% block title %}Niveau {{ event.level.sequenceNumber}} : {{ event.eventType.value }} {{ event.sequenceNumber }} | EcoloCoach{% endblock %}
+{% block title %}Niveau {{ event.level.sequenceNumber }} : {{ event.eventType.value }} {{ event.sequenceNumber }} | EcoloCoach{% endblock %}
 
 {% block content %}
+
+    {# On détecte s'il s'agit d'une page de questions #}
+    {% set is_question_page = false %}
+    {% for part in event_parts %}
+        {% if part.eventPartType.name == 'ANSWER' and part.answers is not null %}
+            {% set is_question_page = true %}
+        {% endif %}
+    {% endfor %}
+
+    {% if is_question_page %}
+        <form method="POST" action="{{ path('event', {'uid': event.uid, 'pageNumber': page_number + 1}) }}">
+    {% endif %}
+
+
     {% for part in event_parts %}
         {% if part.eventPartType.name == 'PICTURE' %}
             <img src="/{{ part.picturePath }}" alt="Illustration du cours">
@@ -11,8 +25,9 @@
             <p>{{ part.question }}</p>
         {% endif %}
         {% if part.eventPartType.name == 'ANSWER' %}
+            <input type="hidden" name="selected_answer" id="selected-answer-input" required>
             {% for answer in part.answers %}
-                <button>{{ answer }}</button>
+                <button type="button" class="btn-answer" data-value="{{ answer }}">{{ answer }}</button>
             {% endfor %}
         {% endif %}
         {% if part.eventPartType.name == 'TAG' %}
@@ -25,4 +40,32 @@
             <p>{{ part.description }}</p>
         {% endif %}
     {% endfor %}
+
+    {% if event.eventType.name == 'LESSON' %}
+        {% if page_number == total_pages %}
+            <a href="{{ path('path') }}">TERMINER</a>
+        {% elseif is_question_page %}
+            <button type="submit" id="btn-validate" disabled>
+                VALIDER
+            </button>
+        {% else %}
+            <a href="{{ path('event', {'uid': event.uid, 'pageNumber': page_number + 1}) }}">
+                SUIVANT ->
+            </a>
+        {% endif %}
+
+        {% if page_number > 1 %}
+            <a href="{{ path('event', {'uid': event.uid, 'pageNumber': page_number - 1}) }}">
+                <- PRECEDENT
+            </a>
+        {% endif %}
+    {% else %}
+        <button>ACCEPTER CE DEFI !</button>
+        <button>REFUSER POUR L'INSTANT</button>
+    {% endif %}
+
+    {% if is_question_page %}
+        </form>
+    {% endif %}
+
 {% endblock %}

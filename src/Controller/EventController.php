@@ -28,10 +28,14 @@ final class EventController extends AbstractController
 
         $eventParts = $eventPartService->findEventPartsInEventPage($eventPage);
 
+        $totalPages = $eventPageService->countTotalPagesForEvent($event);
+
 
         return $this->render('event/index.html.twig', [
             'event' => $event,
-            'event_parts' => $eventParts
+            'event_parts' => $eventParts,
+            'page_number' => $pageNumber,
+            'total_pages' => $totalPages,
         ]);
     }
 }
