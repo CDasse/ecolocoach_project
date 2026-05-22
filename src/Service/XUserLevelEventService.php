@@ -26,4 +26,8 @@ class XUserLevelEventService
         return $xUserLevelEvent?->getEvent();
     }
 
+    public function findProgression(User $user, Event $event): ?XUserLevelEvent {
+        return $this->xUserLevelEventRepository->findProgression($user, $event);
+    }
+
 }

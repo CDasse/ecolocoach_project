@@ -19,10 +19,12 @@ final class PathController extends AbstractController
         $connectedUser = $this->getUser();
 
         $userCurrentLevel = $xUserLevelEventService->findUserCurrentLevel($connectedUser);
+        $userCurrentEvent = $xUserLevelEventService->findUserCurrentEvent($connectedUser);
         $eventsOfLevel = $eventService->findEventsInLevel($userCurrentLevel);
 
         return $this->render('path/index.html.twig', [
             'user_current_level' => $userCurrentLevel,
+            'user_current_event' => $userCurrentEvent,
             'events_of_level' => $eventsOfLevel,
         ]);
     }

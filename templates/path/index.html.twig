@@ -14,7 +14,15 @@
     {% endif %}
 
     {% for event in events_of_level %}
-        <a href="{{ path('event', {'uid': event.uid, 'pageNumber': 1}) }}">{{ event.eventType.value }} {{ event.sequenceNumber }}</a>
+
+        {% if event.sequenceNumber > user_current_event.sequenceNumber %}
+            <span>{{ event.eventType.value }} {{ event.sequenceNumber }}</span>
+        {% else %}
+            <a href="{{ path('event', {'uid': event.uid, 'pageNumber': 1}) }}"
+               class="{{ user_current_event == event ? 'current-event' : '' }}">
+                {{ event.eventType.value }} {{ event.sequenceNumber }}
+            </a>
+        {% endif %}
 
         {# Affichage de l'astuce au milieu du niveau #}
         {% if loop.index == (loop.length /2) |round(0, 'ceil') %}

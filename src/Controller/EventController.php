@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Event;
 use App\Service\EventPageService;
 use App\Service\EventPartService;
+use App\Service\XUserLevelEventService;
 use Symfony\Bridge\Doctrine\Attribute\MapEntity;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -21,12 +22,11 @@ final class EventController extends AbstractController
         int $pageNumber,
         EventPageService $eventPageService,
         EventPartService $eventPartService,
+        XUserLevelEventService $xUserLevelEventService
     ): Response
     {
         $eventPage = $eventPageService->findOneEventPageInEvent($event, $pageNumber);
-
         $eventParts = $eventPartService->findEventPartsInEventPage($eventPage);
-
         $totalPages = $eventPageService->countTotalPagesForEvent($event);
 
         $isCorrect = null;
@@ -44,12 +44,17 @@ final class EventController extends AbstractController
             }
         }
 
+        $connectedUser = $this->getUser();
+
+        $progression = $xUserLevelEventService->findProgression($connectedUser, $event);
+
         return $this->render('event/index.html.twig', [
             'event' => $event,
             'event_parts' => $eventParts,
             'page_number' => $pageNumber,
             'total_pages' => $totalPages,
             'is_correct' => $isCorrect,
+            'progression' => $progression,
         ]);
     }
 }

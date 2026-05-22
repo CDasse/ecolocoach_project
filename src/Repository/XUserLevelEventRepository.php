@@ -43,4 +43,15 @@ class XUserLevelEventRepository extends ServiceEntityRepository
                 ->getOneOrNullResult()
                 ;
         }
+
+        public function findProgression(User $user, Event $event): ?XUserLevelEvent
+        {
+            return $this->createQueryBuilder('x')
+                ->andWhere('x.targetUser = :user')
+                ->andWhere('x.event = :event')
+                ->setParameter('user', $user)
+                ->setParameter('event', $event)
+                ->getQuery()
+                ->getOneOrNullResult();
+        }
 }

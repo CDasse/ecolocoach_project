@@ -12,7 +12,7 @@
         {% endif %}
     {% endfor %}
 
-    {% if is_question_page %}
+    {% if is_question_page and event.eventType.name == 'LESSON' %}
         <form method="POST" action="{{ path('event', {'uid': event.uid, 'pageNumber': page_number + 1}) }}">
     {% endif %}
 
@@ -70,13 +70,34 @@
                 <- PRECEDENT
             </a>
         {% endif %}
-    {% else %}
-        <button>ACCEPTER CE DEFI !</button>
-        <button>REFUSER POUR L'INSTANT</button>
-    {% endif %}
 
-    {% if is_question_page %}
-        </form>
+        {% if is_question_page %}
+            </form>
+        {% endif %}
+
+    {% else %}
+        {% if progression is not null and progression.eventStatus.value == 'En cours' %}
+
+            <form method="POST" action="{{ path('defi_accepted', {'uid': event.uid}) }}">
+                <button type="submit">
+                    ACCEPTER CE DÉFI !
+                </button>
+            </form>
+
+            <form method="POST" action="{{ path('defi_refused', {'uid': event.uid}) }}">
+                <button type="submit">
+                    REFUSER POUR L'INSTANT
+                </button>
+            </form>
+
+        {% else %}
+
+            <p>Statut du défi : <strong>{{ progression is not null ? progression.eventStatus.value : 'Non commencé' }}</strong></p>
+
+            <a href="{{ path('home') }}">
+                RETOUR AU PARCOURS
+            </a>
+        {% endif %}
     {% endif %}
 
 {% endblock %}
