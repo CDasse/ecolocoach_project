@@ -43,13 +43,15 @@ class RegistrationController extends AbstractController
             /** @var string $plainPassword */
             $plainPassword = $form->get('plainPassword')->getData();
             $defaultPath = $pathService->findDefaultPath();
-            $defaultLevel = $levelService->findOneLevelInPath($defaultPath, 1);
-            $defaultEvent = $eventService->findOneEventInLevel($defaultLevel, 1);
 
             // Throw error if default path isn't define
             if (!$defaultPath) {
                 throw new \RuntimeException('Inability to bootstrap registration: Default Path is missing from the database. Did you forget to load fixtures or run migrations?');
             }
+
+            $defaultLevel = $levelService->findOneLevelInPath($defaultPath, 1);
+            $defaultEvent = $eventService->findOneEventInLevel($defaultLevel, 1);
+
 
             // User Account Provisioning
             // Hashes the credential payload, attaches application-level roles, assigns

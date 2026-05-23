@@ -16,13 +16,19 @@ class XUserLevelEventService
     {
     }
 
+    /**
+     * Resolves the strict Level entity where the user is currently positioned.
+     */
     public function findUserCurrentLevel(User $user): ?Level {
-        $xUserLevelEvent = $this->xUserLevelEventRepository->findUserCurrentLevel($user);
+        $xUserLevelEvent = $this->xUserLevelEventRepository->findUserActiveProgression($user);
         return $xUserLevelEvent?->getLevel();
     }
 
+    /**
+     * Resolves the exact active Event the user needs to interact with.
+     */
     public function findUserCurrentEvent(User $user): ?Event {
-        $xUserLevelEvent = $this->xUserLevelEventRepository->findUserCurrentEvent($user);
+        $xUserLevelEvent = $this->xUserLevelEventRepository->findUserActiveProgression($user);
         return $xUserLevelEvent?->getEvent();
     }
 

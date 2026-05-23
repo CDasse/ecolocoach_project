@@ -18,21 +18,28 @@ class EventPartRepository extends ServiceEntityRepository
         parent::__construct($registry, EventPart::class);
     }
 
+    /**
+     * Retrieves all content components attached to a single specific EventPage.
+     * The results are loaded chronologically according to their sequence rank.
+     */
     public function findEventPartsInEventPage(EventPage $eventPage): array
     {
-        return $this->createQueryBuilder('ep')
-            ->andWhere('ep.eventPage = :eventPage')
+        return $this->createQueryBuilder('eprt')
+            ->andWhere('eprt.eventPage = :eventPage')
             ->setParameter('eventPage', $eventPage)
-            ->orderBy('ep.sequenceNumber', 'ASC')
+            ->orderBy('eprt.sequenceNumber', 'ASC')
             ->getQuery()
             ->getResult();
     }
 
+    /**
+     * Extracts the specific answer validation block associated with an EventPage.
+     */
     public function findRightAnswerOfPage(EventPage $page): ?EventPart
     {
-        return $this->createQueryBuilder('ep')
-            ->andWhere('ep.eventPartType = :eventPartType')
-            ->andWhere('ep.eventPage = :eventPage')
+        return $this->createQueryBuilder('eprt')
+            ->andWhere('eprt.eventPartType = :eventPartType')
+            ->andWhere('eprt.eventPage = :eventPage')
             ->setParameter('eventPartType', EventPartType::ANSWER)
             ->setParameter('eventPage', $page)
             ->getQuery()

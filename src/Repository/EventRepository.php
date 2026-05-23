@@ -17,7 +17,10 @@ class EventRepository extends ServiceEntityRepository
         parent::__construct($registry, Event::class);
     }
 
-    public function findOneEventInLevel(?Level $level, int $sequenceNumber): ?Event
+    /**
+     * Locates a single explicit Event within a target level by its sequence rank index.
+     */
+    public function findOneEventInLevel(Level $level, int $sequenceNumber): ?Event
     {
         return $this->createQueryBuilder('e')
             ->andWhere('e.level = :level')
@@ -29,6 +32,10 @@ class EventRepository extends ServiceEntityRepository
             ;
     }
 
+    /**
+     * Returns the full collection of Events belonging to a precise structural Level.
+     * The results are ordered ascendingly by sequence number.
+     */
     public function findEventsInLevel(Level $level): array
     {
         return $this->createQueryBuilder('e')
@@ -39,6 +46,10 @@ class EventRepository extends ServiceEntityRepository
             ->getResult();
     }
 
+    /**
+     * Attempts to resolve the next logical chronological Event inside the player path.
+     * Note: Currently locked by design to evaluate sequence metrics strictly within the same Level.
+     */
     public function findNextEvent(Event $currentEvent): ?Event
     {
         return $this->createQueryBuilder('e')

@@ -16,13 +16,18 @@ class PathRepository extends ServiceEntityRepository
         parent::__construct($registry, Path::class);
     }
 
-        public function findDefaultPath(): ?Path
-        {
-            return $this->createQueryBuilder('p')
-                ->andWhere('p.name = :name')
-                ->setParameter('name', "Éco-Pionnier : Les 4 Piliers")
-                ->getQuery()
-                ->getOneOrNullResult()
-            ;
-        }
+    /**
+     * Resolves the primary default learning roadmap used to onboard new accounts.
+     * NOTE: The target path name is currently hardcoded for initial deployment.
+     * In a future release, this logic will be refactored to support a dynamic feature
+     * allowing users to actively select their preferred starting path from an available list.
+     */
+    public function findDefaultPath(): ?Path
+    {
+        return $this->createQueryBuilder('p')
+            ->andWhere('p.name = :name')
+            ->setParameter('name', "Éco-Pionnier : Les 4 Piliers")
+            ->getQuery()
+            ->getOneOrNullResult();
+    }
 }

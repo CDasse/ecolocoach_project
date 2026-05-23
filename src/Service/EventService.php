@@ -15,7 +15,7 @@ class EventService
     {
     }
 
-    public function findOneEventInLevel(?Level $level, int $sequenceNumber) : ?Event {
+    public function findOneEventInLevel(Level $level, int $sequenceNumber) : ?Event {
         return $this->eventRepository->findOneEventInLevel($level, $sequenceNumber);
     }
 

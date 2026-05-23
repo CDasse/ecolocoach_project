@@ -15,7 +15,7 @@ class LevelService
     {
     }
 
-    public function findOneLevelInPath(?Path $path, int $sequenceNumber) : ?Level {
+    public function findOneLevelInPath(Path $path, int $sequenceNumber) : ?Level {
         return $this->levelRepository->findOneLevelInPath($path, $sequenceNumber);
     }
 }

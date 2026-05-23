@@ -20,38 +20,33 @@ class XUserLevelEventRepository extends ServiceEntityRepository
         parent::__construct($registry, XUserLevelEvent::class);
     }
 
-        public function findUserCurrentEvent(User $user): ?XUserLevelEvent
-        {
-            return $this->createQueryBuilder('x')
-                ->andWhere('x.targetUser = :user')
-                ->andWhere('x.eventStatus = :status')
-                ->setParameter('user', $user)
-                ->setParameter('status', EventStatus::ACTIVE)
-                ->getQuery()
-                ->getOneOrNullResult()
-            ;
-        }
+    /**
+     * Fetches the unique active progression row for a given user.
+     * This core query is leveraged by services to extract either the current Event or Level.
+     */
+    public function findUserActiveProgression(User $user): ?XUserLevelEvent
+    {
+        return $this->createQueryBuilder('x')
+            ->andWhere('x.targetUser = :user')
+            ->andWhere('x.eventStatus = :status')
+            ->setParameter('user', $user)
+            ->setParameter('status', EventStatus::ACTIVE)
+            ->getQuery()
+            ->getOneOrNullResult();
+    }
 
-        public function findUserCurrentLevel(User $user): ?XUserLevelEvent
-        {
-            return $this->createQueryBuilder('x')
-                ->andWhere('x.targetUser = :user')
-                ->andWhere('x.eventStatus = :status')
-                ->setParameter('user', $user)
-                ->setParameter('status', EventStatus::ACTIVE)
-                ->getQuery()
-                ->getOneOrNullResult()
-                ;
-        }
-
-        public function findProgression(User $user, Event $event): ?XUserLevelEvent
-        {
-            return $this->createQueryBuilder('x')
-                ->andWhere('x.targetUser = :user')
-                ->andWhere('x.event = :event')
-                ->setParameter('user', $user)
-                ->setParameter('event', $event)
-                ->getQuery()
-                ->getOneOrNullResult();
-        }
+    /**
+     * Pinpoints a precise structural progression entry matching a distinct user and event combination.
+     * Crucial for reviewing completion contexts before status transitions or loading custom view states.
+     */
+    public function findProgression(User $user, Event $event): ?XUserLevelEvent
+    {
+        return $this->createQueryBuilder('x')
+            ->andWhere('x.targetUser = :user')
+            ->andWhere('x.event = :event')
+            ->setParameter('user', $user)
+            ->setParameter('event', $event)
+            ->getQuery()
+            ->getOneOrNullResult();
+    }
 }

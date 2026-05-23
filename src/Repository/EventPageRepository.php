@@ -17,6 +17,10 @@ class EventPageRepository extends ServiceEntityRepository
         parent::__construct($registry, EventPage::class);
     }
 
+    /**
+     * Locates a single specific page within an event based on its chronological sequence position.
+     * Returns the matching EventPage instance or null if the page rank index does not exist.
+     */
     public function findOneEventPageInEvent(Event $event, int $sequenceNumber): ?EventPage
     {
         return $this->createQueryBuilder('ep')
@@ -28,6 +32,10 @@ class EventPageRepository extends ServiceEntityRepository
             ->getOneOrNullResult();
     }
 
+    /**
+     * Counts the absolute volume of structural content pages linked to a specific event.
+     * Used extensively to calculate overall progress ratios and maximum pagination boundaries.
+     */
     public function countTotalPagesForEvent(Event $event): int
     {
         return $this->createQueryBuilder('ep')

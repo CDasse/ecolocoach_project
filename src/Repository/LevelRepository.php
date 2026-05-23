@@ -17,15 +17,17 @@ class LevelRepository extends ServiceEntityRepository
         parent::__construct($registry, Level::class);
     }
 
-        public function findOneLevelInPath(?Path $path, int $sequenceNumber): ?Level
-        {
-            return $this->createQueryBuilder('l')
-                ->andWhere('l.path = :path')
-                ->andWhere('l.sequenceNumber = :sequenceNumber')
-                ->setParameter('path', $path)
-                ->setParameter('sequenceNumber', $sequenceNumber)
-                ->getQuery()
-                ->getOneOrNullResult()
-            ;
-        }
+    /**
+     * Resolves a single specific Level attached to a learning Path by its sequence order index.
+     */
+    public function findOneLevelInPath(Path $path, int $sequenceNumber): ?Level
+    {
+        return $this->createQueryBuilder('l')
+            ->andWhere('l.path = :path')
+            ->andWhere('l.sequenceNumber = :sequenceNumber')
+            ->setParameter('path', $path)
+            ->setParameter('sequenceNumber', $sequenceNumber)
+            ->getQuery()
+            ->getOneOrNullResult();
+    }
 }
