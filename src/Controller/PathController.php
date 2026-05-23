@@ -8,6 +8,9 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
+/**
+ * Renders the roadmap dashboard by gathering the current progression context of the logged-in user.
+ */
 final class PathController extends AbstractController
 {
     #[Route('/path', name: 'path')]
@@ -16,6 +19,9 @@ final class PathController extends AbstractController
         EventService $eventService,
     ): Response
     {
+        // Progression Context Gathering & View Rendering
+        // Detects the authenticated user, evaluates their current milestones through dedicated services,
+        // fetches the linked roadmap events, and passes everything to the timeline template.
         $connectedUser = $this->getUser();
 
         $userCurrentLevel = $xUserLevelEventService->findUserCurrentLevel($connectedUser);
