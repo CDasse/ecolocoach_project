@@ -116,7 +116,6 @@ class AppFixtures extends Fixture
         $emile->setLogo("uploads/logos/emile.png");
         $emile->setPassword($this->passwordHasher->hashPassword($emile, "emile"));
         $emile->setPath($path);
-        $emile->setCo2Impact(95.2);
         $manager->persist($emile);
 
         $coline = new User();
@@ -125,7 +124,6 @@ class AppFixtures extends Fixture
         $coline->setLogo("uploads/logos/coline.png");
         $coline->setPassword($this->passwordHasher->hashPassword($coline, "coline"));
         $coline->setPath($path);
-        $coline->setCo2Impact(24.7);
         $manager->persist($coline);
 
 
@@ -341,6 +339,7 @@ class AppFixtures extends Fixture
         // ------------------------------------------------------------------
         $eventsMap = [1 => [], 2 => []];
         $levelsList = [1 => $level1, 2 => $level2, 3 => $level3];
+        $img_format = ".webp";
 
         foreach ($rawEventsData as $id => $info) {
             // Déterminer le niveau d'appartenance
@@ -371,7 +370,7 @@ class AppFixtures extends Fixture
 
                 // Création ordonnée des 8 parties requises
                 $parts = [
-                    1 => [EventPartType::PICTURE, "uploads/events/defi_" . $id . ".webp", null, null, null, null, null],
+                    1 => [EventPartType::PICTURE, "uploads/events/defi_" . $id . $img_format, null, null, null, null, null],
                     2 => [EventPartType::TAG, null, null, null, null, "Impact : " . $d[0], null],
                     3 => [EventPartType::TAG, null, null, null, null, $info['co2'] . " kg CO2", null],
                     4 => [EventPartType::TAG, null, null, null, null, $d[1], null],
@@ -417,7 +416,7 @@ class AppFixtures extends Fixture
                         $p1->setEventPage($page);
                         $p1->setSequenceNumber(1);
                         $p1->setEventPartType(EventPartType::PICTURE);
-                        $p1->setPicturePath("uploads/events/lesson_" . $id . "_p" . $p . ".webp");
+                        $p1->setPicturePath("uploads/events/lesson_" . $id . "_p" . $p . $img_format);
                         $manager->persist($p1);
 
                         $p2 = new EventPart();
@@ -441,7 +440,7 @@ class AppFixtures extends Fixture
                         $p1->setSequenceNumber(1);
                         $p1->setEventPartType(EventPartType::PICTURE);
                         // Même visuel que la question associée pour la continuité
-                        $p1->setPicturePath("uploads/events/lesson_" . $id . "_p" . ($p - 1) . ".webp");
+                        $p1->setPicturePath("uploads/events/lesson_" . $id . "_p" . ($p - 1) . $img_format);
                         $manager->persist($p1);
 
                         $p2 = new EventPart();
@@ -461,6 +460,10 @@ class AppFixtures extends Fixture
         // 8. PROGRESSION ET ÉTATS DU PROGRAMME (XUserLevelEvent)
         // ------------------------------------------------------------------
 
+        // Initialisation des compteurs de CO2 pour les utilisateurs avancés
+        $emileCo2Impact = 0.0;
+        $colineCo2Impact = 0.0;
+
         // --- Elia Chelet : Niveau 1, Cours 1 (En cours) ---
         $progElia = new XUserLevelEvent();
         $progElia->setTargetUser($elia);
@@ -468,25 +471,41 @@ class AppFixtures extends Fixture
         $progElia->setEvent($eventsMap[1][1]);
         $progElia->setEventStatus(EventStatus::ACTIVE); // Correspond au statut 'En cours'
         $manager->persist($progElia);
+        $elia->setCo2Impact(0.0);
 
         // --- Emile Teneflen : Niveau 2, Cours 10 ---
         // Étape A : Niveau 1 entièrement validé (1 à 10)
         for ($i = 1; $i <= 10; $i++) {
+            $event = $eventsMap[1][$i];
+            $status = $this->getRandomStatusForPastEvent($event);
+
             $prog = new XUserLevelEvent();
             $prog->setTargetUser($emile);
             $prog->setLevel($level1);
-            $prog->setEvent($eventsMap[1][$i]);
-            $prog->setEventStatus(EventStatus::FINISHED); // Correspond à 'Terminé'
+            $prog->setEvent($event);
+            $prog->setEventStatus($status);
             $manager->persist($prog);
+
+            // Si le défi historique est accepté, on cumule son impact CO2
+            if ($status === EventStatus::FINISHED && $event->getCo2Impact() !== null) {
+                $emileCo2Impact += $event->getCo2Impact();
+            }
         }
         // Étape B : Niveau 2 validé de l'événement 1 à 9
         for ($i = 1; $i <= 9; $i++) {
+            $event = $eventsMap[2][$i];
+            $status = $this->getRandomStatusForPastEvent($event);
+
             $prog = new XUserLevelEvent();
             $prog->setTargetUser($emile);
             $prog->setLevel($level2);
-            $prog->setEvent($eventsMap[2][$i]);
-            $prog->setEventStatus(EventStatus::FINISHED);
+            $prog->setEvent($event);
+            $prog->setEventStatus($status);
             $manager->persist($prog);
+
+            if ($status === EventStatus::FINISHED && $event->getCo2Impact() !== null) {
+                $emileCo2Impact += $event->getCo2Impact();
+            }
         }
         // Étape C : Niveau 2, Événement 10 marqué actif (En cours)
         $progEmileCurrent = new XUserLevelEvent();
@@ -496,15 +515,25 @@ class AppFixtures extends Fixture
         $progEmileCurrent->setEventStatus(EventStatus::ACTIVE);
         $manager->persist($progEmileCurrent);
 
+        // Mise à jour de l'impact CO2 total calculé pour Émile
+        $emile->setCo2Impact($emileCo2Impact);
+
         // --- Coline Arisarj : Niveau 2, Cours 1 ---
         // Étape A : Niveau 1 validé de 1 à 10
         for ($i = 1; $i <= 10; $i++) {
+            $event = $eventsMap[1][$i];
+            $status = $this->getRandomStatusForPastEvent($event);
+
             $prog = new XUserLevelEvent();
             $prog->setTargetUser($coline);
             $prog->setLevel($level1);
-            $prog->setEvent($eventsMap[1][$i]);
-            $prog->setEventStatus(EventStatus::FINISHED);
+            $prog->setEvent($event);
+            $prog->setEventStatus($status);
             $manager->persist($prog);
+
+            if ($status === EventStatus::FINISHED && $event->getCo2Impact() !== null) {
+                $colineCo2Impact += $event->getCo2Impact();
+            }
         }
         // Étape B : Niveau 2, Événement 1 marqué actif (En cours)
         $progColineCurrent = new XUserLevelEvent();
@@ -514,7 +543,31 @@ class AppFixtures extends Fixture
         $progColineCurrent->setEventStatus(EventStatus::ACTIVE);
         $manager->persist($progColineCurrent);
 
+        // Mise à jour de l'impact CO2 total calculé pour Coline
+        $coline->setCo2Impact($colineCo2Impact);
+
         // Sauvegarde définitive globale
         $manager->flush();
+    }
+
+    /**
+     * Détermine un statut réaliste pour les anciens événements de l'historique
+     */
+    private function getRandomStatusForPastEvent(Event $event): EventStatus
+    {
+        if ($event->getEventType() === EventType::LESSON) {
+            return EventStatus::FINISHED;
+        }
+
+        // Répartition aléatoire pour les défis historiques :
+        $dice = rand(1, 10);
+
+        if ($dice <= 6) {
+            return EventStatus::FINISHED; // Défi accompli avec succès !
+        } elseif ($dice <= 8) {
+            return EventStatus::ACCEPTED; // Défi juste accepté (relevé) mais pas encore validé
+        } else {
+            return EventStatus::REFUSED;  // Défi refusé
+        }
     }
 }
