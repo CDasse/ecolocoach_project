@@ -4,6 +4,8 @@
 
 {% block content %}
 
+    <h1>{{ event.eventType.value }} {{ event.sequenceNumber }}</h1>
+
     {# On détecte s'il s'agit d'une page de questions #}
     {% set is_question_page = false %}
     {% for part in event_parts %}
@@ -55,7 +57,7 @@
     {% if event.eventType.name == 'LESSON' %}
 
         {% if page_number == total_pages %}
-            <form method="POST" action="{{ path('lesson_finished', {'uid': event.uid}) }}">
+            <form method="POST" action="{{ path('event_finished', {'uid': event.uid, 'eventStatus': 'Terminé'}) }}">
                 <button type="submit">
                     TERMINER
                 </button>
@@ -84,13 +86,13 @@
     {% else %}
         {% if progression is not null and progression.eventStatus.value == 'En cours' %}
 
-            <form method="POST" action="{{ path('defi_accepted', {'uid': event.uid}) }}">
+            <form method="POST" action="{{ path('event_finished', {'uid': event.uid, 'eventStatus': 'Accepté'}) }}">
                 <button type="submit">
                     ACCEPTER CE DÉFI !
                 </button>
             </form>
 
-            <form method="POST" action="{{ path('defi_refused', {'uid': event.uid}) }}">
+            <form method="POST" action="{{ path('event_finished', {'uid': event.uid, 'eventStatus': 'Refusé'}) }}">
                 <button type="submit">
                     REFUSER POUR L'INSTANT
                 </button>
