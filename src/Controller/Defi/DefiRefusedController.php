@@ -35,21 +35,21 @@ final class DefiRefusedController extends AbstractController
         $this->addFlash('info',
             "<strong>CE N'EST PAS GRAVE !</strong> <br>Que tu ne sois pas prêt.e ou que tu ne puisses pas réaliser ce défi, ce n’est pas grave. Beaucoup d’autres défis t’attendent ! <br>
                         Si par la suite, tu souhaites retenter ce défi, rends-toi dans la liste de tes défis annulés.");
+
+        $nextEvent = $eventService->findNextEvent($event);
+
+        if ($nextEvent) {
+            $newProgression = new XUserLevelEvent();
+            $newProgression->setTargetUser($connectedUser);
+            $newProgression->setLevel($event->getLevel());
+            $newProgression->setEvent($nextEvent);
+            $newProgression->setEventStatus(EventStatus::ACTIVE);
+
+            $entityManager->persist($newProgression);
+        }
+
+        $entityManager->flush();
     }
-
-    $nextEvent = $eventService->findNextEvent($event);
-
-    if ($nextEvent) {
-        $newProgression = new XUserLevelEvent();
-        $newProgression->setTargetUser($connectedUser);
-        $newProgression->setLevel($event->getLevel());
-        $newProgression->setEvent($nextEvent);
-        $newProgression->setEventStatus(EventStatus::ACTIVE);
-
-        $entityManager->persist($newProgression);
-    }
-
-    $entityManager->flush();
 
     return $this->redirectToRoute('path');
 }

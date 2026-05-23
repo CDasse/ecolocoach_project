@@ -14,7 +14,7 @@ use Symfony\Component\Routing\Attribute\Route;
 
 final class EventController extends AbstractController
 {
-    #[Route('/event/{uid}/{pageNumber}', name: 'event', methods: ['GET', 'POST'])]
+    #[Route('/event/{uid}/{pageNumber}', name: 'event', methods: ['GET', 'POST'], requirements: ['pageNumber' => '\d+'])]
     public function index(
         Request $request,
         #[MapEntity(mapping: ['uid' => 'uid'])]

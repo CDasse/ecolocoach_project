@@ -53,8 +53,14 @@
     {% endfor %}
 
     {% if event.eventType.name == 'LESSON' %}
+
         {% if page_number == total_pages %}
-            <a href="{{ path('path') }}">TERMINER</a>
+            <form method="POST" action="{{ path('lesson_finished', {'uid': event.uid}) }}">
+                <button type="submit">
+                    TERMINER
+                </button>
+            </form>
+
         {% elseif is_question_page %}
             <button type="submit" id="btn-validate" disabled>
                 VALIDER
