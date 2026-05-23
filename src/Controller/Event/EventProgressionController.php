@@ -14,10 +14,14 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
-final class EventFinishedController extends AbstractController
+/**
+ * Receives and sanitizes a status transition request for a given event, updates the database,
+ * activates the next event in the timeline, and triggers contextual flash messages.
+ */
+final class EventProgressionController extends AbstractController
 {
     #[Route('/event/{uid}/{eventStatus}', name: 'event_finished', requirements: ['eventStatus' => 'Terminé|Accepté|Refusé'], methods: ['POST']) ]
-    public function eventFinished(
+    public function eventProgression(
         #[MapEntity(mapping: ['uid' => 'uid'])]
         Event $event,
         EventStatus $eventStatus,
@@ -26,16 +30,24 @@ final class EventFinishedController extends AbstractController
         XUserLevelEventService $xUserLevelEventService
     ): Response
     {
-        if ($event->getEventType() == EventType::LESSON && $eventStatus !== EventStatus::FINISHED) {
+        // Input Sanitization & Security Guards
+        // Overrides and corrects the incoming status from the URL to prevent logical bypasses
+        $isLessonStatusAccepted = $eventStatus == EventStatus::FINISHED;
+        $isChallengeStatusAccepted = ($eventStatus == EventStatus::ACCEPTED || $eventStatus == EventStatus::REFUSED);
+
+        if ($event->getEventType() == EventType::LESSON && !$isLessonStatusAccepted) {
             $eventStatus = EventStatus::FINISHED;
         }
 
-        if ($event->getEventType() == EventType::DEFI && $eventStatus !== EventStatus::ACCEPTED && $eventStatus !== EventStatus::REFUSED) {
+        if ($event->getEventType() == EventType::DEFI && !$isChallengeStatusAccepted) {
             $eventStatus = EventStatus::REFUSED;
         }
 
-        $connectedUser = $this->getUser();
 
+        // Current Progression Update
+        // Retrieves the active user's tracking row for this specific event and updates its status
+        // with the sanitized target state.
+        $connectedUser = $this->getUser();
         $progression = $xUserLevelEventService->findProgression($connectedUser, $event);
 
         if ($progression) {
@@ -43,6 +55,10 @@ final class EventFinishedController extends AbstractController
             $entityManager->persist($progression);
         }
 
+
+        // Next Sequential Event Activation
+        // Resolves the next chronological event in the user's path and initializes an 'ACTIVE'
+        // progression state for it.
         $nextEvent = $eventService->findNextEvent($event);
 
         if ($nextEvent) {
@@ -60,6 +76,11 @@ final class EventFinishedController extends AbstractController
         }
 
         $entityManager->flush();
+
+
+        // Feedback & Routing Execution
+        // Schedules custom confirmation flash messages depending
+        // on the user's choices, and redirects them back to the main roadmap.
 
         if ($eventStatus == EventStatus::ACCEPTED) {
             $this->addFlash('success',
