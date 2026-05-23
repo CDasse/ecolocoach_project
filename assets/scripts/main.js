@@ -1,3 +1,9 @@
+/**
+ * Handles quiz answer selection.
+ * * This script listens for click events on answer buttons, toggles the 'active'
+ * visual state, stores the selected value in a hidden form input, and enables
+ * the validation button once a choice has been made.
+ */
 document.addEventListener('DOMContentLoaded', function () {
     const answerButtons = document.querySelectorAll('.btn-answer');
     const hiddenInput = document.getElementById('selected-answer-input');

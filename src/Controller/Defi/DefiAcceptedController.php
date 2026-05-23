@@ -40,13 +40,17 @@ Tu peux retrouver tes défis en cours dans l’onglet “MON IMPACT” et les va
         $nextEvent = $eventService->findNextEvent($event);
 
         if ($nextEvent) {
-            $newProgression = new XUserLevelEvent();
-            $newProgression->setTargetUser($connectedUser);
-            $newProgression->setLevel($event->getLevel());
-            $newProgression->setEvent($nextEvent);
-            $newProgression->setEventStatus(EventStatus::ACTIVE);
+            $nextProgression = $xUserLevelEventService->findProgression($connectedUser, $nextEvent);
 
-            $entityManager->persist($newProgression);
+            if (!$nextProgression) {
+                $newProgression = new XUserLevelEvent();
+                $newProgression->setTargetUser($connectedUser);
+                $newProgression->setLevel($event->getLevel());
+                $newProgression->setEvent($nextEvent);
+                $newProgression->setEventStatus(EventStatus::ACTIVE);
+
+                $entityManager->persist($newProgression);
+            }
         }
 
         $entityManager->flush();

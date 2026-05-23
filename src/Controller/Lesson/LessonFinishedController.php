@@ -35,13 +35,18 @@ final class LessonFinishedController extends AbstractController
             $nextEvent = $eventService->findNextEvent($event);
 
             if ($nextEvent) {
-                $newProgression = new XUserLevelEvent();
-                $newProgression->setTargetUser($connectedUser);
-                $newProgression->setLevel($event->getLevel());
-                $newProgression->setEvent($nextEvent);
-                $newProgression->setEventStatus(EventStatus::ACTIVE);
 
-                $entityManager->persist($newProgression);
+                $newProgression = $xUserLevelEventService->findProgression($connectedUser, $nextEvent);
+
+                if (!$newProgression) {
+                    $newProgression = new XUserLevelEvent();
+                    $newProgression->setTargetUser($connectedUser);
+                    $newProgression->setLevel($event->getLevel());
+                    $newProgression->setEvent($nextEvent);
+                    $newProgression->setEventStatus(EventStatus::ACTIVE);
+
+                    $entityManager->persist($newProgression);
+                }
             }
 
             $entityManager->flush();
