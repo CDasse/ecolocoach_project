@@ -4,9 +4,8 @@
 
 {% block content %}
 
-    <h1>{{ event.eventType.value }} {{ event.sequenceNumber }}</h1>
+    {% include 'event/_event_components/_header.html.twig' %}
 
-    {# On détecte s'il s'agit d'une page de questions #}
     {% set is_question_page = false %}
     {% for part in event_parts %}
         {% if part.eventPartType.name == 'ANSWER' and part.answers is not null %}
@@ -14,20 +13,11 @@
         {% endif %}
     {% endfor %}
 
+    {% include 'event/_event_components/_answer_feedback.html.twig' %}
+
     {% if is_question_page and event.eventType.name == 'LESSON' %}
         <form method="POST" action="{{ path('event', {'uid': event.uid, 'pageNumber': page_number + 1}) }}">
     {% endif %}
-
-    {% if is_correct_answer is not null %}
-
-        {% if is_correct_answer %}
-            <p>Bonne réponse !</p>
-        {% else %}
-            <p>Mauvaise réponse</p>
-        {% endif %}
-
-    {% endif %}
-
 
     {% for part in event_parts %}
         {% if part.eventPartType.name == 'PICTURE' %}
@@ -37,75 +27,36 @@
         {% if part.eventPartType.name == 'QUESTION' %}
             <p>{{ part.question }}</p>
         {% endif %}
+
         {% if part.eventPartType.name == 'ANSWER' %}
             <input type="hidden" name="selected_answer" id="selected-answer-input" required>
             {% for answer in part.answers %}
                 <button type="button" class="btn-answer" data-value="{{ answer }}">{{ answer }}</button>
             {% endfor %}
         {% endif %}
+
         {% if part.eventPartType.name == 'TAG' %}
             <p>{{ part.tag }}</p>
         {% endif %}
+
         {% if part.eventPartType.name == 'LABEL' %}
             <p>{{ part.label }}</p>
         {% endif %}
+
         {% if part.eventPartType.name == 'DESCRIPTION' %}
             <p>{{ part.description }}</p>
         {% endif %}
+
     {% endfor %}
 
     {% if event.eventType.name == 'LESSON' %}
-
-        {% if page_number == total_pages %}
-            <form method="POST" action="{{ path('event_finished', {'uid': event.uid, 'eventStatus': 'Terminé'}) }}">
-                <button type="submit">
-                    TERMINER
-                </button>
-            </form>
-
-        {% elseif is_question_page %}
-            <button type="submit" id="btn-validate" disabled>
-                VALIDER
-            </button>
-        {% else %}
-            <a href="{{ path('event', {'uid': event.uid, 'pageNumber': page_number + 1}) }}">
-                SUIVANT ->
-            </a>
-        {% endif %}
-
-        {% if page_number > 1 %}
-            <a href="{{ path('event', {'uid': event.uid, 'pageNumber': page_number - 1}) }}">
-                <- PRECEDENT
-            </a>
-        {% endif %}
-
-        {% if is_question_page %}
-            </form>
-        {% endif %}
-
+        {% include 'event/_event_components/_lesson_navigation.html.twig' %}
     {% else %}
-        {% if progression is not null and progression.eventStatus.value == 'En cours' %}
+        {% include 'event/_event_components/_challenge_actions.html.twig' %}
+    {% endif %}
 
-            <form method="POST" action="{{ path('event_finished', {'uid': event.uid, 'eventStatus': 'Accepté'}) }}">
-                <button type="submit">
-                    ACCEPTER CE DÉFI !
-                </button>
-            </form>
-
-            <form method="POST" action="{{ path('event_finished', {'uid': event.uid, 'eventStatus': 'Refusé'}) }}">
-                <button type="submit">
-                    REFUSER POUR L'INSTANT
-                </button>
-            </form>
-
-        {% else %}
-
-            <p>Statut du défi : <strong>{{ progression is not null ? progression.eventStatus.value : 'Non commencé' }}</strong></p>
-
-            <a href="{{ path('path') }}">
-                RETOUR AU PARCOURS
-            </a>
-        {% endif %}
+    {% if is_question_page %}
+        </form>
     {% endif %}
 
 {% endblock %}

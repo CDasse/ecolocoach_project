@@ -1,0 +1,13 @@
+{% if page_number == total_pages %}
+    <form method="POST" action="{{ path('event_finished', {'uid': event.uid, 'eventStatus': 'Terminé'}) }}">
+        <button type="submit">TERMINER</button>
+    </form>
+{% elseif is_question_page %}
+    <button type="submit" id="btn-validate" disabled>VALIDER</button>
+{% else %}
+    <a href="{{ path('event', {'uid': event.uid, 'pageNumber': page_number + 1}) }}">SUIVANT -></a>
+{% endif %}
+
+{% if page_number > 1 %}
+    <a href="{{ path('event', {'uid': event.uid, 'pageNumber': page_number - 1}) }}"><- PRECEDENT</a>
+{% endif %}

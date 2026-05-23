@@ -1,0 +1,17 @@
+{% if progression is not null and progression.eventStatus.value == 'En cours' %}
+
+    <form method="POST" action="{{ path('event_finished', {'uid': event.uid, 'eventStatus': 'Accepté'}) }}">
+        <button type="submit">ACCEPTER CE DÉFI !</button>
+    </form>
+
+    <form method="POST" action="{{ path('event_finished', {'uid': event.uid, 'eventStatus': 'Refusé'}) }}">
+        <button type="submit">REFUSER POUR L'INSTANT</button>
+    </form>
+
+{% else %}
+    <p>Statut du défi :
+        <strong>{{ progression is not null ? progression.eventStatus.value : 'Non commencé' }}</strong>
+    </p>
+
+    <a href="{{ path('path') }}">RETOUR AU PARCOURS</a>
+{% endif %}

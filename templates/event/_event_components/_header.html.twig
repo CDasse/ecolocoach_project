@@ -1,0 +1,5 @@
+<h1>{{ event.eventType.value }} {{ event.sequenceNumber }}</h1>
+
+{% if event.eventType.name == 'LESSON' %}
+    <progress max="{{ total_pages }}" value="{{ page_number }}">Progression : {{ page_number }}/{{ total_pages }}</progress>
+{% endif %}
