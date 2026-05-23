@@ -18,9 +18,9 @@
         <form method="POST" action="{{ path('event', {'uid': event.uid, 'pageNumber': page_number + 1}) }}">
     {% endif %}
 
-    {% if is_correct is not null %}
+    {% if is_correct_answer is not null %}
 
-        {% if is_correct %}
+        {% if is_correct_answer %}
             <p>Bonne réponse !</p>
         {% else %}
             <p>Mauvaise réponse</p>

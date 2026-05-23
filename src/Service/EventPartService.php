@@ -19,9 +19,9 @@ class EventPartService
         return $this->eventPartRepository->findEventPartsInEventPage($eventPage);
     }
 
-    public function findRightAnswerOfPreviousPage(EventPage $previousPage): ?EventPart
+    public function findRightAnswerOfPage(EventPage $page): ?EventPart
     {
-        return $this->eventPartRepository->findRightAnswerOfPreviousPage($previousPage);
+        return $this->eventPartRepository->findRightAnswerOfPage($page);
     }
 
 }

@@ -28,13 +28,13 @@ class EventPartRepository extends ServiceEntityRepository
             ->getResult();
     }
 
-    public function findRightAnswerOfPreviousPage(EventPage $previousPage): ?EventPart
+    public function findRightAnswerOfPage(EventPage $page): ?EventPart
     {
         return $this->createQueryBuilder('ep')
             ->andWhere('ep.eventPartType = :eventPartType')
             ->andWhere('ep.eventPage = :eventPage')
             ->setParameter('eventPartType', EventPartType::ANSWER)
-            ->setParameter('eventPage', $previousPage)
+            ->setParameter('eventPage', $page)
             ->getQuery()
             ->getOneOrNullResult();
     }

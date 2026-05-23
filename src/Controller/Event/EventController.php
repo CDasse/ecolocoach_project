@@ -12,6 +12,9 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
+/**
+ * This controller displays a specific page of an event and evaluates submitted answers on quiz validation steps.
+ */
 final class EventController extends AbstractController
 {
     #[Route('/event/{uid}/{pageNumber}', name: 'event', requirements: ['pageNumber' => '\d+'], methods: ['GET', 'POST'])]
@@ -25,27 +28,32 @@ final class EventController extends AbstractController
         XUserLevelEventService $xUserLevelEventService
     ): Response
     {
+        // Data Retrieval
+        // Fetches the specific page data, its individual components (pictures, questions, etc.), and the total page count for this event.
         $eventPage = $eventPageService->findOneEventPageInEvent($event, $pageNumber);
         $eventParts = $eventPartService->findEventPartsInEventPage($eventPage);
         $totalPages = $eventPageService->countTotalPagesForEvent($event);
 
-        $isCorrect = null;
+
+        // Answer Validation
+        // Intercepts form submissions to verify if the user's chosen answer matches the expected right answer from the question page.
+        $isCorrectAnswer = null;
 
         if ($request->isMethod('post')) {
             $userAnswer = $request->request->get('selected_answer');
             $previousPage = $eventPageService->findOneEventPageInEvent($event, $pageNumber - 1);
-
-            $rightAnswer = $eventPartService->findRightAnswerOfPreviousPage($previousPage)->getRightAnswer();
+            $rightAnswer = $eventPartService->findRightAnswerOfPage($previousPage)->getRightAnswer();
 
             if ($userAnswer == $rightAnswer) {
-                $isCorrect = true;
+                $isCorrectAnswer = true;
             } else {
-                $isCorrect = false;
+                $isCorrectAnswer = false;
             }
         }
 
+        // User Tracking & Rendering
+        // Retrieves the authenticated user's current progression status for this event and passes all contextual data to the Twig template.
         $connectedUser = $this->getUser();
-
         $progression = $xUserLevelEventService->findProgression($connectedUser, $event);
 
         return $this->render('event/index.html.twig', [
@@ -53,7 +61,7 @@ final class EventController extends AbstractController
             'event_parts' => $eventParts,
             'page_number' => $pageNumber,
             'total_pages' => $totalPages,
-            'is_correct' => $isCorrect,
+            'is_correct_answer' => $isCorrectAnswer,
             'progression' => $progression,
         ]);
     }
