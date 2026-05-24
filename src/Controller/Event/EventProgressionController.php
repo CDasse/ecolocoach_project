@@ -63,43 +63,10 @@ final class EventProgressionController extends AbstractController
         // Next Sequential Event Activation
         // Resolves the next chronological event in the user's path and initializes an 'ACTIVE'
         // progression state for it.
-        $nextEvent = $eventService->findNextEvent($event);
+        $hasMovesForward = $xUserLevelEventService->resolveAndActivateNextEventProgression($connectedUser, $event);
 
-        if ($nextEvent) {
-            $nextProgression = $xUserLevelEventService->findProgression($connectedUser, $nextEvent);
-
-            if (!$nextProgression) {
-                $newProgression = new XUserLevelEvent();
-                $newProgression->setTargetUser($connectedUser);
-                $newProgression->setLevel($event->getLevel());
-                $newProgression->setEvent($nextEvent);
-                $newProgression->setEventStatus(EventStatus::ACTIVE);
-
-                $entityManager->persist($newProgression);
-            }
-        } else {
-            $currentLevel = $event->getLevel();
-            $nextLevel = $levelService->findOneLevelInPath($currentLevel->getPath(), $currentLevel->getSequenceNumber() + 1 );
-
-            if ($nextLevel) {
-                $nextLevelEvent = $eventService->findOneEventInLevel($nextLevel, 1);
-
-                if ($nextLevelEvent) {
-                    $nextProgression = $xUserLevelEventService->findProgression($connectedUser, $nextLevelEvent);
-
-                    if (!$nextProgression) {
-                        $newProgression = new XUserLevelEvent();
-                        $newProgression->setTargetUser($connectedUser);
-                        $newProgression->setLevel($nextLevel);
-                        $newProgression->setEvent($nextLevelEvent);
-                        $newProgression->setEventStatus(EventStatus::ACTIVE);
-
-                        $entityManager->persist($newProgression);
-                    }
-                }
-            }else {
-                $this->addFlash('success', 'Félicitations ! Vous avez terminé le parcours d\'accompagnement dans votre transition écologique');
-            }
+        if (!$hasMovesForward) {
+            $this->addFlash('success', 'Félicitations ! Vous avez terminé le parcours d\'accompagnement dans votre transition écologique');
         }
 
         $entityManager->flush();
