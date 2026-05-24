@@ -3,10 +3,13 @@
 namespace App\Controller\Event;
 
 use App\Entity\Event;
+use App\Entity\Level;
+use App\Entity\User;
 use App\Entity\XUserLevelEvent;
 use App\Enum\EventStatus;
 use App\Enum\EventType;
 use App\Service\EventService;
+use App\Service\LevelService;
 use App\Service\XUserLevelEventService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bridge\Doctrine\Attribute\MapEntity;
@@ -27,6 +30,7 @@ final class EventProgressionController extends AbstractController
         EventStatus $eventStatus,
         EntityManagerInterface $entityManager,
         EventService  $eventService,
+        LevelService  $levelService,
         XUserLevelEventService $xUserLevelEventService
     ): Response
     {
@@ -72,6 +76,29 @@ final class EventProgressionController extends AbstractController
                 $newProgression->setEventStatus(EventStatus::ACTIVE);
 
                 $entityManager->persist($newProgression);
+            }
+        } else {
+            $currentLevel = $event->getLevel();
+            $nextLevel = $levelService->findOneLevelInPath($currentLevel->getPath(), $currentLevel->getSequenceNumber() + 1 );
+
+            if ($nextLevel) {
+                $nextLevelEvent = $eventService->findOneEventInLevel($nextLevel, 1);
+
+                if ($nextLevelEvent) {
+                    $nextProgression = $xUserLevelEventService->findProgression($connectedUser, $nextLevelEvent);
+
+                    if (!$nextProgression) {
+                        $newProgression = new XUserLevelEvent();
+                        $newProgression->setTargetUser($connectedUser);
+                        $newProgression->setLevel($nextLevel);
+                        $newProgression->setEvent($nextLevelEvent);
+                        $newProgression->setEventStatus(EventStatus::ACTIVE);
+
+                        $entityManager->persist($newProgression);
+                    }
+                }
+            }else {
+                $this->addFlash('success', 'Félicitations ! Vous avez terminé le parcours d\'accompagnement dans votre transition écologique');
             }
         }
 
