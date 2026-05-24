@@ -6,36 +6,42 @@
 
     <p>{{ app.user.co2Impact | format_co2 }} de co2 économisé !</p>
 
-    {% if user_current_level is not null %}
-        <p>Niveau {{ user_current_level.sequenceNumber }}</p>
-        <p>{{ user_current_level.name }}</p>
+    {% if is_path_completed %}
+        <h2>Félicitations !</h2>
+        <p>Tu as terminé l'intégralité de ton parcours éco-citoyen !</p>
     {% else %}
-        <p>Aucun niveau actif trouvé pour cet utilisateur.</p>
-    {% endif %}
 
-    {% for event in events_of_level %}
-
-        {% if event.sequenceNumber > user_current_event.sequenceNumber %}
-            <span>{{ event.eventType.value }} {{ event.sequenceNumber }}</span>
+        {% if user_current_level is not null %}
+            <p>Niveau {{ user_current_level.sequenceNumber }}</p>
+            <p>{{ user_current_level.name }}</p>
         {% else %}
-            <a href="{{ path('event', {'uid': event.uid, 'pageNumber': 1}) }}"
-               class="{{ user_current_event == event ? 'current-event' : '' }}">
-                {{ event.eventType.value }} {{ event.sequenceNumber }}
-            </a>
+            <p>Aucun niveau actif trouvé pour cet utilisateur.</p>
         {% endif %}
 
-        {# Affichage de l'astuce au milieu du niveau #}
-        {% if loop.index == (loop.length /2) | round(0, 'ceil') %}
-            <p>Astuce : {{ user_current_level.tip.content }}</p>
-        {% endif %}
-    {% endfor %}
+        {% for event in events_of_level %}
 
-    <p>À SUIVRE</p>
-    {% if next_level is not null %}
-        <p>Niveau {{ next_level.sequenceNumber }}</p>
-        <p>{{ next_level.name }}</p>
-    {% else %}
-        <p>Vous avez terminé le parcours ! Félicitations !</p>
+            {% if event.sequenceNumber > user_current_event.sequenceNumber %}
+                <span>{{ event.eventType.value }} {{ event.sequenceNumber }}</span>
+            {% else %}
+                <a href="{{ path('event', {'uid': event.uid, 'pageNumber': 1}) }}"
+                   class="{{ user_current_event == event ? 'current-event' : '' }}">
+                    {{ event.eventType.value }} {{ event.sequenceNumber }}
+                </a>
+            {% endif %}
+
+            {# Affichage de l'astuce au milieu du niveau #}
+            {% if loop.index == (loop.length /2) | round(0, 'ceil') %}
+                <p>Astuce : {{ user_current_level.tip.content }}</p>
+            {% endif %}
+        {% endfor %}
+
+        <p>À SUIVRE</p>
+        {% if next_level is not null %}
+            <p>Niveau {{ next_level.sequenceNumber }}</p>
+            <p>{{ next_level.name }}</p>
+        {% else %}
+            <p>Vous avez terminé le parcours ! Félicitations !</p>
+        {% endif %}
     {% endif %}
 
 {% endblock %}

@@ -29,6 +29,21 @@ final class PathController extends AbstractController
         $userCurrentPath = $connectedUser->getPath();
         $userCurrentLevel = $xUserLevelEventService->findUserCurrentLevel($connectedUser);
         $userCurrentEvent = $xUserLevelEventService->findUserCurrentEvent($connectedUser);
+
+
+        // Handle End of Path
+        // If the user has cleared all events, they won't have an active level registration.
+        if (!$userCurrentLevel) {
+            return $this->render('path/index.html.twig', [
+                'user_current_level' => null,
+                'user_current_event' => null,
+                'events_of_level' => [],
+                'next_level' => null,
+                'is_path_completed' => true
+            ]);
+        }
+
+
         $eventsOfLevel = $eventService->findEventsInLevel($userCurrentLevel);
         $nextLevel = $levelService->findOneLevelInPath($userCurrentPath, $userCurrentLevel->getSequenceNumber() + 1);
 
@@ -36,7 +51,8 @@ final class PathController extends AbstractController
             'user_current_level' => $userCurrentLevel,
             'user_current_event' => $userCurrentEvent,
             'events_of_level' => $eventsOfLevel,
-            'next_level' => $nextLevel
+            'next_level' => $nextLevel,
+            'is_path_completed' => false
         ]);
     }
 }
