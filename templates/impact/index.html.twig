@@ -4,5 +4,11 @@
 
 {% block content %}
     <p>{{ app.user.co2Impact | format_co2 }} de co2 économisé !</p>
+    {% if equivalent_impact %}
+    <p>{{ equivalent_impact.icon }}</p>
+    <p>{{ equivalent_impact.text }}</p>
+    {% else %}
+    <p>Réalise un défi pour comparer ton impact positif.</p>
+    {% endif %}
 
 {% endblock %}

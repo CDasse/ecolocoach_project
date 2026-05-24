@@ -4,7 +4,7 @@ namespace App\Service;
 
 class Co2EquivalenceService
 {
-    private const CATALOGUE = [
+    private const array CATALOGUE = [
         'terre' => [
             'factor' => 7570,
             'icon' => '🌍',
@@ -70,4 +70,30 @@ class Co2EquivalenceService
         ]
     ];
 
+    public function getCo2Equivalence(float $userCo2Impact) :?array {
+        if ($userCo2Impact < 1) {
+            return null;
+        }
+
+        $eligibleComparaison = [];
+
+        foreach (self::CATALOGUE as $data) {
+            $calculatedValue = $userCo2Impact/$data["factor"];
+
+            if ($calculatedValue >= $data["min_value"] && $calculatedValue <= $data["max_value"]) {
+                $formattedValue = number_format($calculatedValue, 0, ",", " ");
+
+                $eligibleComparaison[] = [
+                    'icon' => $data['icon'],
+                    'text' => sprintf($data['template'], $formattedValue),
+                ];
+            }
+        }
+
+        if (empty($eligibleComparaison)) {
+            return null;
+        }
+
+        return $eligibleComparaison[array_rand($eligibleComparaison)];
+    }
 }
