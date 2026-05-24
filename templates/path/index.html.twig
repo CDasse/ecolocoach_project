@@ -30,4 +30,12 @@
         {% endif %}
     {% endfor %}
 
+    <p>À SUIVRE</p>
+    {% if next_level is not null %}
+        <p>Niveau {{ next_level.sequenceNumber }}</p>
+        <p>{{ next_level.name }}</p>
+    {% else %}
+        <p>Vous avez terminé le parcours ! Félicitations !</p>
+    {% endif %}
+
 {% endblock %}

@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Service\EventService;
+use App\Service\LevelService;
 use App\Service\XUserLevelEventService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -17,6 +18,7 @@ final class PathController extends AbstractController
     public function path(
         XUserLevelEventService $xUserLevelEventService,
         EventService $eventService,
+        LevelService $levelService
     ): Response
     {
         // Progression Context Gathering & View Rendering
@@ -24,14 +26,17 @@ final class PathController extends AbstractController
         // fetches the linked roadmap events, and passes everything to the timeline template.
         $connectedUser = $this->getUser();
 
+        $userCurrentPath = $connectedUser->getPath();
         $userCurrentLevel = $xUserLevelEventService->findUserCurrentLevel($connectedUser);
         $userCurrentEvent = $xUserLevelEventService->findUserCurrentEvent($connectedUser);
         $eventsOfLevel = $eventService->findEventsInLevel($userCurrentLevel);
+        $nextLevel = $levelService->findOneLevelInPath($userCurrentPath, $userCurrentLevel->getSequenceNumber() + 1);
 
         return $this->render('path/index.html.twig', [
             'user_current_level' => $userCurrentLevel,
             'user_current_event' => $userCurrentEvent,
             'events_of_level' => $eventsOfLevel,
+            'next_level' => $nextLevel
         ]);
     }
 }
