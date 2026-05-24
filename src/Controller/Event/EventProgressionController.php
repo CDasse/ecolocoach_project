@@ -3,13 +3,8 @@
 namespace App\Controller\Event;
 
 use App\Entity\Event;
-use App\Entity\Level;
-use App\Entity\User;
-use App\Entity\XUserLevelEvent;
 use App\Enum\EventStatus;
 use App\Enum\EventType;
-use App\Service\EventService;
-use App\Service\LevelService;
 use App\Service\XUserLevelEventService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bridge\Doctrine\Attribute\MapEntity;
@@ -29,8 +24,6 @@ final class EventProgressionController extends AbstractController
         Event $event,
         EventStatus $eventStatus,
         EntityManagerInterface $entityManager,
-        EventService  $eventService,
-        LevelService  $levelService,
         XUserLevelEventService $xUserLevelEventService
     ): Response
     {

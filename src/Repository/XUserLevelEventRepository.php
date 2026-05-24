@@ -3,7 +3,6 @@
 namespace App\Repository;
 
 use App\Entity\Event;
-use App\Entity\Level;
 use App\Entity\User;
 use App\Entity\XUserLevelEvent;
 use App\Enum\EventStatus;
