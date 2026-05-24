@@ -11,6 +11,8 @@ final class ImpactController extends AbstractController
     #[Route('/impact', name: 'impact', methods: ['GET'])]
     public function impact(): Response
     {
+
+
         return $this->render('impact/index.html.twig', [
             'controller_name' => 'ImpactController',
         ]);

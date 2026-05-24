@@ -14,7 +14,9 @@
         {% if user_current_level is not null %}
             <p>Niveau {{ user_current_level.sequenceNumber }}</p>
             <p>{{ user_current_level.name }}</p>
-            <a href="{{ path('level') }}">GUIDE</a>
+            <p>
+                <a href="{{ path('level') }}">GUIDE</a>
+            </p>
         {% else %}
             <p>Aucun niveau actif trouvé pour cet utilisateur.</p>
         {% endif %}

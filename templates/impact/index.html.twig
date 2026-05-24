@@ -3,5 +3,6 @@
 {% block title %}Mon impact | EcoloCoach{% endblock %}
 
 {% block content %}
+    <p>{{ app.user.co2Impact | format_co2 }} de co2 économisé !</p>
 
 {% endblock %}
