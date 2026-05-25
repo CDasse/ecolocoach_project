@@ -15,4 +15,9 @@
     <p>{{ message_encouragement.content }}</p>
     {% endif %}
 
+    <h3>Mes défis en cours</h3>
+    {% for challenge in challenges_accepted %}
+    <p>{{ challenge.event.co2Impact }}</p>
+    <img src="{{  }}">
+
 {% endblock %}

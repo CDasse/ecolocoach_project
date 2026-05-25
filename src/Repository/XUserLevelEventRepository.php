@@ -3,8 +3,11 @@
 namespace App\Repository;
 
 use App\Entity\Event;
+use App\Entity\EventPage;
+use App\Entity\EventPart;
 use App\Entity\User;
 use App\Entity\XUserLevelEvent;
+use App\Enum\EventPartType;
 use App\Enum\EventStatus;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
@@ -47,5 +50,32 @@ class XUserLevelEventRepository extends ServiceEntityRepository
             ->setParameter('event', $event)
             ->getQuery()
             ->getOneOrNullResult();
+    }
+
+    /**
+     * Retrieves the list of accepted but unfinished challenges for a specific user,
+     * loading all necessary card data (image, label, description).
+     */
+    public function findAcceptedChallenges(User $user): array
+    {
+        return $this->createQueryBuilder('x')
+            ->innerJoin('x.event', 'e')
+            ->addSelect('e')
+
+            ->innerJoin(EventPage::class, 'ep', 'WITH', 'ep.event = e.id')
+
+            ->innerJoin(EventPart::class, 'eprt', 'WITH', 'eprt.eventPage = ep.id')
+            ->addSelect('eprt')
+
+
+            ->andWhere('x.targetUser = :user')
+            ->andWhere('x.eventStatus = :status')
+            ->andWhere('eprt.eventPartType IN (:types)')
+
+            ->setParameter('user', $user)
+            ->setParameter('status', EventStatus::ACCEPTED)
+            ->setParameter('types', [EventPartType::PICTURE, EventPartType::LABEL, EventPartType::DESCRIPTION] )
+            ->getQuery()
+            ->getResult();
     }
 }

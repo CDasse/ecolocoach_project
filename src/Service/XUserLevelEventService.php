@@ -3,9 +3,11 @@
 namespace App\Service;
 
 use App\Entity\Event;
+use App\Entity\EventPart;
 use App\Entity\Level;
 use App\Entity\User;
 use App\Entity\XUserLevelEvent;
+use App\Enum\EventPartType;
 use App\Enum\EventStatus;
 use App\Repository\XUserLevelEventRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -86,6 +88,10 @@ class XUserLevelEventService
 
             $this->entityManager->persist($newProgression);
         }
+    }
+
+    public function findAcceptedChallenges(User $user): array {
+        return $this->xUserLevelEventRepository->findAcceptedChallenges($user);
     }
 
 }

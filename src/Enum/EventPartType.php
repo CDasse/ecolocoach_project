@@ -10,4 +10,6 @@ enum EventPartType: string
     case DESCRIPTION = 'Description';
     case TAG = 'Tag';
     case LABEL = 'Label';
+    case SUBTITLE = 'Sous-titre';
+    case SUBDESCRIPTION = 'Sous-description';
 }

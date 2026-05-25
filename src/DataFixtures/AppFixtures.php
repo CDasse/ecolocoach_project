@@ -376,8 +376,8 @@ class AppFixtures extends Fixture
                     4 => [EventPartType::TAG, null, null, null, null, $d[1], null],
                     5 => [EventPartType::LABEL, null, null, null, null, null, $d[2]],
                     6 => [EventPartType::DESCRIPTION, null, null, null, $d[3], null, null],
-                    7 => [EventPartType::LABEL, null, null, null, null, null, $d[4]],
-                    8 => [EventPartType::DESCRIPTION, null, null, null, $d[5], null, null]
+                    7 => [EventPartType::SUBTITLE, null, null, null, null, null, $d[4]],
+                    8 => [EventPartType::SUBDESCRIPTION, null, null, null, $d[5], null, null]
                 ];
 
                 foreach ($parts as $seq => $pData) {
@@ -562,9 +562,9 @@ class AppFixtures extends Fixture
         // Répartition aléatoire pour les défis historiques :
         $dice = rand(1, 10);
 
-        if ($dice <= 6) {
+        if ($dice <= 4) {
             return EventStatus::FINISHED; // Défi accompli avec succès !
-        } elseif ($dice <= 8) {
+        } elseif ($dice <= 7) {
             return EventStatus::ACCEPTED; // Défi juste accepté (relevé) mais pas encore validé
         } else {
             return EventStatus::REFUSED;  // Défi refusé

@@ -47,6 +47,14 @@
             <p>{{ part.description }}</p>
         {% endif %}
 
+        {% if part.eventPartType.name == 'SUBTITLE' %}
+            <p>{{ part.label }}</p>
+        {% endif %}
+
+        {% if part.eventPartType.name == 'SUBDESCRIPTION' %}
+            <p>{{ part.description }}</p>
+        {% endif %}
+
     {% endfor %}
 
     {% if event.eventType.name == 'LESSON' %}
