@@ -11,4 +11,8 @@
     <p>Réalise un défi pour comparer ton impact positif.</p>
     {% endif %}
 
+    {% if message_encouragement and app.user.co2Impact > 0%}
+    <p>{{ message_encouragement.content }}</p>
+    {% endif %}
+
 {% endblock %}

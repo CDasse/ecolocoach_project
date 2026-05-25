@@ -16,28 +16,27 @@ class MessageEncouragementRepository extends ServiceEntityRepository
         parent::__construct($registry, MessageEncouragement::class);
     }
 
-    //    /**
-    //     * @return MessageEncouragement[] Returns an array of MessageEncouragement objects
-    //     */
-    //    public function findByExampleField($value): array
-    //    {
-    //        return $this->createQueryBuilder('m')
-    //            ->andWhere('m.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->orderBy('m.id', 'ASC')
-    //            ->setMaxResults(10)
-    //            ->getQuery()
-    //            ->getResult()
-    //        ;
-    //    }
+    /**
+     * Counts the total number of encouragement messages available in the database.
+     * Used as the upper bound for the random offset calculation.
+     */
+    public function findNumberOfMessagesEncouragement(): int
+    {
+        return $this->createQueryBuilder('m')
+            ->select('COUNT(m.id)')
+            ->getQuery()
+            ->getSingleScalarResult();
+    }
 
-    //    public function findOneBySomeField($value): ?MessageEncouragement
-    //    {
-    //        return $this->createQueryBuilder('m')
-    //            ->andWhere('m.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->getQuery()
-    //            ->getOneOrNullResult()
-    //        ;
-    //    }
+    /**
+     * Retrieves a single encouragement message using an offset.
+     */
+    public function findOneMessageEncouragement(int $offset): ?MessageEncouragement
+    {
+        return $this->createQueryBuilder('m')
+            ->setMaxResults(1)
+            ->setFirstResult($offset)
+            ->getQuery()
+            ->getOneOrNullResult();
+    }
 }

@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Service\Co2EquivalenceService;
+use App\Service\MessageEncouragementService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
@@ -12,6 +13,7 @@ final class ImpactController extends AbstractController
     #[Route('/impact', name: 'impact', methods: ['GET'])]
     public function impact(
         Co2EquivalenceService $co2equivalenceService,
+        MessageEncouragementService $messageEncouragementService
     ): Response
     {
         $connectedUser = $this->getUser();
@@ -19,8 +21,11 @@ final class ImpactController extends AbstractController
 
         $equivalentCo2Impact = $co2equivalenceService->getCo2Equivalence($userCo2Impact);
 
+        $messageEncouragement = $messageEncouragementService->findOneRandomMessageEncouragement();
+
         return $this->render('impact/index.html.twig', [
             'equivalent_impact' => $equivalentCo2Impact,
+            'message_encouragement' => $messageEncouragement,
         ]);
     }
 }
