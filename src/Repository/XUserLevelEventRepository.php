@@ -9,6 +9,7 @@ use App\Entity\User;
 use App\Entity\XUserLevelEvent;
 use App\Enum\EventPartType;
 use App\Enum\EventStatus;
+use App\Enum\EventType;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -66,7 +67,7 @@ class XUserLevelEventRepository extends ServiceEntityRepository
             MAX(eprt_pic.picturePath) AS picture,
             MAX(eprt_desc.description) AS description
         ')
-            ->innerJoin('x.event', 'e')
+            ->innerJoin('x.event', 'e', 'WITH', 'e.eventType = :eventType')
             ->innerJoin(EventPage::class, 'ep', 'WITH', 'ep.event = e.id')
 
             ->leftJoin(EventPart::class, 'eprt_label', 'WITH', 'eprt_label.eventPage = ep.id AND eprt_label.eventPartType = :typeLabel')
@@ -80,6 +81,7 @@ class XUserLevelEventRepository extends ServiceEntityRepository
 
             ->setParameter('user', $user)
             ->setParameter('status', $eventStatus)
+            ->setParameter('eventType', EventType::DEFI)
             ->setParameter('typeLabel', EventPartType::LABEL)
             ->setParameter('typePic', EventPartType::PICTURE)
             ->setParameter('typeDesc', EventPartType::DESCRIPTION)
