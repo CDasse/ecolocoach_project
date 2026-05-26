@@ -90,8 +90,8 @@ class XUserLevelEventService
         }
     }
 
-    public function findAcceptedChallenges(User $user): array {
-        return $this->xUserLevelEventRepository->findAcceptedChallenges($user);
+    public function findChallengesByStatus(User $user, EventStatus $eventStatus): array {
+        return $this->xUserLevelEventRepository->findChallengesByStatus($user, $eventStatus);
     }
 
 }

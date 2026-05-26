@@ -53,14 +53,14 @@ class XUserLevelEventRepository extends ServiceEntityRepository
     }
 
     /**
-     * Retrieves the list of accepted but unfinished challenges for a specific user,
+     * Retrieves the list of challenges for a specific user and with a specific status,
      * loading all necessary card data (co2Impact, image, title, description).
      */
-    public function findAcceptedChallenges(User $user): array
+    public function findChallengesByStatus(User $user, EventStatus $eventStatus): array
     {
         return $this->createQueryBuilder('x')
             ->select('
-            e.id AS id,
+            e.uid AS uid,
             e.co2Impact AS co2Impact,
             MAX(eprt_label.label) AS title,
             MAX(eprt_pic.picturePath) AS picture,
@@ -79,7 +79,7 @@ class XUserLevelEventRepository extends ServiceEntityRepository
             ->groupBy('e.id')
 
             ->setParameter('user', $user)
-            ->setParameter('status', EventStatus::ACCEPTED)
+            ->setParameter('status', $eventStatus)
             ->setParameter('typeLabel', EventPartType::LABEL)
             ->setParameter('typePic', EventPartType::PICTURE)
             ->setParameter('typeDesc', EventPartType::DESCRIPTION)

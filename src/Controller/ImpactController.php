@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Enum\EventStatus;
 use App\Service\Co2EquivalenceService;
 use App\Service\MessageEncouragementService;
 use App\Service\XUserLevelEventService;
@@ -25,7 +26,7 @@ final class ImpactController extends AbstractController
 
         $messageEncouragement = $messageEncouragementService->findOneRandomMessageEncouragement();
 
-        $challengesAccepted = $xUserLevelEventService->findAcceptedChallenges($connectedUser);
+        $challengesAccepted = $xUserLevelEventService->findChallengesByStatus($connectedUser, EventStatus::ACCEPTED);
 
         return $this->render('impact/index.html.twig', [
             'equivalent_impact' => $equivalentCo2Impact,
