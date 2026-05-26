@@ -25,7 +25,7 @@ final class ImpactController extends AbstractController
 
         $messageEncouragement = $messageEncouragementService->findOneRandomMessageEncouragement();
 
-        dd($challengesAccepted = $xUserLevelEventService->findAcceptedChallenges($connectedUser));
+        $challengesAccepted = $xUserLevelEventService->findAcceptedChallenges($connectedUser);
 
         return $this->render('impact/index.html.twig', [
             'equivalent_impact' => $equivalentCo2Impact,

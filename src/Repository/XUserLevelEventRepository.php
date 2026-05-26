@@ -54,27 +54,36 @@ class XUserLevelEventRepository extends ServiceEntityRepository
 
     /**
      * Retrieves the list of accepted but unfinished challenges for a specific user,
-     * loading all necessary card data (image, label, description).
+     * loading all necessary card data (co2Impact, image, title, description).
      */
     public function findAcceptedChallenges(User $user): array
     {
         return $this->createQueryBuilder('x')
+            ->select('
+            e.id AS id,
+            e.co2Impact AS co2Impact,
+            MAX(eprt_label.label) AS title,
+            MAX(eprt_pic.picturePath) AS picture,
+            MAX(eprt_desc.description) AS description
+        ')
             ->innerJoin('x.event', 'e')
-            ->addSelect('e')
-
             ->innerJoin(EventPage::class, 'ep', 'WITH', 'ep.event = e.id')
 
-            ->innerJoin(EventPart::class, 'eprt', 'WITH', 'eprt.eventPage = ep.id')
-            ->addSelect('eprt')
-
+            ->leftJoin(EventPart::class, 'eprt_label', 'WITH', 'eprt_label.eventPage = ep.id AND eprt_label.eventPartType = :typeLabel')
+            ->leftJoin(EventPart::class, 'eprt_pic', 'WITH', 'eprt_pic.eventPage = ep.id AND eprt_pic.eventPartType = :typePic')
+            ->leftJoin(EventPart::class, 'eprt_desc', 'WITH', 'eprt_desc.eventPage = ep.id AND eprt_desc.eventPartType = :typeDesc')
 
             ->andWhere('x.targetUser = :user')
             ->andWhere('x.eventStatus = :status')
-            ->andWhere('eprt.eventPartType IN (:types)')
+
+            ->groupBy('e.id')
 
             ->setParameter('user', $user)
             ->setParameter('status', EventStatus::ACCEPTED)
-            ->setParameter('types', [EventPartType::PICTURE, EventPartType::LABEL, EventPartType::DESCRIPTION] )
+            ->setParameter('typeLabel', EventPartType::LABEL)
+            ->setParameter('typePic', EventPartType::PICTURE)
+            ->setParameter('typeDesc', EventPartType::DESCRIPTION)
+
             ->getQuery()
             ->getResult();
     }
