@@ -21,3 +21,40 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 });
+
+
+function openPopup(url) {
+    const overlay = document.getElementById('overlay-popup');
+    const content = document.getElementById('content-popup');
+
+    content.innerHTML = '<p style="text-align:center; padding: 20px;">Chargement...</p>';
+    overlay.classList.remove('hidden');
+
+    fetch(url)
+        .then(response => {
+            if (!response.ok) throw new Error("Erreur serveur");
+            return response.text();
+        })
+        .then(html => {
+            content.innerHTML = html;
+        })
+        .catch(_ => {
+            content.innerHTML = '<p style="text-align:center;">Impossible de charger les détails.</p>';
+        });
+}
+
+function closePopup() {
+    const overlay = document.getElementById('overlay-popup');
+    overlay.classList.add('hidden');
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    const overlay = document.getElementById('overlay-popup');
+    if(overlay) {
+        overlay.addEventListener('click', function(event) {
+            if (event.target === overlay) {
+                closePopup();
+            }
+        });
+    }
+});

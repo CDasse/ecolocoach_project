@@ -1,3 +1,39 @@
 .current-event {
     border: dashed green;
 }
+
+/*--------------------------------------------------------------------------------*/
+/*------------------------------POP_UP CHALLENGE---------------------------------*/
+/*--------------------------------------------------------------------------------*/
+
+/* --- LE FOND ASSOMBRI (OVERLAY) --- */
+.overlay-popup {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.7); /* Fond noir transparent */
+    z-index: 9999; /* Par dessus tout le reste */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Classe utilitaire pour cacher la popup */
+.hidden {
+    display: none !important;
+}
+
+/* --- LA BOITE BLANCHE DE LA POPUP --- */
+.content-popup {
+    background-color: #f7f9f2; /* La couleur de fond de ta maquette */
+    width: 90%;
+    max-width: 90vh; /* Adapté pour mobile */
+    max-height: 90vh; /* Ne dépasse pas la hauteur de l'écran */
+    overflow-y: auto; /* Permet de scroller à l'intérieur si le texte est long */
+    border-radius: 15px;
+    position: relative;
+}
+
+/* Ajoute ici le reste de tes styles (boutons verts, textes, etc.) pour coller à ta maquette */

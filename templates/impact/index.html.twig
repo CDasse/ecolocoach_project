@@ -23,11 +23,19 @@
             <img src="{{ challenge.picture }}" alt="Représentation du défi">
             <p>{{ challenge.title }}</p>
             <p>{{ challenge.description }}</p>
+            <button onclick="openPopup('{{ path('challenge_details', {uid: challenge.uid}) }}')">
+                Voir plus ->
+            </button>
         {% endfor %}
     {% else %}
         <p>Continue dans le parcours pour débloquer des défis.</p>
     {% endif %}
 
-    <a href="{{ path('recap_challenges') }}">TOUS MES DEFIS</a>
+    <a href="{{ path('recap_challenges') }}">Tous mes défis</a>
+
+    <div id="overlay-popup" class="overlay-popup hidden">
+        <div id="content-popup" class="content-popup">
+        </div>
+    </div>
 
 {% endblock %}

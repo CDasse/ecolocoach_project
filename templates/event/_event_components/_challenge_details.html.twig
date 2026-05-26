@@ -1,0 +1,30 @@
+<button onclick="closePopup()">
+    <img src="" alt="Fermer pop-up" />
+</button>
+
+{% for part in event_parts %}
+    {% if part.eventPartType.name == 'PICTURE' %}
+        <img src="/{{ part.picturePath }}" alt="Illustration du cours">
+    {% endif %}
+
+    {% if part.eventPartType.name == 'TAG' %}
+        <p>{{ part.tag }}</p>
+    {% endif %}
+
+    {% if part.eventPartType.name == 'LABEL' %}
+        <p>{{ part.label }}</p>
+    {% endif %}
+
+    {% if part.eventPartType.name == 'DESCRIPTION' %}
+        <p>{{ part.description }}</p>
+    {% endif %}
+
+    {% if part.eventPartType.name == 'SUBTITLE' %}
+        <p>{{ part.label }}</p>
+    {% endif %}
+
+    {% if part.eventPartType.name == 'SUBDESCRIPTION' %}
+        <p>{{ part.description }}</p>
+    {% endif %}
+
+{% endfor %}
