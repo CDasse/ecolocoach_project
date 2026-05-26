@@ -17,12 +17,16 @@
 
     <h3>Mes défis en cours</h3>
 
-    {% for challenge in challenges_accepted %}
-        <p>{{ challenge.co2Impact | format_co2}} co2</p>
-        <img src="{{ challenge.picture }}" alt="Représentation du défi">
-        <p>{{ challenge.title }}</p>
-        <p>{{ challenge.description }}</p>
-    {% endfor %}
+    {% if challenges_accepted %}
+        {% for challenge in challenges_accepted %}
+            <p>{{ challenge.co2Impact | format_co2}} co2</p>
+            <img src="{{ challenge.picture }}" alt="Représentation du défi">
+            <p>{{ challenge.title }}</p>
+            <p>{{ challenge.description }}</p>
+        {% endfor %}
+    {% else %}
+        <p>Continue dans le parcours pour débloquer des défis.</p>
+    {% endif %}
 
 
 {% endblock %}
