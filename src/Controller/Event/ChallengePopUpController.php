@@ -10,10 +10,10 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
-final class ChallengeDetailsController extends AbstractController
+final class ChallengePopUpController extends AbstractController
 {
-    #[Route('/challenge/{uid}/details', name: 'challenge_details')]
-    public function challengeDetails(
+    #[Route('/challenge/{uid}/pop_up', name: 'challenge_pop_up')]
+    public function challengePopup(
         #[MapEntity(mapping: ['uid' => 'uid'])]
         Event $event,
         EventPageService $eventPageService,
@@ -23,7 +23,7 @@ final class ChallengeDetailsController extends AbstractController
         $eventPage = $eventPageService->findOneEventPageInEvent($event, 1);
         $eventParts = $eventPartService->findEventPartsInEventPage($eventPage);
 
-        return $this->render('event/_event_components/_challenge_details.html.twig', [
+        return $this->render('event/_event_components/_challenge_pop_up.html.twig', [
             'event' => $event,
             'event_parts' => $eventParts,
         ]);

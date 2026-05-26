@@ -23,7 +23,7 @@
             <img src="{{ challenge.picture }}" alt="Représentation du défi">
             <p>{{ challenge.title }}</p>
             <p>{{ challenge.description }}</p>
-            <button onclick="openPopup('{{ path('challenge_details', {uid: challenge.uid}) }}')">
+            <button onclick="openPopup('{{ path('challenge_pop_up', {uid: challenge.uid}) }}')">
                 Voir plus ->
             </button>
         {% endfor %}

@@ -10,7 +10,9 @@
             <img src="/{{ challenge.picture }}" alt="Représentation du défi">
             <p>{{ challenge.title }}</p>
             <p>{{ challenge.description }}</p>
-            <p>Voir plus -></p>
+            <button onclick="openPopup('{{ path('challenge_pop_up', {uid: challenge.uid}) }}')">
+                Voir plus ->
+            </button>
         {% endfor %}
     {% else %}
         <p>Aucun défi en cours pour le moment. Continue dans le parcours pour débloquer des défis.</p>
@@ -23,7 +25,9 @@
             <img src="/{{ challenge.picture }}" alt="Représentation du défi">
             <p>{{ challenge.title }}</p>
             <p>{{ challenge.description }}</p>
-            <p>Voir plus -></p>
+            <button onclick="openPopup('{{ path('challenge_pop_up', {uid: challenge.uid}) }}')">
+                Voir plus ->
+            </button>
         {% endfor %}
     {% else %}
         <p>Aucun défi terminé pour le moment. Continue dans le parcours pour débloquer des défis.</p>
@@ -36,10 +40,17 @@
             <img src="/{{ challenge.picture }}" alt="Représentation du défi">
             <p>{{ challenge.title }}</p>
             <p>{{ challenge.description }}</p>
-            <p>Voir plus -></p>
+            <button onclick="openPopup('{{ path('challenge_pop_up', {uid: challenge.uid}) }}')">
+                Voir plus ->
+            </button>
         {% endfor %}
     {% else %}
         <p>Aucun défi refusé pour le moment. Félicitations, continue comme ça !</p>
     {% endif %}
+
+    <div id="overlay-popup" class="overlay-popup hidden">
+        <div id="content-popup" class="content-popup">
+        </div>
+    </div>
 
 {% endblock %}
