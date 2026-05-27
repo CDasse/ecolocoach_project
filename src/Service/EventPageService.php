@@ -6,10 +6,10 @@ use App\Entity\Event;
 use App\Entity\EventPage;
 use App\Repository\EventPageRepository;
 
-class EventPageService
+readonly class EventPageService
 {
     public function __construct(
-        private readonly EventPageRepository $eventPageRepository,
+        private EventPageRepository $eventPageRepository,
     )
     {
     }
@@ -23,5 +23,4 @@ class EventPageService
     {
         return $this->eventPageRepository->countTotalPagesForEvent($event);
     }
-
 }

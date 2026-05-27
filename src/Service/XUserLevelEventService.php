@@ -12,13 +12,13 @@ use App\Enum\EventStatus;
 use App\Repository\XUserLevelEventRepository;
 use Doctrine\ORM\EntityManagerInterface;
 
-class XUserLevelEventService
+readonly class XUserLevelEventService
 {
     public function __construct(
-        private readonly XUserLevelEventRepository $xUserLevelEventRepository,
-        private readonly EventService $eventService,
-        private readonly LevelService $levelService,
-        private readonly EntityManagerInterface $entityManager
+        private XUserLevelEventRepository $xUserLevelEventRepository,
+        private EventService              $eventService,
+        private LevelService              $levelService,
+        private EntityManagerInterface    $entityManager
     )
     {
     }
@@ -26,7 +26,8 @@ class XUserLevelEventService
     /**
      * Resolves the strict Level entity where the user is currently positioned.
      */
-    public function findUserCurrentLevel(User $user): ?Level {
+    public function findUserCurrentLevel(User $user): ?Level
+    {
         $xUserLevelEvent = $this->xUserLevelEventRepository->findUserActiveProgression($user);
         return $xUserLevelEvent?->getLevel();
     }
@@ -34,12 +35,14 @@ class XUserLevelEventService
     /**
      * Resolves the exact active Event the user needs to interact with.
      */
-    public function findUserCurrentEvent(User $user): ?Event {
+    public function findUserCurrentEvent(User $user): ?Event
+    {
         $xUserLevelEvent = $this->xUserLevelEventRepository->findUserActiveProgression($user);
         return $xUserLevelEvent?->getEvent();
     }
 
-    public function findProgression(User $user, Event $event): ?XUserLevelEvent {
+    public function findProgression(User $user, Event $event): ?XUserLevelEvent
+    {
         return $this->xUserLevelEventRepository->findProgression($user, $event);
     }
 
@@ -48,7 +51,6 @@ class XUserLevelEventService
      * the next sequential event or triggers the next level progression phase.
      * Returns true if a new step was activated, false if the path is fully cleared.
      */
-
     public function resolveAndActivateNextEventProgression(User $connectedUser, Event $currentEvent) :bool
     {
         $nextEvent = $this->eventService->findNextEvent($currentEvent);
@@ -73,10 +75,11 @@ class XUserLevelEventService
         return false;
     }
 
-        /**
+    /**
      * Validates and initializes a new active tracking record for a user if it doesn't already exist.
      */
-    public function activateNextEventProgression(User $user, Event $event): void {
+    public function activateNextEventProgression(User $user, Event $event): void
+    {
         $nextProgression = $this->findProgression($user, $event);
 
         if (!$nextProgression) {
@@ -90,8 +93,8 @@ class XUserLevelEventService
         }
     }
 
-    public function findChallengesByStatus(User $user, EventStatus $eventStatus): array {
+    public function findChallengesByStatus(User $user, EventStatus $eventStatus): array
+    {
         return $this->xUserLevelEventRepository->findChallengesByStatus($user, $eventStatus);
     }
-
 }

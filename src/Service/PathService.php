@@ -5,15 +5,16 @@ namespace App\Service;
 use App\Entity\Path;
 use App\Repository\PathRepository;
 
-class PathService
+readonly class PathService
 {
     public function __construct(
-        private readonly PathRepository $pathRepository,
+        private PathRepository $pathRepository,
     )
     {
     }
 
-    public function findDefaultPath() : ?Path {
+    public function findDefaultPath() : ?Path
+    {
         return $this->pathRepository->findDefaultPath();
     }
 }

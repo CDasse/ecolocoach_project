@@ -7,10 +7,10 @@ use App\Entity\Event;
 use App\Entity\Level;
 use App\Repository\EventRepository;
 
-class EventService
+readonly class EventService
 {
     public function __construct(
-        private readonly EventRepository $eventRepository,
+        private EventRepository $eventRepository,
     )
     {
     }
@@ -28,5 +28,4 @@ class EventService
     {
         return $this->eventRepository->findNextEvent($currentEvent);
     }
-
 }

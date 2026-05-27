@@ -2,8 +2,18 @@
 
 namespace App\Service;
 
+/**
+ * Provides a gamified calculation engine that translates abstract carbon emission values (kg CO2)
+ * into human-readable, real-world analogies. Parses a static comparison directory to select
+ * and format a contextual equivalence based on the user's aggregated environmental score impact.
+ */
 class Co2EquivalenceService
 {
+    /**
+     * Stores the mathematical transformation coefficients (factors), graphical assets (icons),
+     * translation masks (templates), and boundaries (min/max values) required to filter
+     * and scale realistic ecological metrics against user datasets.
+     */
     private const array CATALOGUE = [
         'terre' => [
             'factor' => 7570,
@@ -70,7 +80,13 @@ class Co2EquivalenceService
         ]
     ];
 
-    public function getCo2Equivalence(float $userCo2Impact) :?array {
+    /**
+     * Generates a randomized, scaled ecological comparison dataset.
+     * Computes the mathematical ratios for each registered analogy, filters entries
+     * that fall outside their realistic boundaries, and picks one random formatted payload.
+     */
+    public function getCo2Equivalence(float $userCo2Impact) :?array
+    {
         if ($userCo2Impact < 1) {
             return null;
         }

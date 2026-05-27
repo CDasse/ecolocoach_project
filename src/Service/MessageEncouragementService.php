@@ -5,10 +5,10 @@ namespace App\Service;
 use App\Entity\MessageEncouragement;
 use App\Repository\MessageEncouragementRepository;
 
-class MessageEncouragementService
+readonly class MessageEncouragementService
 {
     public function __construct(
-        private readonly MessageEncouragementRepository $messageEncouragementRepository,
+        private MessageEncouragementRepository $messageEncouragementRepository,
     )
     {
     }
@@ -20,7 +20,8 @@ class MessageEncouragementService
      * generates a random offset in PHP, and queries exactly one specific row.
      *
      */
-    public function findOneRandomMessageEncouragement(): ?MessageEncouragement {
+    public function findOneRandomMessageEncouragement(): ?MessageEncouragement
+    {
         $count = $this->messageEncouragementRepository->findNumberOfMessagesEncouragement();
 
         if ($count === 0) {
@@ -30,5 +31,4 @@ class MessageEncouragementService
         $randomOffset = rand(0, $count - 1);
         return $this->messageEncouragementRepository->findOneMessageEncouragement($randomOffset);
     }
-
 }

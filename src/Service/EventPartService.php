@@ -6,10 +6,10 @@ use App\Entity\EventPage;
 use App\Entity\EventPart;
 use App\Repository\EventPartRepository;
 
-class EventPartService
+readonly class EventPartService
 {
     public function __construct(
-        private readonly EventPartRepository $eventPartRepository,
+        private EventPartRepository $eventPartRepository,
     )
     {
     }
@@ -23,5 +23,4 @@ class EventPartService
     {
         return $this->eventPartRepository->findRightAnswerOfPage($page);
     }
-
 }
