@@ -3,8 +3,8 @@
 namespace App\Controller\Event;
 
 use App\Entity\Event;
+use App\Entity\User;
 use App\Enum\EventStatus;
-use App\Enum\EventType;
 use App\Service\XUserLevelEventService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bridge\Doctrine\Attribute\MapEntity;
@@ -13,6 +13,10 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
+/**
+ * Manages autonomous user interactions with challenges.
+ * Handles state transitions (Accepting, Completing, or Canceling) and updates environmental metrics.
+ */
 final class ChallengeLifecycleController extends AbstractController
 {
     #[Route('/challenge/{uid}/{challengeStatus}', name: 'challenge_lifecycle', requirements: ['challengeStatus' => 'Terminé|Refusé|Accepté'], methods: ['POST'])]
@@ -25,12 +29,12 @@ final class ChallengeLifecycleController extends AbstractController
         Request $request,
     ): Response
     {
+        /** @var User $connectedUser */
         $connectedUser = $this->getUser();
         $referer = $request->headers->get('referer');
 
-        $isChallengeAcceptedStatusOk = ($challengeStatus == EventStatus::FINISHED || $challengeStatus == EventStatus::REFUSED);
-        $isChallengeRefusedStatusOk = $challengeStatus == EventStatus::ACCEPTED;
-
+        // Progression Guard Clause
+        // Verifies if a valid progression tracking instance exists for this specific user/event combination.
         $progression = $xUserLevelEventService->findProgression($connectedUser, $event);
 
         if (!$progression) {
@@ -40,6 +44,18 @@ final class ChallengeLifecycleController extends AbstractController
 
         $eventStatus = $progression->getEventStatus();
 
+        // Immutability Check
+        // Prevents any further changes if the challenge has already been successfully accomplished.
+        if ($eventStatus == EventStatus::FINISHED) {
+            return $this->redirect($referer ?? $this->generateUrl('recap_challenges'));
+        }
+
+
+        // State Transition Security Guard
+        // Validates incoming status change requests against the allowed business rules.
+        $isChallengeAcceptedStatusOk = ($challengeStatus == EventStatus::FINISHED || $challengeStatus == EventStatus::REFUSED);
+        $isChallengeRefusedStatusOk = $challengeStatus == EventStatus::ACCEPTED;
+
         if ($eventStatus == EventStatus::ACCEPTED && !$isChallengeAcceptedStatusOk) {
             $challengeStatus = EventStatus::REFUSED;
         }
@@ -48,13 +64,15 @@ final class ChallengeLifecycleController extends AbstractController
             $challengeStatus = EventStatus::REFUSED;
         }
 
-        if ($eventStatus == EventStatus::FINISHED) {
-            return $this->redirect($referer ?? $this->generateUrl('recap_challenges'));
-        }
 
+        // State Persistence
+        // Applies the sanitized status transition to the database tracker.
         $progression->setEventStatus($challengeStatus);
         $entityManager->persist($progression);
 
+
+        // Business Logic Processing & Notifications
+        // Dispatches reward points (CO2 metrics) and schedules localized flash feedback.
         if ($challengeStatus == EventStatus::ACCEPTED) {
             $this->addFlash('success',
                 '<strong>BRAVO !</strong> Tu viens d’accepter le défi. <br>On a hâte que tu vives cette expérience ! <br>

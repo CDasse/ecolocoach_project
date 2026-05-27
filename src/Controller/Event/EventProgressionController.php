@@ -3,6 +3,7 @@
 namespace App\Controller\Event;
 
 use App\Entity\Event;
+use App\Entity\User;
 use App\Enum\EventStatus;
 use App\Enum\EventType;
 use App\Service\XUserLevelEventService;
@@ -44,6 +45,7 @@ final class EventProgressionController extends AbstractController
         // Current Progression Update
         // Retrieves the active user's tracking row for this specific event and updates its status
         // with the sanitized target state.
+        /** @var User $connectedUser */
         $connectedUser = $this->getUser();
         $progression = $xUserLevelEventService->findProgression($connectedUser, $event);
 

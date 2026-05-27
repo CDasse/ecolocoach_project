@@ -3,6 +3,7 @@
 namespace App\Controller\Event;
 
 use App\Entity\Event;
+use App\Entity\User;
 use App\Service\EventPageService;
 use App\Service\EventPartService;
 use App\Service\XUserLevelEventService;
@@ -53,6 +54,7 @@ final class EventController extends AbstractController
 
         // User Tracking & Rendering
         // Retrieves the authenticated user's current progression status for this event and passes all contextual data to the Twig template.
+        /** @var User $connectedUser */
         $connectedUser = $this->getUser();
         $progression = $xUserLevelEventService->findProgression($connectedUser, $event);
 
