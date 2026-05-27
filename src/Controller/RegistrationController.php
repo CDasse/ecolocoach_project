@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\User;
 use App\Entity\XUserLevelEvent;
 use App\Enum\EventStatus;
+use App\Exception\RegistrationBootstrappingException;
 use App\Form\RegistrationFormType;
 use App\Service\EventService;
 use App\Service\LevelService;
@@ -22,7 +23,7 @@ use Symfony\Component\Routing\Attribute\Route;
  */
 class RegistrationController extends AbstractController
 {
-    #[Route('/register', name: 'app_register')]
+    #[Route('/register', name: 'app_register', methods: ['GET', 'POST'])]
     public function register(
         Request $request,
         UserPasswordHasherInterface $userPasswordHasher,
@@ -46,11 +47,15 @@ class RegistrationController extends AbstractController
 
             // Throw error if default path isn't define
             if (!$defaultPath) {
-                throw new \RuntimeException('Inability to bootstrap registration: Default Path is missing from the database. Did you forget to load fixtures or run migrations?');
+                throw RegistrationBootstrappingException::missingDefaultPath();
             }
 
             $defaultLevel = $levelService->findOneLevelInPath($defaultPath, 1);
             $defaultEvent = $eventService->findOneEventInLevel($defaultLevel, 1);
+
+            if (!$defaultLevel || !$defaultEvent) {
+                throw RegistrationBootstrappingException::missingInitialStructure();
+            }
 
 
             // User Account Provisioning

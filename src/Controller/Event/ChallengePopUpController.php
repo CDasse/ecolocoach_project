@@ -18,7 +18,7 @@ use Symfony\Component\Routing\Attribute\Route;
  */
 final class ChallengePopUpController extends AbstractController
 {
-    #[Route('/challenge/{uid}/pop_up', name: 'challenge_pop_up')]
+    #[Route('/challenge/{uid}/pop_up', name: 'challenge_pop_up', methods: ['GET'])]
     public function challengePopup(
         #[MapEntity(mapping: ['uid' => 'uid'])]
         Event $event,

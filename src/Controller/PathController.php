@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\User;
 use App\Service\EventService;
 use App\Service\LevelService;
 use App\Service\XUserLevelEventService;
@@ -14,7 +15,7 @@ use Symfony\Component\Routing\Attribute\Route;
  */
 final class PathController extends AbstractController
 {
-    #[Route('/path', name: 'path')]
+    #[Route('/path', name: 'path', methods: ['GET'])]
     public function path(
         XUserLevelEventService $xUserLevelEventService,
         EventService $eventService,
@@ -24,6 +25,7 @@ final class PathController extends AbstractController
         // Progression Context Gathering & View Rendering
         // Detects the authenticated user, evaluates their current milestones through dedicated services,
         // fetches the linked roadmap events, and passes everything to the timeline template.
+        /** @var User $connectedUser */
         $connectedUser = $this->getUser();
 
         $userCurrentPath = $connectedUser->getPath();
@@ -44,6 +46,8 @@ final class PathController extends AbstractController
         }
 
 
+        // Sequence Blueprint Resolution & Dashboard Presentation
+        // Fetches atomic milestones within the unlocked level and evaluates upcoming steps.
         $eventsOfLevel = $eventService->findEventsInLevel($userCurrentLevel);
         $nextLevel = $levelService->findOneLevelInPath($userCurrentPath, $userCurrentLevel->getSequenceNumber() + 1);
 
