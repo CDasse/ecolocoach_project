@@ -2,6 +2,9 @@
 
 namespace App\Enum;
 
+/**
+ * Defines the polymorphic layout component types available for building event pages.
+ */
 enum EventPartType: string
 {
     case PICTURE = 'Image';

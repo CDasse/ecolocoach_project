@@ -2,6 +2,9 @@
 
 namespace App\Enum;
 
+/**
+ * Governs the state machine lifecycle for events tracked across a user's progression.
+ */
 enum EventStatus: string
 {
     /**
