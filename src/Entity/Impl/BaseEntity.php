@@ -7,6 +7,11 @@ use Doctrine\ORM\Mapping as ORM;
 use App\Entity\User;
 use Symfony\Component\Uid\Uuid;
 
+/**
+ * Serves as the foundational structural blueprint for domain entities across the ecosystem.
+ * Provisions global cryptographic tracking via UUIDs, manages comprehensive behavioral audit trails
+ * (creation and mutation metadata), and equips sub-entities with logical soft-delete capabilities.
+ */
 abstract class BaseEntity
 {
     #[ORM\Column(type: Types::GUID, unique: true, nullable: false)]

@@ -8,6 +8,11 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
+/**
+ * Represents the top-level architectural framework or roadmap trajectory within the ecosystem.
+ * Acts as the master timeline path designed to guide users sequentially through a predefined
+ * volume of difficulty milestones (Levels).
+ */
 #[ORM\Entity(repositoryClass: PathRepository::class)]
 #[ORM\UniqueConstraint(name: 'UNIQ_PATH_NAME', fields: ['name'])]
 #[UniqueEntity(fields: ['name'], message: 'Ce nom de parcours existe déjà.')]

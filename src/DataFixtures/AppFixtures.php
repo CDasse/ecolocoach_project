@@ -30,7 +30,7 @@ class AppFixtures extends Fixture
     public function load(ObjectManager $manager): void
     {
         // ------------------------------------------------------------------
-        // 1. MESSAGES D'ENCOURAGEMENT (10)
+        // 1. MESSAGES D'ENCOURAGEMENT (x10)
         // ------------------------------------------------------------------
         $messages = [
             "Chaque petit geste compte pour la planète !",
@@ -52,7 +52,7 @@ class AppFixtures extends Fixture
         }
 
         // ------------------------------------------------------------------
-        // 2. ASTUCES (3)
+        // 2. ASTUCES (x3)
         // ------------------------------------------------------------------
         $tipAlim = new Tip();
         $tipAlim->setContent("Manger des fruits et légumes de saison permet de réduire l'impact écologique du transport et de profiter de meilleurs bienfaits nutritionnels.");
@@ -67,7 +67,7 @@ class AppFixtures extends Fixture
         $manager->persist($tipBio);
 
         // ------------------------------------------------------------------
-        // 3. PARCOURS (1)
+        // 3. PARCOURS (x1)
         // ------------------------------------------------------------------
         $path = new Path();
         $path->setName("Éco-Pionnier : Les 4 Piliers");
@@ -76,7 +76,7 @@ class AppFixtures extends Fixture
         $manager->persist($path);
 
         // ------------------------------------------------------------------
-        // 4. NIVEAUX (3)
+        // 4. NIVEAUX (x3)
         // ------------------------------------------------------------------
         $level1 = new Level();
         $level1->setName("Ma petite planète");
@@ -100,7 +100,7 @@ class AppFixtures extends Fixture
         $manager->persist($level3);
 
         // ------------------------------------------------------------------
-        // 5. UTILISATEURS (3)
+        // 5. UTILISATEURS (x3)
         // ------------------------------------------------------------------
         $elia = new User();
         $elia->setUsername("Elia Chelet");
@@ -128,7 +128,7 @@ class AppFixtures extends Fixture
 
 
         // ------------------------------------------------------------------
-        // 6. ÉVÉNEMENTS (30)
+        // 6. ÉVÉNEMENTS (x30)
         // ------------------------------------------------------------------
         // Structure de chaque élément :
         // Type LEÇON : ['type' => 'lesson', 'data' => [ [Q1, Choices1, Right1, Expl1], [Q2, Choices2, Right2, Expl2] ]]

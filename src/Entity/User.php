@@ -9,6 +9,12 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
+/**
+ * Represents the central authenticated identity record within the ecosystem.
+ * Handles framework security protocols via UserInterface, tracks credentials,
+ * maps the player's active timeline course (Path), and maintains cumulative environmental
+ * score statistics (co2Impact) accumulated through accomplished challenges.
+ */
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[ORM\Table(name: '`user`')]
 #[ORM\UniqueConstraint(name: 'UNIQ_IDENTIFIER_EMAIL', fields: ['email'])]

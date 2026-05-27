@@ -7,6 +7,11 @@ use App\Enum\EventStatus;
 use App\Repository\XUserLevelEventRepository;
 use Doctrine\ORM\Mapping as ORM;
 
+/**
+ * Acts as the central transactional cross-reference table (Join Entity) mapping user progression.
+ * Intersects a profile (User), a spatial tier (Level), and an atomic checkpoint node (Event)
+ * to capture, mutate, and store real-time gamified behavioral milestones via EventStatus.
+ */
 #[ORM\Entity(repositoryClass: XUserLevelEventRepository::class)]
 class XUserLevelEvent extends BaseEntity
 {

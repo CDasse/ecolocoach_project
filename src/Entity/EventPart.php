@@ -8,6 +8,11 @@ use App\Repository\EventPartRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
+/**
+ * Represents an atomic content component or visual building block embedded within an EventPage.
+ * Acts as a polymorphic data container configured by EventPartType to render diverse UI fragments,
+ * including descriptive text blocks, image showcases, or interactive quiz questionnaire structures.
+ */
 #[ORM\Entity(repositoryClass: EventPartRepository::class)]
 class EventPart extends BaseEntity
 {

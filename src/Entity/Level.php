@@ -7,6 +7,11 @@ use App\Repository\LevelRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
+/**
+ * Defines a gamified progress tier or milestone bucket within a specific transition framework.
+ * Acts as a sequential container that maps a cluster of operational elements (Events)
+ * to a parent timeline (Path), embedding dedicated educational guidance (Tip).
+ */
 #[ORM\Entity(repositoryClass: LevelRepository::class)]
 #[ORM\UniqueConstraint(name: 'UNIQ_LEVEL_NAME', fields: ['name'])]
 #[UniqueEntity(fields: ['name'], message: 'Ce nom de niveau existe déjà.')]

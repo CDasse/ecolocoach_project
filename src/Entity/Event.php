@@ -7,6 +7,11 @@ use App\Enum\EventType;
 use App\Repository\EventRepository;
 use Doctrine\ORM\Mapping as ORM;
 
+/**
+ * Represents a chronological stepping stone within the user's gamified timeline roadmap.
+ * Acts as a concrete operational node that can materialize either as an educational and interactive quiz (LESSON)
+ * or a practical environmental task (CHALLENGE), embedding order positioning and carbon credit metrics.
+ */
 #[ORM\Entity(repositoryClass: EventRepository::class)]
 class Event extends BaseEntity
 {

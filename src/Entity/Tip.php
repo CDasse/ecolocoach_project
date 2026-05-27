@@ -7,6 +7,11 @@ use App\Repository\TipRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
+/**
+ * Represents an educational piece of advice or environmental eco-gesture payload.
+ * Coupled with milestone checkpoints (Levels) to deliver highly contextual, actionable,
+ * and practical micro-learning insights to the user during their progression.
+ */
 #[ORM\Entity(repositoryClass: TipRepository::class)]
 class Tip extends BaseEntity
 {

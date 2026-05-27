@@ -6,6 +6,11 @@ use App\Entity\Impl\BaseEntity;
 use App\Repository\EventPageRepository;
 use Doctrine\ORM\Mapping as ORM;
 
+/**
+ * Represents a specific layout page configuration bound to an Event instance.
+ * Serves as an intermediary structural container that aggregates atomic visual pieces
+ * or informational parts, organized chronologically via sequence numbering.
+ */
 #[ORM\Entity(repositoryClass: EventPageRepository::class)]
 class EventPage extends BaseEntity
 {
