@@ -1,0 +1,20 @@
+{% if progression is not null and progression.eventStatus.value == 'Accepté' %}
+
+    <form method="POST" action="{{ path('challenge_lifecycle', {'uid': event.uid, 'challengeStatus': 'Terminé'}) }}">
+        <button type="submit">DÉFI VALIDÉ !</button>
+    </form>
+
+    <form method="POST" action="{{ path('challenge_lifecycle', {'uid': event.uid, 'challengeStatus': 'Refusé'}) }}">
+        <button type="submit">QUITTER CE DÉFI</button>
+    </form>
+
+{% elseif progression is not null and progression.eventStatus.value == 'Refusé' %}
+
+    <form method="POST" action="{{ path('challenge_lifecycle', {'uid': event.uid, 'challengeStatus': 'Accepté'}) }}">
+        <button type="submit">ACCEPTER LE DÉFI</button>
+    </form>
+
+{% else %}
+    <p>Status : Défi déjà validé !</p>
+
+{% endif %}
