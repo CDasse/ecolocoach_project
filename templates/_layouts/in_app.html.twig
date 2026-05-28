@@ -1,12 +1,27 @@
 {% extends 'base.html.twig' %}
 
 {% block stylesheets %}
-
+    <link rel="stylesheet" href="{{ asset("styles/header.css") }}"/>
 {% endblock %}
 
 {% block body %}
 
-    {% include "_components/menu.html.twig" %}
+    <header>
+        {% block header_title %}{% endblock %}
+
+        <nav role="navigation" aria-label="Menu principal">
+            <button type="button" aria-haspopup="dialog" aria-label="Ouvrir le menu principal" aria-controls="dialog-burger-menu" class="open-menu-button">
+                <img src="{{ asset("/uploads/icons/burger-menu.svg") }}" alt="Menu">
+            </button>
+        </nav>
+        <dialog aria-modal="true" tabindex="-1" id="dialog-burger-menu">
+            <button type="button" class="exit-menu-button">
+                <img src="{{ asset("/uploads/icons/cross.svg") }}" alt="Fermer le menu">
+            </button>
+            {% include "_components/menu.html.twig" %}
+        </dialog>
+
+    </header>
 
     {% include '_components/_flash_messages.html.twig' %}
 

@@ -36,6 +36,12 @@ class Level extends BaseEntity
     #[ORM\Column(nullable: true)]
     private ?int $sequenceNumber = null;
 
+    #[ORM\Column(length: 100, nullable: true)]
+    private ?string $mascot1 = null;
+
+    #[ORM\Column(length: 100, nullable: true)]
+    private ?string $mascot2 = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -85,6 +91,30 @@ class Level extends BaseEntity
     public function setSequenceNumber(?int $sequenceNumber): static
     {
         $this->sequenceNumber = $sequenceNumber;
+
+        return $this;
+    }
+
+    public function getMascot1(): ?string
+    {
+        return $this->mascot1;
+    }
+
+    public function setMascot1(?string $mascot1): static
+    {
+        $this->mascot1 = $mascot1;
+
+        return $this;
+    }
+
+    public function getMascot2(): ?string
+    {
+        return $this->mascot2;
+    }
+
+    public function setMascot2(?string $mascot2): static
+    {
+        $this->mascot2 = $mascot2;
 
         return $this;
     }

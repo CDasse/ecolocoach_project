@@ -1,6 +1,8 @@
 {% extends '_layouts/in_app.html.twig' %}
 
 {% block title %}Mon impact | EcoloCoach{% endblock %}
+{% block header_title %}<h1>Mon impact</h1>{% endblock %}
+
 
 {% block content %}
     <p>{{ app.user.co2Impact | format_co2 }} de co2 économisé !</p>

@@ -1,3 +1,38 @@
+/*--------------------------------------------------------------------------------*/
+/*--------------------------------BURGER MENU-------------------------------------*/
+/*--------------------------------------------------------------------------------*/
+
+/**
+ * Controls the mobile burger menu lifecycle using native browser APIs.
+ */
+function OpenOrExitBurgerMenu() {
+    const openButton = document.querySelector('.open-menu-button');
+    const exitButton = document.querySelector('.exit-menu-button');
+    const dialogBalise = document.getElementById('dialog-burger-menu');
+
+    if (openButton && exitButton && dialogBalise) {
+        openButton.addEventListener('click', function() {
+            dialogBalise.showModal();
+        });
+
+        exitButton.addEventListener('click', function() {
+            dialogBalise.close();
+        });
+    }
+}
+
+/**
+ * Initializes the burger menu logic.
+ */
+document.addEventListener('DOMContentLoaded', () => {
+    OpenOrExitBurgerMenu();
+});
+
+
+/*--------------------------------------------------------------------------------*/
+/*-------------------------INTERACTIVE QUIZ IN LESSON-----------------------------*/
+/*--------------------------------------------------------------------------------*/
+
 /**
  * Handles quiz answer selection.
  * * This script listens for click events on answer buttons, toggles the 'active'
@@ -23,6 +58,14 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 
+/*--------------------------------------------------------------------------------*/
+/*------------------------------POP-UP CHALLENGE----------------------------------*/
+/*--------------------------------------------------------------------------------*/
+
+/**
+ * This function triggers an AJAX request to load and display full information inside a popup
+ * when a user actively selects and clicks on a specific challenge card.
+ */
 function openPopup(url) {
     const overlay = document.getElementById('overlay-popup');
     const content = document.getElementById('content-popup');
@@ -43,11 +86,21 @@ function openPopup(url) {
         });
 }
 
+
+/**
+Once the user is done reading or accepting a challenge, this dismisses the modal
+ * overlay and restores focus back to the primary navigation timeline context.
+ */
 function closePopup() {
     const overlay = document.getElementById('overlay-popup');
     overlay.classList.add('hidden');
 }
 
+
+/**
+ * It allows users to naturally close the challenge popup by tapping anywhere outside the
+ * text content, preventing them from being forced to hunt down the close cross button.
+ */
 document.addEventListener('DOMContentLoaded', () => {
     const overlay = document.getElementById('overlay-popup');
     if(overlay) {

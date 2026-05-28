@@ -1,0 +1,39 @@
+header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+dialog {
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    padding: 24px;
+    border: none;
+    max-width: none;
+    max-height: none;
+    box-sizing: border-box;
+}
+
+.exit-menu-button {
+    position: absolute;
+    right: 24px;
+    height: 80px;
+    display: flex;
+    align-items: center;
+}
+
+.open-menu-button, .exit-menu-button {
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    display: inline-flex;
+}
+
+.open-menu-button img, .exit-menu-button img {
+    width: 32px;
+    height: 32px;
+    display: block;
+}

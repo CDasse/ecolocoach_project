@@ -1,21 +1,20 @@
-{#TODO : mettre une liste et des li dans le menu burger#}
-
-<nav>
-    <span>EcoloCoach</span>
-    <a href="{{ path('path') }}">
-        Mon Parcours
-    </a>
-    <a href="{{ path('impact') }}">
-        Mon Impact
-    </a>
-    <a href="{{ path('community') }}">
-        Communauté
-    </a>
-    <a href="{{ path('profil') }}">
-        Mon Profil
-    </a>
-    <span>{{ app.user.username }}</span>
-    <a href="{{ path('app_logout') }}">
-        Se déconnecter
-    </a>
-</nav>
+<ul>
+    <li>
+        <a href="{{ path('path') }}">Mon Parcours</a>
+    </li>
+    <li>
+        <a href="{{ path('impact') }}">Mon Impact</a>
+    </li>
+    <li>
+        <a href="{{ path('community') }}">Communauté</a>
+    </li>
+    <li>
+        <a href="{{ path('profil') }}">Mon Profil</a>
+    </li>
+    <li>
+        <h3>{{ app.user.username }}</h3>
+    </li>
+    <li>
+        <a href="{{ path('app_logout') }}">Se déconnecter</a>
+    </li>
+</ul>
