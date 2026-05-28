@@ -27,6 +27,9 @@ class EventPart extends BaseEntity
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $picturePath = null;
 
+    #[ORM\Column(length: 100, nullable: true)]
+    private ?string $pictureAlt = null;
+
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $question = null;
 
@@ -76,6 +79,18 @@ class EventPart extends BaseEntity
     public function setPicturePath(?string $picturePath): static
     {
         $this->picturePath = $picturePath;
+
+        return $this;
+    }
+
+    public function getPictureAlt(): ?string
+    {
+        return $this->pictureAlt;
+    }
+
+    public function setPictureAlt(?string $pictureAlt): static
+    {
+        $this->pictureAlt = $pictureAlt;
 
         return $this;
     }

@@ -22,7 +22,7 @@
     {% if challenges_accepted %}
         {% for challenge in challenges_accepted %}
             <p>{{ challenge.co2Impact | format_co2}} co2</p>
-            <img src="{{ challenge.picture }}" alt="Représentation du défi">
+            <img src="{{ challenge.picture }}" alt="{{ challenge.pictureAlt }}">
             <p>{{ challenge.title }}</p>
             <p>{{ challenge.description }}</p>
             <button onclick="openPopup('{{ path('challenge_pop_up', {uid: challenge.uid}) }}')">

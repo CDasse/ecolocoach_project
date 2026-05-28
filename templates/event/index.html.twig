@@ -21,7 +21,7 @@
 
     {% for part in event_parts %}
         {% if part.eventPartType.name == 'PICTURE' %}
-            <img src="/{{ part.picturePath }}" alt="Illustration du cours">
+            <img src="/{{ part.picturePath }}" alt="{{ part.pictureAlt }}">
         {% endif %}
 
         {% if part.eventPartType.name == 'QUESTION' %}

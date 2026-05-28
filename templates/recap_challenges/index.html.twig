@@ -4,11 +4,13 @@
 {% block header_title %}<h1>Mes défis</h1>{% endblock %}
 
 {% block content %}
+
+    <h2>{{ app.user.co2Impact | format_co2 }} de co2 économisé !</h2>
     <h2>Mes défis en cours</h2>
     {% if challenges_accepted %}
         {% for challenge in challenges_accepted %}
             <p>{{ challenge.co2Impact | format_co2}} co2</p>
-            <img src="/{{ challenge.picture }}" alt="Représentation du défi">
+            <img src="/{{ challenge.picture }}" alt="{{ challenge.pictureAlt }}">
             <p>{{ challenge.title }}</p>
             <p>{{ challenge.description }}</p>
             <button onclick="openPopup('{{ path('challenge_pop_up', {uid: challenge.uid}) }}')">
@@ -23,7 +25,7 @@
     {% if challenges_finished %}
         {% for challenge in challenges_finished %}
             <p>{{ challenge.co2Impact | format_co2}} co2</p>
-            <img src="/{{ challenge.picture }}" alt="Représentation du défi">
+            <img src="/{{ challenge.picture }}" alt="{{ challenge.pictureAlt }}">
             <p>{{ challenge.title }}</p>
             <p>{{ challenge.description }}</p>
             <button onclick="openPopup('{{ path('challenge_pop_up', {uid: challenge.uid}) }}')">
@@ -38,7 +40,7 @@
     {% if challenges_refused %}
         {% for challenge in challenges_refused %}
             <p>{{ challenge.co2Impact | format_co2}} co2</p>
-            <img src="/{{ challenge.picture }}" alt="Représentation du défi">
+            <img src="/{{ challenge.picture }}" alt="{{ challenge.pictureAlt }}">
             <p>{{ challenge.title }}</p>
             <p>{{ challenge.description }}</p>
             <button onclick="openPopup('{{ path('challenge_pop_up', {uid: challenge.uid}) }}')">

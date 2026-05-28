@@ -65,6 +65,7 @@ class XUserLevelEventRepository extends ServiceEntityRepository
             e.co2Impact AS co2Impact,
             MAX(eprt_label.label) AS title,
             MAX(eprt_pic.picturePath) AS picture,
+            MAX(eprt_pic.pictureAlt) AS pictureAlt,
             MAX(eprt_desc.description) AS description
         ')
             ->innerJoin('x.event', 'e', 'WITH', 'e.eventType = :eventType')
