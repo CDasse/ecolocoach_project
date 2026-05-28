@@ -83,6 +83,8 @@ class AppFixtures extends Fixture
         $level1->setTip($tipAlim);
         $level1->setPath($path);
         $level1->setSequenceNumber(1);
+        $level1->setMascot1("uploads/mascots/manchot_1.webp");
+        $level1->setMascot2("uploads/mascots/manchot_3.webp");
         $manager->persist($level1);
 
         $level2 = new Level();
@@ -90,6 +92,8 @@ class AppFixtures extends Fixture
         $level2->setTip($tip2Tonnes);
         $level2->setPath($path);
         $level2->setSequenceNumber(2);
+        $level2->setMascot1("uploads/mascots/panda_roux_1.webp");
+        $level2->setMascot2("uploads/mascots/panda_roux_2.webp");
         $manager->persist($level2);
 
         $level3 = new Level();
@@ -97,6 +101,8 @@ class AppFixtures extends Fixture
         $level3->setTip($tipBio);
         $level3->setPath($path);
         $level3->setSequenceNumber(3);
+        $level3->setMascot1("uploads/mascots/manchot_2.webp");
+        $level3->setMascot2("uploads/mascots/panda_roux_3.webp");
         $manager->persist($level3);
 
         // ------------------------------------------------------------------

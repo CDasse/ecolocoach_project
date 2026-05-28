@@ -1,0 +1,42 @@
+.level-container {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    width: 100%;
+}
+
+.level-section {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+    width: 100%;
+}
+
+.events-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    align-items: center;
+}
+
+.mascot-wrapper img {
+    width: 300px;
+    height: auto;
+    display: block;
+}
+
+.level-tip {
+    width: 100%;
+    text-align: center;
+    padding: 16px;
+    border-radius: 8px;
+    box-sizing: border-box;
+}
+
+.event-btn {
+    display: inline-block;
+    padding: 16px 20px;
+    border-radius: 20px;
+    text-decoration: none;
+}
