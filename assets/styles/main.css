@@ -1,9 +1,101 @@
-.current-event {
-    border: dashed green;
+:root {
+    /* COLORS */
+    --color-green-100: #ECFFDF;
+    --color-green-200: #C3FF97;
+    --color-green-300: #8FE54F;
+    --color-green-500: #7DC945;
+    --color-green-600: #73A937;
+    --color-green-800: #1E571C;
+    --color-green-900: #1D4F1B;
+    --color-green-1000: #143713;
+
+    --color-golden-100: #FFFAE7;
+    --color-golden-200: #FFECA7;
+    --color-golden-300: #FFEE4E;
+    --color-golden-500: #FFD84B;
+    --color-golden-600: #E0A932;
+    --color-golden-800: #837029;
+    --color-golden-900: #61531F;
+
+    --color-white: #FFFFFF;
+
+    --color-grey-100: #F9F9F9;
+    --color-grey-300: #E5E5E5;
+    --color-grey-500: #C8C8C8;
+    --color-grey-600: #9B9999;
+    --color-grey-900: #676666;
+
+    --color-red-100: #FFE7E7;
+    --color-red-200: #FFCFCF;
+    --color-red-300: #FF7D7D;
+    --color-red-500: #FF5151;
+    --color-red-600: #A23636;
+    --color-red-800: #6A2020;
+    --color-red-900: #4B1717;
+
+    /* FONT FAMILY */
+    --font-family: 'Inter', 'Segoe UI','Calibri', Arial, sans-serif;
+
+    /* FONT SIZES */
+    --font-size-extra-large: 32px;
+    --font-size-large: 24px;
+    --font-size-medium: 20px;
+
+    /* FONT WEIGHTS */
+    --font-weight-semibold: 600;
+    --font-weight-medium: 500;
+    --font-weight-normal: 400;
+
+    /* RADIUS */
+    --radius-extra-large: 64px;
+    --radius-large: 24px;
+    --radius-medium: 16px;
+    --radius-small: 12px;
+
+    /* BUTTONS LIFT */
+    --button-lift: 4px;
 }
 
 body {
+    font-family: var(--font-family), sans-serif ;
+    font-size: var(--font-size-medium);
+    font-weight: var(--font-weight-normal);
+    color: var(--color-green-800);
+    line-height: 1.4;
     margin: 24px;
+}
+
+h1 {
+    font-size: var(--font-size-extra-large);
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-green-800);
+}
+
+h2 {
+    font-size: var(--font-size-large);
+    font-weight: var(--font-weight-medium);
+    text-transform: uppercase;
+}
+
+h3 {
+    font-size: var(--font-size-large);
+    font-weight: var(--font-weight-semibold);
+}
+
+h4{
+    font-size: var(--font-size-medium);
+    font-weight: var(--font-weight-medium);
+}
+
+p {
+    font-size: var(--font-size-medium);
+    font-weight: var(--font-weight-normal);
+}
+
+
+
+.current-event {
+    border: dashed green;
 }
 
 /*--------------------------------------------------------------------------------*/
