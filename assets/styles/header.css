@@ -111,3 +111,8 @@ dialog ul {
     box-sizing: border-box;
     align-self: flex-start;
 }
+
+dialog ul li a.btn-primary-green {
+    justify-content: flex-start;
+    padding-left: 24px;
+}

@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="100%" height="100%">
+    <rect width="32" height="32" rx="10" fill="#1D4F1B" />
+    <circle cx="16" cy="16" r="11" fill="none" stroke="#FFFFFF" stroke-width="2"/>
+    <text x="16" y="19" font-family="'Inter', sans-serif" font-size="8" font-weight="bold" fill="#FFFFFF" text-anchor="middle">CO2</text>
+</svg>
