@@ -1,20 +1,32 @@
+/*--------------------------------------------------------------------------------*/
+/*------------------------------------HEADER--------------------------------------*/
+/*--------------------------------------------------------------------------------*/
+
 header {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
+
+    padding: 24px;
+    width: 100vw;
+    box-sizing: border-box;
+
+    position: sticky;
+    top: 0;
+    z-index: 100;
+
+    background-color: var(--color-white);
+    border-bottom: 1px solid var(--color-green-500);
 }
 
-dialog {
-    width: 100%;
-    height: 100vh;
-    position: fixed;
-    padding: 24px;
-    border: none;
-    max-width: none;
-    max-height: none;
-    box-sizing: border-box;
+header h1 {
+    margin: 0;
 }
+
+/*--------------------------------------------------------------------------------*/
+/*----------------------------OPEN-CLOSE BURGER MENU------------------------------*/
+/*--------------------------------------------------------------------------------*/
 
 .exit-menu-button {
     position: absolute;
@@ -34,6 +46,68 @@ dialog {
 
 .open-menu-button img, .exit-menu-button img {
     width: 32px;
-    height: 32px;
+    height: auto;
     display: block;
+}
+
+/*--------------------------------------------------------------------------------*/
+/*------------------------------------DIALOG--------------------------------------*/
+/*--------------------------------------------------------------------------------*/
+
+dialog {
+    width: 100vw;
+    height: 100vh;
+    max-width: none;
+    max-height: none;
+
+    position: fixed;
+    top: 0;
+    left: 0;
+    margin: 0;
+    padding: 24px;
+
+    border: none;
+    box-sizing: border-box;
+
+    background-color: var(--color-green-100);
+}
+
+dialog[open] {
+    display: flex;
+    flex-direction: column;
+}
+
+dialog h2 {
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-green-800);
+
+    margin-bottom: 40px;
+}
+
+dialog ul {
+    list-style: none;
+
+    padding: 0;
+    margin: 0 auto;
+
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 24px;
+    flex-grow: 1;
+}
+
+.dialog-h3 {
+    font-size: var(--font-size-medium);
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-green-900);
+
+    margin-top: 32px;
+    border-top: 1px solid var(--color-green-600);
+    padding-top: 24px;
+
+    width: 300px;
+    text-align: left;
+    box-sizing: border-box;
+    align-self: flex-start;
 }

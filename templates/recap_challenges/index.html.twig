@@ -6,56 +6,56 @@
 {#TODO : mettre de la pagination lorsque les parcours prendrons de l'ampleur et que le nombre de défis grandira#}
 
 {% block content %}
+    <main>
+        <h2>{{ app.user.co2Impact | format_co2 }} de co2 économisé !</h2>
+        <h2>Mes défis en cours</h2>
+        {% if challenges_accepted %}
+            {% for challenge in challenges_accepted %}
+                <p>{{ challenge.co2Impact | format_co2 }} co2</p>
+                <img src="/{{ challenge.picture }}" alt="{{ challenge.pictureAlt }}">
+                <p>{{ challenge.title }}</p>
+                <p>{{ challenge.description }}</p>
+                <button onclick="openPopup('{{ path('challenge_pop_up', {uid: challenge.uid}) }}')">
+                    Voir plus ->
+                </button>
+            {% endfor %}
+        {% else %}
+            <p>Aucun défi en cours pour le moment. Continue dans le parcours pour débloquer des défis.</p>
+        {% endif %}
 
-    <h2>{{ app.user.co2Impact | format_co2 }} de co2 économisé !</h2>
-    <h2>Mes défis en cours</h2>
-    {% if challenges_accepted %}
-        {% for challenge in challenges_accepted %}
-            <p>{{ challenge.co2Impact | format_co2}} co2</p>
-            <img src="/{{ challenge.picture }}" alt="{{ challenge.pictureAlt }}">
-            <p>{{ challenge.title }}</p>
-            <p>{{ challenge.description }}</p>
-            <button onclick="openPopup('{{ path('challenge_pop_up', {uid: challenge.uid}) }}')">
-                Voir plus ->
-            </button>
-        {% endfor %}
-    {% else %}
-        <p>Aucun défi en cours pour le moment. Continue dans le parcours pour débloquer des défis.</p>
-    {% endif %}
+        <h2>Mes défis terminés</h2>
+        {% if challenges_finished %}
+            {% for challenge in challenges_finished %}
+                <p>{{ challenge.co2Impact | format_co2 }} co2</p>
+                <img src="/{{ challenge.picture }}" alt="{{ challenge.pictureAlt }}">
+                <p>{{ challenge.title }}</p>
+                <p>{{ challenge.description }}</p>
+                <button onclick="openPopup('{{ path('challenge_pop_up', {uid: challenge.uid}) }}')">
+                    Voir plus ->
+                </button>
+            {% endfor %}
+        {% else %}
+            <p>Aucun défi terminé pour le moment. Continue dans le parcours pour débloquer des défis.</p>
+        {% endif %}
 
-    <h2>Mes défis terminés</h2>
-    {% if challenges_finished %}
-        {% for challenge in challenges_finished %}
-            <p>{{ challenge.co2Impact | format_co2}} co2</p>
-            <img src="/{{ challenge.picture }}" alt="{{ challenge.pictureAlt }}">
-            <p>{{ challenge.title }}</p>
-            <p>{{ challenge.description }}</p>
-            <button onclick="openPopup('{{ path('challenge_pop_up', {uid: challenge.uid}) }}')">
-                Voir plus ->
-            </button>
-        {% endfor %}
-    {% else %}
-        <p>Aucun défi terminé pour le moment. Continue dans le parcours pour débloquer des défis.</p>
-    {% endif %}
+        <h2>Mes défis réfusés pour le moment</h2>
+        {% if challenges_refused %}
+            {% for challenge in challenges_refused %}
+                <p>{{ challenge.co2Impact | format_co2 }} co2</p>
+                <img src="/{{ challenge.picture }}" alt="{{ challenge.pictureAlt }}">
+                <p>{{ challenge.title }}</p>
+                <p>{{ challenge.description }}</p>
+                <button onclick="openPopup('{{ path('challenge_pop_up', {uid: challenge.uid}) }}')">
+                    Voir plus ->
+                </button>
+            {% endfor %}
+        {% else %}
+            <p>Aucun défi refusé pour le moment. Félicitations, continue comme ça !</p>
+        {% endif %}
 
-    <h2>Mes défis réfusés pour le moment</h2>
-    {% if challenges_refused %}
-        {% for challenge in challenges_refused %}
-            <p>{{ challenge.co2Impact | format_co2}} co2</p>
-            <img src="/{{ challenge.picture }}" alt="{{ challenge.pictureAlt }}">
-            <p>{{ challenge.title }}</p>
-            <p>{{ challenge.description }}</p>
-            <button onclick="openPopup('{{ path('challenge_pop_up', {uid: challenge.uid}) }}')">
-                Voir plus ->
-            </button>
-        {% endfor %}
-    {% else %}
-        <p>Aucun défi refusé pour le moment. Félicitations, continue comme ça !</p>
-    {% endif %}
-
-    <div id="overlay-popup" class="overlay-popup hidden">
-        <div id="content-popup" class="content-popup">
+        <div id="overlay-popup" class="overlay-popup hidden">
+            <div id="content-popup" class="content-popup">
+            </div>
         </div>
-    </div>
-
+    </main>
 {% endblock %}

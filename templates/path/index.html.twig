@@ -1,86 +1,88 @@
 {% extends '_layouts/in_app.html.twig' %}
 
 {% block title %}Mon parcours | EcoloCoach{% endblock %}
-{% block header_title %}<h1>{{ app.user.co2Impact | format_co2 }} de co2 économisé !</h1>{% endblock %}
+{% block header_title %}<h1>{{ app.user.co2Impact | format_co2 }} de CO<sub>2</sub> économisé !</h1>{% endblock %}
 
 {% block content %}
-
-    {% if is_path_completed %}
-        <h2>Félicitations !</h2>
-        <p>Tu as terminé l'intégralité de ton parcours éco-citoyen !</p>
-    {% else %}
-
-        {% if user_current_level is not null %}
-            <p>Niveau {{ user_current_level.sequenceNumber }}</p>
-            <p>{{ user_current_level.name }}</p>
-            <p>
-                <a href="{{ path('level') }}">GUIDE</a>
-            </p>
+    <main>
+        {% if is_path_completed %}
+            <h2>Félicitations !</h2>
+            <p>Tu as terminé l'intégralité de ton parcours éco-citoyen !</p>
         {% else %}
-            <p>Aucun niveau actif trouvé pour cet utilisateur.</p>
+
+            {% if user_current_level is not null %}
+                <p>Niveau {{ user_current_level.sequenceNumber }}</p>
+                <p>{{ user_current_level.name }}</p>
+                <p>
+                    <a href="{{ path('level') }}">GUIDE</a>
+                </p>
+            {% else %}
+                <p>Aucun niveau actif trouvé pour cet utilisateur.</p>
+            {% endif %}
+
+            {% set middle_index = (events_of_level|length / 2)|round(0, 'ceil') %}
+
+            <div class="level-container">
+
+                <div class="level-section section-left-mascot">
+                    <div class="mascot-wrapper">
+                        <img src="{{ user_current_level.mascot1 }}" alt="Mascotte guide">
+                    </div>
+                    <div class="events-wrapper">
+                        {% for event in events_of_level|slice(0, middle_index) %}
+                            {% if event.sequenceNumber > user_current_event.sequenceNumber %}
+                                <span
+                                    class="event-btn locked">{{ event.eventType.value }} {{ event.sequenceNumber }}</span>
+                            {% else %}
+                                <a href="{{ path('event', {'uid': event.uid, 'pageNumber': 1}) }}"
+                                   class="event-btn {{ user_current_event == event ? 'current-event' : '' }}">
+                                    {{ event.eventType.value }} {{ event.sequenceNumber }}
+                                </a>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                </div>
+
+                <div class="level-tip">
+                    <p><strong>Astuce : </strong>{{ user_current_level.tip.content }}</p>
+                </div>
+
+                <div class="level-section section-right-mascot">
+                    <div class="events-wrapper">
+                        {% for event in events_of_level|slice(middle_index) %}
+                            {% if event.sequenceNumber > user_current_event.sequenceNumber %}
+                                <span
+                                    class="event-btn locked">{{ event.eventType.value }} {{ event.sequenceNumber }}</span>
+                            {% else %}
+                                <a href="{{ path('event', {'uid': event.uid, 'pageNumber': 1}) }}"
+                                   class="event-btn {{ user_current_event == event ? 'current-event' : '' }}">
+                                    {{ event.eventType.value }} {{ event.sequenceNumber }}
+                                </a>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                    <div class="mascot-wrapper">
+                        <img src="{{ user_current_level.mascot2 }}" alt="Mascotte célébration">
+                    </div>
+                </div>
+
+            </div>
+
+            <p>À SUIVRE</p>
+            {% if next_level is not null %}
+                <p>Niveau {{ next_level.sequenceNumber }}</p>
+                <p>{{ next_level.name }}</p>
+            {% else %}
+                <p>Vous avez terminé le parcours ! Félicitations !</p>
+            {% endif %}
         {% endif %}
 
-        {% set middle_index = (events_of_level|length / 2)|round(0, 'ceil') %}
-
-        <div class="level-container">
-
-            <div class="level-section section-left-mascot">
-                <div class="mascot-wrapper">
-                    <img src="{{ user_current_level.mascot1 }}" alt="Mascotte guide">
-                </div>
-                <div class="events-wrapper">
-                    {% for event in events_of_level|slice(0, middle_index) %}
-                        {% if event.sequenceNumber > user_current_event.sequenceNumber %}
-                            <span class="event-btn locked">{{ event.eventType.value }} {{ event.sequenceNumber }}</span>
-                        {% else %}
-                            <a href="{{ path('event', {'uid': event.uid, 'pageNumber': 1}) }}"
-                               class="event-btn {{ user_current_event == event ? 'current-event' : '' }}">
-                                {{ event.eventType.value }} {{ event.sequenceNumber }}
-                            </a>
-                        {% endif %}
-                    {% endfor %}
-                </div>
-            </div>
-
-            <div class="level-tip">
-                <p><strong>Astuce : </strong>{{ user_current_level.tip.content }}</p>
-            </div>
-
-            <div class="level-section section-right-mascot">
-                <div class="events-wrapper">
-                    {% for event in events_of_level|slice(middle_index) %}
-                        {% if event.sequenceNumber > user_current_event.sequenceNumber %}
-                            <span class="event-btn locked">{{ event.eventType.value }} {{ event.sequenceNumber }}</span>
-                        {% else %}
-                            <a href="{{ path('event', {'uid': event.uid, 'pageNumber': 1}) }}"
-                               class="event-btn {{ user_current_event == event ? 'current-event' : '' }}">
-                                {{ event.eventType.value }} {{ event.sequenceNumber }}
-                            </a>
-                        {% endif %}
-                    {% endfor %}
-                </div>
-                <div class="mascot-wrapper">
-                    <img src="{{ user_current_level.mascot2 }}" alt="Mascotte célébration">
-                </div>
-            </div>
-
+        <div class="future-feature-card">
+            <h3>Bientôt : Des Parcours Sur-Mesure</h3>
+            <p>Parce que chaque éco-citoyen est différent,
+                un quiz d'évaluation initial vous sera bientôt proposé à l'inscription.
+                Il nous permettra de vous orienter vers le parcours d'accompagnement
+                le plus adapté à votre mode de vie.</p>
         </div>
-
-        <p>À SUIVRE</p>
-        {% if next_level is not null %}
-            <p>Niveau {{ next_level.sequenceNumber }}</p>
-            <p>{{ next_level.name }}</p>
-        {% else %}
-            <p>Vous avez terminé le parcours ! Félicitations !</p>
-        {% endif %}
-    {% endif %}
-
-    <div class="future-feature-card">
-        <h3>Bientôt : Des Parcours Sur-Mesure</h3>
-        <p>Parce que chaque éco-citoyen est différent,
-            un quiz d'évaluation initial vous sera bientôt proposé à l'inscription.
-            Il nous permettra de vous orienter vers le parcours d'accompagnement
-            le plus adapté à votre mode de vie.</p>
-    </div>
-
+    </main>
 {% endblock %}

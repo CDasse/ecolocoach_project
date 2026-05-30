@@ -1,20 +1,52 @@
+{% set current_route = app.current_route %}
+
+<h2>EcoloCoach</h2>
 <ul>
     <li>
-        <a href="{{ path('path') }}">Mon Parcours</a>
+        <a href="{{ path('path') }}"
+           class="btn-primary
+                  btn-primary-green
+                  {{ "path" in current_route ? 'active' : '' }}"
+        >
+            Mon Parcours
+        </a>
     </li>
     <li>
-        <a href="{{ path('impact') }}">Mon Impact</a>
+        <a href="{{ path('impact') }}"
+           class="btn-primary
+                  btn-primary-green
+                  {{ "impact" in current_route ? 'active' : '' }}"
+        >
+            Mon Impact
+        </a>
     </li>
     <li>
-        <a href="{{ path('community') }}">Communauté</a>
+        <a href="{{ path('community') }}"
+           class="btn-primary
+                  btn-primary-green
+                  {{ "community" in current_route ? 'active' : '' }}"
+        >
+            Communauté
+        </a>
     </li>
     <li>
-        <a href="{{ path('profil') }}">Mon Profil</a>
+        <a href="{{ path('profil') }}"
+           class="btn-primary
+                  btn-primary-green
+                  {{ "profil" in current_route ? 'active' : '' }}"
+        >
+            Mon Profil
+        </a>
     </li>
     <li>
-        <h3>{{ app.user.username }}</h3>
+        <h3 class="dialog-h3">{{ app.user.username }}</h3>
     </li>
     <li>
-        <a href="{{ path('app_logout') }}">Se déconnecter</a>
+        <a href="{{ path('app_logout') }}"
+           class="btn-primary
+                  btn-primary-red"
+        >
+            Se déconnecter
+        </a>
     </li>
 </ul>
