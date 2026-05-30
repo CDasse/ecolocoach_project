@@ -1,7 +1,15 @@
 {% extends '_layouts/in_app.html.twig' %}
 
 {% block title %}Mon parcours | EcoloCoach{% endblock %}
-{% block header_title %}<h1>{{ app.user.co2Impact | format_co2 }} de CO<sub>2</sub> économisé !</h1>{% endblock %}
+{% block header_title %}
+    <h1 class="co2-counter-pill">
+        <span class="co2-amount">
+            {{ app.user.co2Impact | format_co2 }}
+        </span>
+        <span class="co2-label">
+            de CO<sub>2</sub> économisés !</span>
+    </h1>
+{% endblock %}
 
 {% block content %}
     <main>
