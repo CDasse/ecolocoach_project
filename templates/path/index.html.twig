@@ -7,25 +7,31 @@
             {{ app.user.co2Impact | format_co2 }}
         </span>
         <span class="co2-label">
-            de CO<sub>2</sub> économisés !</span>
+            de CO<sub>2</sub><br> économisés !</span>
     </h1>
 {% endblock %}
 
 {% block content %}
     <main>
         {% if is_path_completed %}
-            <h2>Félicitations !</h2>
-            <p>Tu as terminé l'intégralité de ton parcours éco-citoyen !</p>
+            <div class="success-card">
+                <h2>Félicitations !</h2>
+                <p>Tu as terminé l'intégralité de ton parcours éco-citoyen !</p>
+            </div>
         {% else %}
 
             {% if user_current_level is not null %}
-                <p>Niveau {{ user_current_level.sequenceNumber }}</p>
-                <p>{{ user_current_level.name }}</p>
-                <p>
-                    <a href="{{ path('level') }}">GUIDE</a>
-                </p>
+                <div class="level-header-card">
+                    <div class="level-header-titles">
+                        <h2>Niveau {{ user_current_level.sequenceNumber }}</h2>
+                        <p class="level-subtitle">{{ user_current_level.name }}</p>
+                    </div>
+                    <a href="{{ path('level') }}" class="btn-guide">GUIDE</a>
+                </div>
             {% else %}
-                <p>Aucun niveau actif trouvé pour cet utilisateur.</p>
+                <div class="info-card">
+                    <p>Aucun niveau actif trouvé pour ce parcours.</p>
+                </div>
             {% endif %}
 
             {% set middle_index = (events_of_level|length / 2)|round(0, 'ceil') %}
@@ -38,12 +44,29 @@
                     </div>
                     <div class="events-wrapper">
                         {% for event in events_of_level|slice(0, middle_index) %}
+
+                            {% set total = loop.length %}
+                            {% set mid = (total - 1) / 2 %}
+                            {% set dist = loop.index0 - mid %}
+                            {% if dist < 0 %}{% set dist = -dist %}{% endif %}
+                            {% set x_offset = mid > 0 ? 25 - (80 * dist / mid) : 15 %}
+
                             {% if event.sequenceNumber > user_current_event.sequenceNumber %}
-                                <span
-                                    class="event-btn locked">{{ event.eventType.value }} {{ event.sequenceNumber }}</span>
+                                <span class="event-btn locked" style="--x-offset: {{ x_offset }}px;">
+                                    <img src="{{ asset('/uploads/icons/lock.svg') }}" alt="" class="btn-icon">
+                                    {{ event.eventType.value }} {{ event.sequenceNumber }}
+                                </span>
                             {% else %}
                                 <a href="{{ path('event', {'uid': event.uid, 'pageNumber': 1}) }}"
-                                   class="event-btn {{ user_current_event == event ? 'current-event' : '' }}">
+                                   class="event-btn {{ user_current_event == event ? 'current-event' : '' }}
+                                                 {{ event.eventType.value == "défi" ? 'btn-primary-golden' : 'btn-primary-green' }}"
+                                   style="--x-offset: {{ x_offset }}px;"
+                                >
+                                    {% if event.eventType.value == "défi" %}
+                                        <img src="{{ asset('/uploads/icons/challenge.svg') }}" alt="" class="btn-icon">
+                                    {% else %}
+                                        <img src="{{ asset('/uploads/icons/lesson.svg') }}" alt="" class="btn-icon">
+                                    {% endif %}
                                     {{ event.eventType.value }} {{ event.sequenceNumber }}
                                 </a>
                             {% endif %}
@@ -58,12 +81,29 @@
                 <div class="level-section section-right-mascot">
                     <div class="events-wrapper">
                         {% for event in events_of_level|slice(middle_index) %}
+
+                            {% set total = loop.length %}
+                            {% set mid = (total - 1) / 2 %}
+                            {% set dist = loop.index0 - mid %}
+                            {% if dist < 0 %}{% set dist = -dist %}{% endif %}
+                            {% set x_offset = mid > 0 ? 25 - (80 * dist / mid) : 15 %}
+
                             {% if event.sequenceNumber > user_current_event.sequenceNumber %}
-                                <span
-                                    class="event-btn locked">{{ event.eventType.value }} {{ event.sequenceNumber }}</span>
+                                <span class="event-btn locked" style="--x-offset: {{ -x_offset }}px;">
+                                    <img src="{{ asset('/uploads/icons/lock.svg') }}" alt="" class="btn-icon">
+                                    {{ event.eventType.value }} {{ event.sequenceNumber }}
+                                </span>
                             {% else %}
                                 <a href="{{ path('event', {'uid': event.uid, 'pageNumber': 1}) }}"
-                                   class="event-btn {{ user_current_event == event ? 'current-event' : '' }}">
+                                   class="event-btn {{ user_current_event == event ? 'current-event' : '' }}
+                                                 {{ event.eventType.value == "défi" ? 'btn-primary-golden' : 'btn-primary-green' }}"
+                                   style="--x-offset: {{ -x_offset }}px;"
+                                >
+                                    {% if event.eventType.value == "défi" %}
+                                        <img src="{{ asset('/uploads/icons/challenge.svg') }}" alt="" class="btn-icon">
+                                    {% else %}
+                                        <img src="{{ asset('/uploads/icons/lesson.svg') }}" alt="" class="btn-icon">
+                                    {% endif %}
                                     {{ event.eventType.value }} {{ event.sequenceNumber }}
                                 </a>
                             {% endif %}
@@ -76,13 +116,26 @@
 
             </div>
 
-            <p>À SUIVRE</p>
-            {% if next_level is not null %}
-                <p>Niveau {{ next_level.sequenceNumber }}</p>
-                <p>{{ next_level.name }}</p>
-            {% else %}
-                <p>Vous avez terminé le parcours ! Félicitations !</p>
-            {% endif %}
+            <div class="next-level-section">
+                <span class="next-level-badge">À suivre</span>
+
+                {% if next_level is not null %}
+                    <div class="next-level-card">
+                        <div class="next-level-info">
+                            <h3>Niveau {{ next_level.sequenceNumber }}</h3>
+                            <p>{{ next_level.name }}</p>
+                        </div>
+                        <div class="next-level-icon">
+                            <img src="{{ asset('/uploads/icons/lock.svg') }}" alt="">
+                        </div>
+                    </div>
+                {% else %}
+                    <div class="success-card">
+                        <p>Vous avez terminé le parcours ! Félicitations !</p>
+                    </div>
+                {% endif %}
+            </div>
+
         {% endif %}
 
         <div class="future-feature-card">

@@ -112,7 +112,7 @@ p {
 }
 
 /*--------------------------------------------------------------------------------*/
-/*-------------------------------PRIMARY BUTTON-----------------------------------*/
+/*------------------------------ PRIMARY BUTTON ----------------------------------*/
 /*--------------------------------------------------------------------------------*/
 
 .btn-primary {
@@ -194,6 +194,41 @@ p {
     object-fit: contain;
     flex-shrink: 0;
 }
+
+/*--------------------------------------------------------------------------------*/
+/*----------------------------- FUTURE FEATURES ----------------------------------*/
+/*--------------------------------------------------------------------------------*/
+
+.future-feature-card {
+    border: 2px dashed var(--color-golden-500);
+    border-radius: var(--radius-medium);
+    padding: 24px;
+    margin-top: 32px;
+}
+
+.future-feature-card h3 {
+    color: var(--color-golden-900);
+    margin-top: 0;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.future-feature-card h3::before {
+    content: "🌱";
+    font-size: 1.2em;
+}
+
+.future-feature-card p {
+    color: var(--color-golden-800);
+    font-size: var(--font-size-small);
+    line-height: 1.5;
+    margin-bottom: 0;
+}
+
+
+
+
 
 /*--------------------------------------------------------------------------------*/
 /*------------------------------POP_UP CHALLENGE----------------------------------*/
