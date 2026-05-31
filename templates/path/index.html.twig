@@ -36,6 +36,7 @@
 
             {% set middle_index = (events_of_level|length / 2)|round(0, 'ceil') %}
 
+
             <div class="level-container">
 
                 <div class="level-section section-left-mascot">
@@ -51,10 +52,12 @@
                             {% if dist < 0 %}{% set dist = -dist %}{% endif %}
                             {% set x_offset = mid > 0 ? 25 - (80 * dist / mid) : 15 %}
 
+                            {% set current_number = events_of_level|slice(0, loop.index)|filter(e => e.eventType.value == event.eventType.value)|length %}
+
                             {% if event.sequenceNumber > user_current_event.sequenceNumber %}
                                 <span class="event-btn locked" style="--x-offset: {{ x_offset }}px;">
                                     <img src="{{ asset('/uploads/icons/lock.svg') }}" alt="" class="btn-icon">
-                                    {{ event.eventType.value }} {{ event.sequenceNumber }}
+                                    {{ event.eventType.value }} {{ current_number }}
                                 </span>
                             {% else %}
                                 <a href="{{ path('event', {'uid': event.uid, 'pageNumber': 1}) }}"
@@ -67,7 +70,7 @@
                                     {% else %}
                                         <img src="{{ asset('/uploads/icons/lesson.svg') }}" alt="" class="btn-icon">
                                     {% endif %}
-                                    {{ event.eventType.value }} {{ event.sequenceNumber }}
+                                    {{ event.eventType.value }} {{ current_number }}
                                 </a>
                             {% endif %}
                         {% endfor %}
@@ -88,10 +91,12 @@
                             {% if dist < 0 %}{% set dist = -dist %}{% endif %}
                             {% set x_offset = mid > 0 ? 25 - (80 * dist / mid) : 15 %}
 
+                            {% set current_number = events_of_level|slice(0, middle_index + loop.index)|filter(e => e.eventType.value == event.eventType.value)|length %}
+
                             {% if event.sequenceNumber > user_current_event.sequenceNumber %}
                                 <span class="event-btn locked" style="--x-offset: {{ -x_offset }}px;">
                                     <img src="{{ asset('/uploads/icons/lock.svg') }}" alt="" class="btn-icon">
-                                    {{ event.eventType.value }} {{ event.sequenceNumber }}
+                                    {{ event.eventType.value }} {{ current_number }}
                                 </span>
                             {% else %}
                                 <a href="{{ path('event', {'uid': event.uid, 'pageNumber': 1}) }}"
@@ -104,7 +109,7 @@
                                     {% else %}
                                         <img src="{{ asset('/uploads/icons/lesson.svg') }}" alt="" class="btn-icon">
                                     {% endif %}
-                                    {{ event.eventType.value }} {{ event.sequenceNumber }}
+                                    {{ event.eventType.value }} {{ current_number }}
                                 </a>
                             {% endif %}
                         {% endfor %}
