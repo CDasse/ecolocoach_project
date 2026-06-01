@@ -1,32 +1,43 @@
-<button onclick="closePopup()">
-    <img src="" alt="Fermer pop-up" />
+<button class="popup-close-btn" onclick="closePopup()">
+    <img src="{{ asset('/uploads/icons/cross.svg') }}" alt="Fermer"/>
 </button>
 
-{% for part in event_parts %}
-    {% if part.eventPartType.name == 'PICTURE' %}
-        <img src="/{{ part.picturePath }}" alt="{{ part.pictureAlt }}">
-    {% endif %}
+<div class="popup-inner-container">
 
-    {% if part.eventPartType.name == 'TAG' %}
-        <p>{{ part.tag }}</p>
-    {% endif %}
+    {% for part in event_parts %}
+        {% if part.eventPartType.name == 'PICTURE' %}
+            <img class="popup-top-picture" src="/{{ part.picturePath }}" alt="{{ part.pictureAlt }}">
+        {% endif %}
+    {% endfor %}
 
-    {% if part.eventPartType.name == 'LABEL' %}
-        <p>{{ part.label }}</p>
-    {% endif %}
+    <div class="popup-body-content">
 
-    {% if part.eventPartType.name == 'DESCRIPTION' %}
-        <p>{{ part.description }}</p>
-    {% endif %}
+        <div class="tags-group-container">
+            {% for part in event_parts %}
+                {% if part.eventPartType.name == 'TAG' %}
+                    <span class="event-tag">{{ part.tag }}</span>
+                {% endif %}
+            {% endfor %}
+        </div>
 
-    {% if part.eventPartType.name == 'SUBTITLE' %}
-        <p>{{ part.label }}</p>
-    {% endif %}
+        {% for part in event_parts %}
+            {% if part.eventPartType.name == 'LABEL' %}
+                <h2 class="event-label">{{ part.label }}</h2>
+            {% elseif part.eventPartType.name == 'DESCRIPTION' %}
+                <p class="event-description">{{ part.description }}</p>
 
-    {% if part.eventPartType.name == 'SUBDESCRIPTION' %}
-        <p>{{ part.description }}</p>
-    {% endif %}
+            {% elseif part.eventPartType.name == 'SUBTITLE' %}
+                <div class="subgroup-card">
+                <p class="event-label">{{ part.label }}</p>
+            {% elseif part.eventPartType.name == 'SUBDESCRIPTION' %}
+                <p class="event-description">{{ part.description }}</p>
+                </div>
+            {% endif %}
+        {% endfor %}
 
-{% endfor %}
+    </div>
 
-{% include 'event/_event_components/_challenge_pop_up_actions.html.twig' %}
+    <div class="popup-footer-actions">
+        {% include 'event/_event_components/_challenge_pop_up_actions.html.twig' %}
+    </div>
+</div>
