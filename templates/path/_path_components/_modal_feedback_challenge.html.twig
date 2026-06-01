@@ -1,0 +1,39 @@
+{% set flash_accepted = app.flashes('challenge_accepted') %}
+{% set flash_refused = app.flashes('challenge_refused') %}
+
+{% set show_modal = flash_accepted is not empty or flash_refused is not empty %}
+
+<div id="overlay-popup" class="overlay-popup {% if not show_modal %}hidden{% endif %}">
+
+    <div id="content-popup" class="content-popup">
+
+        {% for message in flash_accepted %}
+            <div class="modal-feedback-box">
+                <div class="modal-header-container">
+                    {{ message|raw }}
+                    <button class="modal-close-cross" onclick="closePopup()" aria-label="Fermer la modale">
+                        <img src="{{ asset("/uploads/icons/cross.svg") }}" alt="">
+                    </button>
+                </div>
+                <a href="{{ path('recap_challenges') }}" class="btn-primary btn-primary-green">
+                    Voir tous mes défis
+                </a>
+            </div>
+        {% endfor %}
+
+        {% for message in flash_refused %}
+            <div class="modal-feedback-box">
+                <div class="modal-header-container">
+                    {{ message|raw }}
+                    <button class="modal-close-cross" onclick="closePopup()" aria-label="Fermer la modale">
+                        <img src="{{ asset("/uploads/icons/cross.svg") }}" alt="Fermer">
+                    </button>
+                </div>
+                <a href="{{ path('recap_challenges') }}" class="btn-primary btn-primary-green">
+                    Voir tous mes défis
+                </a>
+            </div>
+        {% endfor %}
+
+    </div>
+</div>

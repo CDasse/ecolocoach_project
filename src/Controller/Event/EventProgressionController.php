@@ -19,11 +19,11 @@ use Symfony\Component\Routing\Attribute\Route;
  */
 final class EventProgressionController extends AbstractController
 {
-    #[Route('/event/{uid}/{eventStatus}', name: 'event_finished', requirements: ['eventStatus' => 'Terminé|Accepté|Refusé'], methods: ['POST']) ]
+    #[Route('/event/{uid}/{eventStatus}', name: 'event_finished', requirements: ['eventStatus' => 'Terminé|Accepté|Refusé'], methods: ['POST'])]
     public function eventProgression(
         #[MapEntity(mapping: ['uid' => 'uid'])]
-        Event $event,
-        EventStatus $eventStatus,
+        Event                  $event,
+        EventStatus            $eventStatus,
         EntityManagerInterface $entityManager,
         XUserLevelEventService $xUserLevelEventService
     ): Response
@@ -72,14 +72,14 @@ final class EventProgressionController extends AbstractController
         // on the user's choices, and redirects them back to the main roadmap.
 
         if ($eventStatus == EventStatus::ACCEPTED) {
-            $this->addFlash('success',
-                '<strong>BRAVO !</strong> Tu viens d’accepter le défi. <br>On a hâte que tu vives cette expérience ! <br>
+            $this->addFlash('challenge_accepted',
+                '<strong>BRAVO !</strong><br><br>Tu viens d’accepter le défi. On a hâte que tu vives cette expérience ! <br>
                             Tu peux retrouver tes défis en cours dans l’onglet “MON IMPACT” et les valider une fois réalisés.');
         }
 
         if ($eventStatus == EventStatus::REFUSED) {
-            $this->addFlash('info',
-                "<strong>CE N'EST PAS GRAVE !</strong> <br>Que tu ne sois pas prêt.e ou que tu ne puisses pas réaliser ce défi, ce n’est pas grave. Beaucoup d’autres défis t’attendent ! <br>
+            $this->addFlash('challenge_refused',
+                "<strong>CE N'EST PAS GRAVE !</strong><br><br>Que tu ne sois pas prêt.e ou que tu ne puisses pas réaliser ce défi, ce n’est pas grave. Beaucoup d’autres défis t’attendent !<br>
                         Si par la suite, tu souhaites retenter ce défi, rends-toi dans la liste de tes défis annulés.");
         }
 
