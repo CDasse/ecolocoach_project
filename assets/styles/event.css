@@ -22,6 +22,7 @@ progress::-webkit-progress-bar {
     background-color: var(--color-grey-300);
     border-radius: var(--radius-large);
 }
+
 progress::-webkit-progress-value {
     background-color: var(--color-green-500);
     border-radius: var(--radius-large);
@@ -72,10 +73,6 @@ progress::-moz-progress-bar {
     box-shadow: none;
 }
 
-.event-description {
-    text-align: justify;
-}
-
 /*--------------------------------------------------------------------------------*/
 /*----------------------------- FEEDBACK ANSWER ----------------------------------*/
 /*--------------------------------------------------------------------------------*/
@@ -104,6 +101,82 @@ progress::-moz-progress-bar {
     background-color: var(--color-golden-200);
     border: 2px solid var(--color-golden-500);
     color: var(--color-golden-900);
+}
+
+
+/*--------------------------------------------------------------------------------*/
+/*-------------------------------- CHALLENGE -------------------------------------*/
+/*--------------------------------------------------------------------------------*/
+
+.tags-group-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+
+    width: 100vw;
+    margin-left: calc(50% - 50vw);
+    margin-bottom: 20px;
+    padding: 12px 24px;
+    box-sizing: border-box;
+
+    background-color: var(--color-green-200);
+    border-top: 1px solid var(--color-green-900);
+    border-bottom: 1px solid var(--color-green-900);
+}
+
+.event-tag {
+    display: inline-block;
+
+    background-color: var(--color-golden-100);
+    color: var(--color-green-900);
+    font-size: var(--font-size-small);
+
+    padding: 6px 12px;
+
+    border-radius: var(--radius-large);
+}
+
+.tags-group-container .event-tag {
+    margin: 0;
+}
+
+h2.event-label {
+    font-size: var(--font-size-large);
+    text-align: center;
+
+    line-height: 1.25;
+    margin: 0 0 14px 0;
+}
+
+p.event-description {
+    margin: 0 0 14px 0;
+}
+
+.subgroup-card {
+    background-color: var(--color-green-200);
+    border-top: 1px solid var(--color-green-900);
+    border-bottom: 1px solid var(--color-green-900);
+
+    width: 100vw;
+    margin-left: calc(50% - 50vw);
+    box-sizing: border-box;
+    padding: 24px;
+}
+
+.subgroup-card h3.event-label {
+    color: var(--color-green-900);
+    font-size: var(--font-size-medium);
+    text-align: center;
+
+    margin: 0 0 12px 0;
+}
+
+.subgroup-card p.event-description {
+    font-size: var(--font-size-small);
+    color: var(--color-green-900);
+    text-align: center;
+
+    margin: 0;
 }
 
 /*--------------------------------------------------------------------------------*/

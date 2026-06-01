@@ -444,8 +444,12 @@ class AppFixtures extends Fixture
         foreach ($rawEventsData as $id => $info) {
             // Déterminer le niveau d'appartenance
             $lvlNum = 1;
-            if ($id > 10 && $id <= 20) { $lvlNum = 2; }
-            if ($id > 20) { $lvlNum = 3; }
+            if ($id > 10 && $id <= 20) {
+                $lvlNum = 2;
+            }
+            if ($id > 20) {
+                $lvlNum = 3;
+            }
 
             $levelEntity = $levelsList[$lvlNum];
             // Calcul du numéro de séquence local (de 1 à 10 par niveau)
@@ -472,7 +476,7 @@ class AppFixtures extends Fixture
                 $parts = [
                     1 => [EventPartType::PICTURE, "uploads/events/defi_" . $id . $img_format, null, null, null, null, null, $info['picture_alt']],
                     2 => [EventPartType::TAG, null, null, null, null, "Impact : " . $d[0], null, null],
-                    3 => [EventPartType::TAG, null, null, null, null, $info['co2'] . " kg CO2", null, null],
+                    3 => [EventPartType::TAG, null, null, null, null, "- " . $info['co2'] . " kg CO2", null, null],
                     4 => [EventPartType::TAG, null, null, null, null, $d[1], null, null],
                     5 => [EventPartType::LABEL, null, null, null, null, null, $d[2], null],
                     6 => [EventPartType::DESCRIPTION, null, null, null, $d[3], null, null, null],

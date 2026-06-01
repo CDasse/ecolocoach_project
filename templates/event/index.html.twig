@@ -20,45 +20,69 @@
     {% endif %}
 
     <div class="event-content">
-        {% for part in event_parts %}
-            {% if part.eventPartType.name == 'PICTURE' %}
-                <img class="event-picture" src="/{{ part.picturePath }}" alt="{{ part.pictureAlt }}">
-            {% endif %}
+    {% set inside_tags = false %}
+    {% set inside_subgroup = false %}
 
-            {% if part.eventPartType.name == 'TAG' %}
-                <span class="event-tag">{{ part.tag }}</span>
-            {% endif %}
+    {% for part in event_parts %}
 
-            {% if part.eventPartType.name == 'LABEL' %}
-                <h2 class="event-label">{{ part.label }}</h2>
-            {% endif %}
+    {% if inside_tags and part.eventPartType.name != 'TAG' %}
+    </div>
+    {% set inside_tags = false %}
+    {% endif %}
 
-            {% if part.eventPartType.name == 'DESCRIPTION' %}
-                <p class="event-description">{{ part.description }}</p>
-            {% endif %}
+    {% if inside_subgroup and part.eventPartType.name != 'SUBTITLE' and part.eventPartType.name != 'SUBDESCRIPTION' %}
+        </div>
+        {% set inside_subgroup = false %}
+    {% endif %}
 
-            {% if part.eventPartType.name == 'QUESTION' %}
-                <h3 class="event-question">{{ part.question }}</h3>
-            {% endif %}
+    {% if part.eventPartType.name == 'PICTURE' %}
+        <img class="event-picture" src="/{{ part.picturePath }}" alt="{{ part.pictureAlt }}">
+    {% endif %}
 
-            {% if part.eventPartType.name == 'ANSWER' %}
-                <div class="event-answers">
-                    <input type="hidden" name="selected_answer" id="selected-answer-input" required>
-                    {% for answer in part.answers %}
-                        <button type="button" class="btn-secondary btn-secondary-green btn-answer" data-value="{{ answer }}">{{ answer }}</button>
-                    {% endfor %}
-                </div>
-            {% endif %}
+    {% if part.eventPartType.name == 'TAG' %}
+    {% if not inside_tags %}
+    <div class="tags-group-container">
+    {% set inside_tags = true %}
+    {% endif %}
+    <span class="event-tag">{{ part.tag }}</span>
+    {% endif %}
 
-            {% if part.eventPartType.name == 'SUBTITLE' %}
-                <h3 class="event-label">{{ part.label }}</h3>
-            {% endif %}
+    {% if part.eventPartType.name == 'LABEL' %}
+        <h2 class="event-label">{{ part.label }}</h2>
+    {% endif %}
 
-            {% if part.eventPartType.name == 'SUBDESCRIPTION' %}
-                <p class="event-description">{{ part.description }}</p>
-            {% endif %}
+    {% if part.eventPartType.name == 'DESCRIPTION' %}
+        <p class="event-description">{{ part.description }}</p>
+    {% endif %}
 
-        {% endfor %}
+    {% if part.eventPartType.name == 'QUESTION' %}
+        <h3 class="event-question">{{ part.question }}</h3>
+    {% endif %}
+
+    {% if part.eventPartType.name == 'ANSWER' %}
+        <div class="event-answers">
+            <input type="hidden" name="selected_answer" id="selected-answer-input" required>
+            {% for answer in part.answers %}
+                <button type="button" class="btn-secondary btn-secondary-green btn-answer"
+                        data-value="{{ answer }}">{{ answer }}</button>
+            {% endfor %}
+        </div>
+    {% endif %}
+
+    {% if part.eventPartType.name == 'SUBTITLE' %}
+    {% if inside_subgroup %}</div>{% endif %}
+    <div class="subgroup-card">
+    {% set inside_subgroup = true %}
+    <h3 class="event-label">{{ part.label }}</h3>
+    {% endif %}
+
+    {% if part.eventPartType.name == 'SUBDESCRIPTION' %}
+        <p class="event-description">{{ part.description }}</p>
+    {% endif %}
+
+    {% endfor %}
+    {% if inside_tags %}</div>{% endif %}
+    {% if inside_subgroup %}</div>{% endif %}
     </div>
 
     {% if event.eventType.name == 'LESSON' %}
