@@ -369,11 +369,13 @@
     display: none;
 }
 
-.content-popup {
+.feedback-popup {
     position: relative;
     border-radius: var(--radius-large);
     width: 100%;
     max-width: 342px;
+
+    background-color: var(--color-white);
 
     padding: 36px 28px 28px 28px;
     box-sizing: border-box;
