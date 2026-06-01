@@ -5,40 +5,70 @@
 
 
 {% block content %}
-    <main>
-        <p>{{ app.user.co2Impact | format_co2 }} de co2 économisé !</p>
-        {% if equivalent_impact %}
-            <p>{{ equivalent_impact.icon }}</p>
-            <p>{{ equivalent_impact.text }}</p>
-        {% else %}
-            <p>Réalise un défi pour comparer ton impact positif.</p>
-        {% endif %}
+    <main class="impact-page-container">
 
-        {% if message_encouragement and app.user.co2Impact > 0 %}
-            <p>{{ message_encouragement.content }}</p>
-        {% endif %}
+        <section class="impact-stats-section">
+            <div class="stat-card">
+                <div class="stat-main">
+                    <span class="stat-value">{{ app.user.co2Impact | format_co2 }}</span>
+                    <span class="stat-label">de CO₂<br>économisés</span>
+                </div>
 
-        <h3>Mes défis en cours</h3>
+                {% if equivalent_impact %}
+                    <div class="stat-divider"></div>
+                    <div class="stat-equivalent">
+                        <div>
+                            <span class="equivalent-text">{{ equivalent_impact.text }}</span>
+                        </div>
+                        <span class="equivalent-icon">{{ equivalent_impact.icon }}</span>
+                    </div>
+                {% endif %}
+            </div>
 
-        {% if challenges_accepted %}
-            {% for challenge in challenges_accepted %}
-                <p>{{ challenge.co2Impact | format_co2 }} co2</p>
-                <img src="{{ challenge.picture }}" alt="{{ challenge.pictureAlt }}">
-                <p>{{ challenge.title }}</p>
-                <p>{{ challenge.description }}</p>
-                <button onclick="openPopup('{{ path('challenge_pop_up', {uid: challenge.uid}) }}')">
-                    Voir plus ->
-                </button>
-            {% endfor %}
-        {% else %}
-            <p>Continue dans le parcours pour débloquer des défis.</p>
-        {% endif %}
+            {% if message_encouragement and app.user.co2Impact > 0 %}
+                <div class="encouragement-badge">
+                    {{ message_encouragement.content }}
+                </div>
+            {% endif %}
+        </section>
 
-        <a href="{{ path('recap_challenges') }}">Tous mes défis</a>
+        <section class="ongoing-challenges-section">
+            <h2 class="section-title">Mes défis en cours</h2>
+
+            <div class="challenges-list">
+                {% if challenges_accepted %}
+                    {% for challenge in challenges_accepted %}
+                        <div class="challenge-card">
+                            <div class="challenge-image-container">
+                                <span class="co2-tag">- {{ challenge.co2Impact | format_co2 }} CO<sub>2</sub></span>
+                                <img src="{{ challenge.picture }}" alt="{{ challenge.pictureAlt }}">
+                            </div>
+
+                            <div class="challenge-content">
+                                <h3>{{ challenge.title }}</h3>
+                                <p>{{ challenge.description }}</p>
+
+                                <button class="btn-read-more"
+                                        onclick="openPopup('{{ path('challenge_pop_up', {uid: challenge.uid}) }}')">
+                                    Voir plus ➔
+                                </button>
+                            </div>
+                        </div>
+                    {% endfor %}
+                {% else %}
+                    <p class="empty-state">Continue dans le parcours pour débloquer des défis.</p>
+                {% endif %}
+            </div>
+
+            <a href="{{ path('recap_challenges') }}" class="btn-primary btn-primary-green btn-full-width">
+                Tous mes défis
+            </a>
+        </section>
 
         <div id="overlay-popup" class="overlay-popup hidden">
             <div id="content-popup" class="content-popup">
             </div>
         </div>
+
     </main>
 {% endblock %}
