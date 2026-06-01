@@ -133,8 +133,13 @@
     box-sizing: border-box;
 }
 
-.section-left-mascot .events-wrapper { margin-left: -20px; }
-.section-right-mascot .events-wrapper { margin-right: -20px; }
+.section-left-mascot .events-wrapper {
+    margin-left: -20px;
+}
+
+.section-right-mascot .events-wrapper {
+    margin-right: -20px;
+}
 
 
 /*--------------------------------------------------------------------------------*/
@@ -255,6 +260,13 @@
     height: auto;
 }
 
+.section-left-mascot .mascot-wrapper {
+    transform: translateX(-20px);
+}
+
+.section-right-mascot .mascot-wrapper {
+    transform: translateX(20px);
+}
 
 /*--------------------------------------------------------------------------------*/
 /*------------------------------- NEXT LEVEL -------------------------------------*/

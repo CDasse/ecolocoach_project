@@ -52,6 +52,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
             hiddenInput.value = this.dataset.value;
 
+            validateBtn.classList.remove('btn-validation-disabled');
             validateBtn.disabled = false;
         });
     });

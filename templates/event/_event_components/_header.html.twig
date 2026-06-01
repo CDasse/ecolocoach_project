@@ -1,5 +1,13 @@
-<h1>{{ event.eventType.value }} {{ event.sequenceNumber }}</h1>
+<header>
+    <h1>{{ event.eventType.value|capitalize }}</h1>
+
+    <a href="{{ path('path') }}" class="exit-menu-button">
+        <img src="{{ asset("/uploads/icons/cross.svg") }}" alt="Fermer la leçon et revenir au parcours">
+    </a>
+</header>
 
 {% if event.eventType.name == 'LESSON' %}
-    <progress max="{{ total_pages }}" value="{{ page_number }}">Progression : {{ page_number }}/{{ total_pages }}</progress>
+    <div class="progress-container">
+        <progress max="{{ total_pages }}" value="{{ page_number }}">Progression : {{ page_number }}/{{ total_pages }}</progress>
+    </div>
 {% endif %}

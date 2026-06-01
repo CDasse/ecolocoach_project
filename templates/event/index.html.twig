@@ -1,6 +1,6 @@
 {% extends '_layouts/in_event.html.twig' %}
 
-{% block title %}Niveau {{ event.level.sequenceNumber }} : {{ event.eventType.value }} {{ event.sequenceNumber }} | EcoloCoach{% endblock %}
+{% block title %}Niveau {{ event.level.sequenceNumber }} | EcoloCoach{% endblock %}
 
 {% block content %}
 
@@ -19,43 +19,47 @@
         <form method="POST" action="{{ path('event', {'uid': event.uid, 'pageNumber': page_number + 1}) }}">
     {% endif %}
 
-    {% for part in event_parts %}
-        {% if part.eventPartType.name == 'PICTURE' %}
-            <img src="/{{ part.picturePath }}" alt="{{ part.pictureAlt }}">
-        {% endif %}
+    <div class="event-content">
+        {% for part in event_parts %}
+            {% if part.eventPartType.name == 'PICTURE' %}
+                <img class="event-picture" src="/{{ part.picturePath }}" alt="{{ part.pictureAlt }}">
+            {% endif %}
 
-        {% if part.eventPartType.name == 'QUESTION' %}
-            <p>{{ part.question }}</p>
-        {% endif %}
+            {% if part.eventPartType.name == 'TAG' %}
+                <span class="event-tag">{{ part.tag }}</span>
+            {% endif %}
 
-        {% if part.eventPartType.name == 'ANSWER' %}
-            <input type="hidden" name="selected_answer" id="selected-answer-input" required>
-            {% for answer in part.answers %}
-                <button type="button" class="btn-answer" data-value="{{ answer }}">{{ answer }}</button>
-            {% endfor %}
-        {% endif %}
+            {% if part.eventPartType.name == 'LABEL' %}
+                <h2 class="event-label">{{ part.label }}</h2>
+            {% endif %}
 
-        {% if part.eventPartType.name == 'TAG' %}
-            <p>{{ part.tag }}</p>
-        {% endif %}
+            {% if part.eventPartType.name == 'DESCRIPTION' %}
+                <p class="event-description">{{ part.description }}</p>
+            {% endif %}
 
-        {% if part.eventPartType.name == 'LABEL' %}
-            <p>{{ part.label }}</p>
-        {% endif %}
+            {% if part.eventPartType.name == 'QUESTION' %}
+                <h3 class="event-question">{{ part.question }}</h3>
+            {% endif %}
 
-        {% if part.eventPartType.name == 'DESCRIPTION' %}
-            <p>{{ part.description }}</p>
-        {% endif %}
+            {% if part.eventPartType.name == 'ANSWER' %}
+                <div class="event-answers">
+                    <input type="hidden" name="selected_answer" id="selected-answer-input" required>
+                    {% for answer in part.answers %}
+                        <button type="button" class="btn-secondary btn-secondary-green btn-answer" data-value="{{ answer }}">{{ answer }}</button>
+                    {% endfor %}
+                </div>
+            {% endif %}
 
-        {% if part.eventPartType.name == 'SUBTITLE' %}
-            <p>{{ part.label }}</p>
-        {% endif %}
+            {% if part.eventPartType.name == 'SUBTITLE' %}
+                <h3 class="event-label">{{ part.label }}</h3>
+            {% endif %}
 
-        {% if part.eventPartType.name == 'SUBDESCRIPTION' %}
-            <p>{{ part.description }}</p>
-        {% endif %}
+            {% if part.eventPartType.name == 'SUBDESCRIPTION' %}
+                <p class="event-description">{{ part.description }}</p>
+            {% endif %}
 
-    {% endfor %}
+        {% endfor %}
+    </div>
 
     {% if event.eventType.name == 'LESSON' %}
         {% include 'event/_event_components/_lesson_navigation.html.twig' %}

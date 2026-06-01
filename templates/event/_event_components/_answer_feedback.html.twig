@@ -1,9 +1,9 @@
 {% if is_correct_answer is not null %}
 
-    {% if is_correct_answer %}
-        <p>Bonne réponse !</p>
-    {% else %}
-        <p>Mauvaise réponse</p>
-    {% endif %}
+    <div class="feedback-card {{ is_correct_answer ? 'feedback-success' : 'feedback-error' }}">
+        <div class="feedback-content">
+            <p>{{ is_correct_answer ? 'Bonne réponse !' : 'Mauvaise réponse.' }}</p>
+        </div>
+    </div>
 
 {% endif %}
