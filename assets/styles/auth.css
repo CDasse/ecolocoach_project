@@ -1,3 +1,7 @@
+/*--------------------------------------------------------------------------------*/
+/*---------------------------- AUTHENTIFICATION ----------------------------------*/
+/*--------------------------------------------------------------------------------*/
+
 .auth-page-container {
     display: flex;
     flex-direction: column;
@@ -24,7 +28,7 @@
     font-weight: var(--font-weight-extra-bold);
 
     margin-top: 0;
-    margin-bottom: 32px;
+    margin-bottom: 48px;
     text-align: center;
 }
 
@@ -106,4 +110,29 @@
 
 .auth-card .btn-secondary {
     background-color: var(--color-white);
+}
+
+
+/*--------------------------------------------------------------------------------*/
+/*------------------------------ REGISTRATION ------------------------------------*/
+/*--------------------------------------------------------------------------------*/
+
+.form-group-checkbox {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 4px;
+    font-size: var(--font-size-small);
+}
+
+.auth-checkbox {
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+    accent-color: var(--color-green-500);
+}
+
+.form-group-checkbox label {
+    cursor: pointer;
+    user-select: none;
 }

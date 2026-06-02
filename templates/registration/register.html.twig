@@ -1,23 +1,57 @@
+{# TODO: ajouter la confirmation d'inscription par mail lorsque l'application sera utilisée #}
+
 {% extends '_layouts/standard.html.twig' %}
 
 {% block title %}Inscription | Ecolocoach{% endblock %}
 
 {% block content %}
-    <main>
-        <h1>Inscription</h1>
+    <div class="auth-page-container">
+        <div class="auth-card">
+            <h1>Inscription</h1>
 
-        {{ form_errors(registrationForm) }}
+            {% if form_errors(registrationForm) %}
+                <div class="auth-alert-error">
+                    {{ form_errors(registrationForm) }}
+                </div>
+            {% endif %}
 
-        {{ form_start(registrationForm) }}
-        {{ form_row(registrationForm.username) }}
-        {{ form_row(registrationForm.email) }}
-        {{ form_row(registrationForm.plainPassword, {
-            label: 'Mot de passe'
-        }) }}
-        {{ form_widget(registrationForm.agreeTerms) }}
-        {{ form_label(registrationForm.agreeTerms, 'J\'accepte les conditions.') }}
+            {{ form_start(registrationForm, {'attr': {'class': 'auth-form'}}) }}
 
-        <button type="submit" class="btn">S'inscrire</button>
-        {{ form_end(registrationForm) }}
-    </main>
+            <div class="form-group">
+                {{ form_label(registrationForm.username, "Nom d'utilisateur") }}
+                {{ form_widget(registrationForm.username, {'attr': {'class': 'auth-input', 'placeholder': 'Ex : JasmineLake'}}) }}
+                {{ form_errors(registrationForm.username) }}
+            </div>
+
+            <div class="form-group">
+                {{ form_label(registrationForm.email, 'Email') }}
+                {{ form_widget(registrationForm.email, {'attr': {'class': 'auth-input', 'placeholder': 'jasmine.lake@email.fr'}}) }}
+                {{ form_errors(registrationForm.email) }}
+            </div>
+
+            <div class="form-group">
+                {{ form_label(registrationForm.plainPassword, 'Mot de passe') }}
+                {{ form_widget(registrationForm.plainPassword, {'attr': {'class': 'auth-input'}}) }}
+                {{ form_errors(registrationForm.plainPassword) }}
+            </div>
+
+            <div class="form-group-checkbox">
+                {{ form_widget(registrationForm.agreeTerms, {'attr': {'class': 'auth-checkbox'}}) }}
+                {{ form_label(registrationForm.agreeTerms, 'J\'accepte les conditions générales.') }}
+                {{ form_errors(registrationForm.agreeTerms) }}
+            </div>
+
+            <button type="submit" class="btn-primary btn-primary-green">
+                S'inscrire
+            </button>
+
+            <div class="register-section">
+                <p>Déjà un compte ?</p>
+                <a href="{{ path('app_login') }}" class="btn-secondary btn-secondary-green">
+                    Se connecter
+                </a>
+            </div>
+            {{ form_end(registrationForm) }}
+        </div>
+    </div>
 {% endblock %}
