@@ -1,4 +1,6 @@
 {
+    "name": "cdasse/ecolocoach",
+    "description": "This is a description",
     "type": "project",
     "license": "proprietary",
     "minimum-stability": "stable",
