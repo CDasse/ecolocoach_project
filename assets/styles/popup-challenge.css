@@ -35,6 +35,11 @@
     justify-content: center;
 }
 
+.popup-close-btn:hover {
+    transform: scale(1.05);
+}
+
+
 .popup-close-btn img {
     width: 32px;
 }
@@ -100,8 +105,6 @@
 /*---------------------------------- ACTIONS -------------------------------------*/
 /*--------------------------------------------------------------------------------*/
 
-
-/* 1️⃣ On sécurise le footer pour qu'il ne déborde jamais */
 .popup-footer-actions {
     position: sticky;
     bottom: 0;

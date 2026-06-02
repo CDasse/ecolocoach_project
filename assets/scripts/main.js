@@ -1,5 +1,6 @@
 /*--------------------------------------------------------------------------------*/
 /*--------------------------------BURGER MENU-------------------------------------*/
+
 /*--------------------------------------------------------------------------------*/
 
 /**
@@ -11,11 +12,11 @@ function OpenOrExitBurgerMenu() {
     const dialogBalise = document.getElementById('dialog-burger-menu');
 
     if (openButton && exitButton && dialogBalise) {
-        openButton.addEventListener('click', function() {
+        openButton.addEventListener('click', function () {
             dialogBalise.showModal();
         });
 
-        exitButton.addEventListener('click', function() {
+        exitButton.addEventListener('click', function () {
             dialogBalise.close();
         });
     }
@@ -61,6 +62,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 /*--------------------------------------------------------------------------------*/
 /*------------------------------POP-UP CHALLENGE----------------------------------*/
+
 /*--------------------------------------------------------------------------------*/
 
 /**
@@ -89,7 +91,7 @@ function openPopup(url) {
 
 
 /**
-Once the user is done reading or accepting a challenge, this dismisses the modal
+ Once the user is done reading or accepting a challenge, this dismisses the modal
  * overlay and restores focus back to the primary navigation timeline context.
  */
 function closePopup() {
@@ -104,10 +106,34 @@ function closePopup() {
  */
 document.addEventListener('DOMContentLoaded', () => {
     const overlay = document.getElementById('overlay-popup');
-    if(overlay) {
-        overlay.addEventListener('click', function(event) {
+    if (overlay) {
+        overlay.addEventListener('click', function (event) {
             if (event.target === overlay) {
                 closePopup();
+            }
+        });
+    }
+});
+
+
+/**
+ * It allows users to naturally close the modal popup by tapping anywhere outside the
+ * text content, preventing them from being forced to hunt down the close cross button.
+ */
+document.addEventListener('DOMContentLoaded', () => {
+    const flashOverlay = document.getElementById('flash-overlay-popup');
+    const flashCloseBtn = document.getElementById('flash-close-btn');
+
+    if (flashOverlay) {
+        if (flashCloseBtn) {
+            flashCloseBtn.addEventListener('click', () => {
+                flashOverlay.classList.add('hidden');
+            });
+        }
+        
+        flashOverlay.addEventListener('click', (event) => {
+            if (event.target === flashOverlay) {
+                flashOverlay.classList.add('hidden');
             }
         });
     }

@@ -13,9 +13,9 @@
 
         <div class="feedback-popup">
 
-            {# Bouton de fermeture (Croix absolue) #}
-            <button class="modal-close-cross"
-                    onclick="document.getElementById('flash-overlay-popup').classList.add('hidden')"
+            <button type="button"
+                    id="flash-close-btn"
+                    class="modal-close-cross"
                     aria-label="Fermer la modale">
                 <img src="{{ asset('/uploads/icons/cross.svg') }}" alt="Fermer">
             </button>
@@ -25,13 +25,10 @@
                     {% if type in target_types %}
                         {% for message in messages %}
 
-                            {# Corps du message flash (gère le HTML envoyé par les contrôleurs grâce à |raw) #}
                             <div class="modal-feedback-text">
                                 {{ message|raw }}
                             </div>
 
-                            {# 🎯 AFFICHAGE CONDITIONNEL DU BOUTON #}
-                            {# On affiche le bouton d'action uniquement pour les retours spécifiques aux étapes de choix d'un défi #}
                             {% if type in ['challenge_accepted', 'challenge_refused'] %}
                                 <a href="{{ path('recap_challenges') }}" class="btn-primary btn-primary-green">
                                     Voir tous mes défis
