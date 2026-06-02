@@ -1,6 +1,6 @@
 {% extends '_layouts/in_event.html.twig' %}
 
-{% block title %}Niveau {{ event.level.sequenceNumber }} | EcoloCoach{% endblock %}
+{% block title %}Niveau {{ event.level.sequenceNumber }} : {{ event.eventType.value|capitalize }} {{ event_number }} | EcoloCoach{% endblock %}
 
 {% block content %}
 

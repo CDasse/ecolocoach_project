@@ -6,6 +6,7 @@ use App\Entity\Event;
 use App\Entity\User;
 use App\Service\EventPageService;
 use App\Service\EventPartService;
+use App\Service\EventService;
 use App\Service\XUserLevelEventService;
 use Symfony\Bridge\Doctrine\Attribute\MapEntity;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -20,12 +21,13 @@ final class EventController extends AbstractController
 {
     #[Route('/event/{uid}/{pageNumber}', name: 'event', requirements: ['pageNumber' => '\d+'], methods: ['GET', 'POST'])]
     public function event(
-        Request $request,
+        Request                $request,
         #[MapEntity(mapping: ['uid' => 'uid'])]
-        Event $event,
-        int $pageNumber,
-        EventPageService $eventPageService,
-        EventPartService $eventPartService,
+        Event                  $event,
+        int                    $pageNumber,
+        EventService           $eventService,
+        EventPageService       $eventPageService,
+        EventPartService       $eventPartService,
         XUserLevelEventService $xUserLevelEventService
     ): Response
     {
@@ -58,6 +60,8 @@ final class EventController extends AbstractController
         $connectedUser = $this->getUser();
         $progression = $xUserLevelEventService->findProgression($connectedUser, $event);
 
+        $eventNumber = $eventService->findTypeSequenceNumber($event);
+
         return $this->render('event/index.html.twig', [
             'event' => $event,
             'event_parts' => $eventParts,
@@ -65,6 +69,7 @@ final class EventController extends AbstractController
             'total_pages' => $totalPages,
             'is_correct_answer' => $isCorrectAnswer,
             'progression' => $progression,
+            'event_number' => $eventNumber,
         ]);
     }
 }
