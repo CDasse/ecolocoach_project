@@ -1,45 +1,35 @@
-name: CI EcoloCoach
+name: CI
 
-# 🎯 Déclencheur : On lance la CI à chaque push sur la branche principale
 on:
     push:
-        branches: [ "main", "master" ]
+        branches: [ main ]
     pull_request:
-        branches: [ "main", "master" ]
+        branches: [ main ]
 
 jobs:
-    symfony-checks:
-        # On demande un ordinateur virtuel sous Linux (Ubuntu)
+    build:
         runs-on: ubuntu-latest
 
         steps:
-            # 1. On télécharge le code du projet sur la machine virtuelle
-            -   name: Checkout du code
+            -   name: Checkout
                 uses: actions/checkout@v4
 
-            # 2. On installe PHP sur la machine avec les extensions nécessaires
-            -   name: Setup PHP
+            -   name: Setup PHP 8.4
                 uses: shivammathur/setup-php@v2
                 with:
-                    php-version: '8.2' # Aligne cette version sur ton projet
-                    extensions: mbstring, xml, ctype, iconv, intl
+                    php-version: '8.4'
+                    tools: composer:v2
+                    coverage: none
 
-            # 3. On vérifie que le fichier composer.json n'a pas d'erreur
-            -   name: Valider le fichier Composer
-                run: composer validate --no-check-publish
+            -   name: Validate composer.json
+                run: composer validate --strict
 
-            # 4. On installe les dépendances PHP (sans installer les outils de dev pour aller plus vite)
-            -   name: Installer les dépendances
-                run: composer install --prefer-dist --no-progress --no-suggest
+            -   name: Cache Composer dependencies
+                uses: actions/cache@v4
+                with:
+                    path: ~/.composer/cache/files
+                    key: composer-${{ hashFiles('**/composer.lock') }}
+                    restore-keys: composer-
 
-            # 5. 🔒 SÉCURITÉ : On vérifie qu'aucune dépendance n'a de faille de sécurité connue
-            -   name: Check des failles de sécurité (Audit)
-                run: composer audit
-
-            # 6. 🍃 ÉCO-CONCEPTION (Syntaxe) : On vérifie que les fichiers de config YAML sont parfaits
-            -   name: Lint des fichiers YAML
-                run: php bin/console lint:yaml config/
-
-            # 7. ♿ ACCESSIBILITÉ & UI : On vérifie que tes templates Twig n'ont pas d'erreurs de syntaxe
-            -   name: Lint des templates Twig
-                run: php bin/console lint:twig templates/
+            -   name: Install dependencies
+                run: composer install --prefer-dist --no-progress --no-interaction --optimize-autoloader

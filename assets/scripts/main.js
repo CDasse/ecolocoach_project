@@ -69,24 +69,24 @@ document.addEventListener('DOMContentLoaded', function () {
  * This function triggers an AJAX request to load and display full information inside a popup
  * when a user actively selects and clicks on a specific challenge card.
  */
-function openPopup(url) {
+async function openPopup(url) {
     const overlay = document.getElementById('overlay-popup');
     const content = document.getElementById('content-popup');
 
     content.innerHTML = '<p style="text-align:center; padding: 20px;">Chargement...</p>';
     overlay.classList.remove('hidden');
 
-    fetch(url)
-        .then(response => {
-            if (!response.ok) throw new Error("Erreur serveur");
-            return response.text();
-        })
-        .then(html => {
-            content.innerHTML = html;
-        })
-        .catch(_ => {
-            content.innerHTML = '<p style="text-align:center;">Impossible de charger les détails.</p>';
-        });
+    try {
+        const response = await fetch(url);
+
+        if (!response.ok) {
+            throw new Error("Erreur serveur");
+        }
+
+        content.innerHTML = await response.text();
+    } catch {
+        content.innerHTML = '<p style="text-align:center;">Impossible de charger les détails.</p>';
+    }
 }
 
 
