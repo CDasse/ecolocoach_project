@@ -1,0 +1,118 @@
+.home-container {
+    max-width: 100%;
+    margin: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 48px;
+}
+
+.hero-section {
+    text-align: center;
+    padding: 24px 0;
+}
+
+.hero-badge {
+    background-color: var(--color-green-200);
+    color: var(--color-green-900);
+    padding: 8px 16px;
+
+    border-radius: var(--radius-large);
+    font-size: var(--font-size-small);
+    font-weight: var(--font-weight-medium);
+}
+
+.hero-section h1 {
+    font-size: var(--font-size-extra-large);
+    font-weight: var(--font-weight-extra-bold);
+    color: var(--color-green-1000);
+    margin: 36px 0;
+    line-height: 1.6;
+}
+
+.hero-subtitle {
+    max-width: 600px;
+    margin: 0 auto 32px auto;
+    line-height: 1.6;
+}
+
+.hero-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    max-width: 400px;
+    margin: 0 auto;
+}
+
+.features-section {
+    text-align: center;
+}
+
+.features-section h2 {
+    font-size: var(--font-size-extra-large);
+    color: var(--color-green-1000);
+    margin-top: 0;
+    margin-bottom: 40px;
+}
+
+.features-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.feature-card {
+    background-color: var(--color-white);
+    border: 1px solid var(--color-grey-300);
+    border-radius: var(--radius-large);
+
+    padding: 32px 24px;
+    text-align: center;
+}
+
+.feature-icon {
+    font-size: 3rem;
+    margin-bottom: 16px;
+}
+
+.feature-card h3 {
+    font-size: var(--font-size-large);
+    margin-bottom: 12px;
+}
+
+.feature-card p {
+    line-height: 1.5;
+    margin: 0;
+}
+
+.cta-section {
+    margin-bottom: 40px;
+}
+
+.cta-card {
+    background-color: var(--color-green-800);
+    color: var(--color-white);
+    border-radius: var(--radius-large);
+
+    padding: 40px 24px;
+    text-align: center;
+}
+
+.cta-card h2 {
+    font-size: var(--font-size-extra-large);
+    margin-top: 0;
+    margin-bottom: 12px;
+}
+
+.cta-card p {
+    margin-bottom: 24px;
+}
+
+.cta-card .btn-primary {
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+
+    box-sizing: border-box;
+    margin-left: 0;
+    margin-right: 0;
+}

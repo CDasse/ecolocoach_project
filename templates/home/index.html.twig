@@ -1,12 +1,64 @@
 {% extends '_layouts/standard.html.twig' %}
 
-{% block title %}EcoloCoach{% endblock %}
+{% block title %}EcoloCoach | Transforme ton quotidien pour la planète{% endblock %}
 
 {% block content %}
-    <main>
-        <h1>EcoloCoach</h1>
+    <div class="home-container">
 
-        <a href="{{ path('app_login') }}">Se connecter</a>
-        <a href="{{ path('app_register') }}">S'inscrire</a>
-    </main>
+        <section class="hero-section">
+            <div class="hero-content">
+                <span class="hero-badge">🌱 Le coaching ludique pas à pas</span>
+                <h1>Passe au niveau supérieur de l'éco-responsabilité</h1>
+                <p class="hero-subtitle">
+                    Apprends, relève des défis et mesure concrètement ta réduction d'empreinte
+                    CO<sub>2</sub> à
+                    travers un parcours ludique.
+                </p>
+                <div class="hero-actions">
+                    <a href="{{ path('app_register') }}" class="btn-primary btn-primary-green">Démarrer l'aventure
+                        gratuitement</a>
+                    <a href="{{ path('app_login') }}" class="btn-secondary btn-secondary-green">Me connecter</a>
+                </div>
+            </div>
+        </section>
+
+        <section class="features-section">
+            <h2>Un parcours en 4 étapes</h2>
+
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">🎓</div>
+                    <h3>1. Apprends</h3>
+                    <p>Débloque des niveaux et valide tes connaissances grâce à des quiz interactifs et rapides.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">🌿</div>
+                    <h3>2. Agis</h3>
+                    <p>Choisis et accepte des défis écologiques concrets adaptés à ton rythme de vie.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">👣</div>
+                    <h3>3. Mesure</h3>
+                    <p>Visualise l'impact direct de tes actions grâce au compteur de CO<sub>2</sub> évité.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">🤝</div>
+                    <h3>4. Coopère</h3>
+                    <p>Rejoins une équipe, partage ton expérience et relevez des défis collectifs en commun.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="cta-section">
+            <div class="cta-card">
+                <h2>Prêt à relever ton premier défi ?</h2>
+                <p>Rejoins la communauté EcoloCoach et commence à réduire ton impact CO<sub>2</sub>.</p>
+                <a href="{{ path('app_register') }}" class="btn-primary btn-primary-green">Créer mon compte</a>
+            </div>
+        </section>
+
+    </div>
 {% endblock %}
