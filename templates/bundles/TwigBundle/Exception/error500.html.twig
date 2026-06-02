@@ -1,15 +1,24 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Erreur {{ status_code }} | Erreur Serveur{% endblock %}
+{% block title %}Erreur serveur | EcoloCoach{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('styles/error.css') }}"/>
+{% endblock %}
 
 {% block body %}
-    <p>Oups ! Une erreur est survenue.</p>
-    <span>Code {{ status_code }}</span>
+    <div class="error-page-container">
+        <div class="error-card">
+            <div class="error-illustration">⛈️</div>
+            <h1 class="error-code">500</h1>
+            <h2>Averse sur nos serveurs !</h2>
+            <p>Notre écosystème rencontre une perturbation technique inattendue. Nos coachs tech sont déjà sur le coup
+                pour
+                réparer les racines.</p>
 
-    <h2>Erreur serveur</h2>
-
-    <p>Il semble qu'une erreur serveur soit survenue.</p>
-
-    <a href="{{ path('home') }}">Retourner à l'accueil</a>
-
+            <a href="{{ path('home') }}" class="btn-primary btn-primary-green">
+                Retourner à l'accueil
+            </a>
+        </div>
+    </div>
 {% endblock %}
