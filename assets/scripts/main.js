@@ -130,11 +130,28 @@ document.addEventListener('DOMContentLoaded', () => {
                 flashOverlay.classList.add('hidden');
             });
         }
-        
+
         flashOverlay.addEventListener('click', (event) => {
             if (event.target === flashOverlay) {
                 flashOverlay.classList.add('hidden');
             }
         });
     }
+});
+
+
+/**
+ * Anti-double-click protection: Disables submit buttons as soon as
+ * a form is submitted to prevent duplicate requests.
+ */
+document.addEventListener('submit', (event) => {
+    const form = event.target;
+    const submitButtons = form.querySelectorAll('button[type="submit"]');
+
+    submitButtons.forEach(button => {
+        button.disabled = true;
+
+        button.style.opacity = '0.6';
+        button.style.cursor = 'not-allowed';
+    });
 });
