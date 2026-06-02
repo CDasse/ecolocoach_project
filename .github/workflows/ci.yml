@@ -1,0 +1,45 @@
+name: CI EcoloCoach
+
+# 🎯 Déclencheur : On lance la CI à chaque push sur la branche principale
+on:
+    push:
+        branches: [ "main", "master" ]
+    pull_request:
+        branches: [ "main", "master" ]
+
+jobs:
+    symfony-checks:
+        # On demande un ordinateur virtuel sous Linux (Ubuntu)
+        runs-on: ubuntu-latest
+
+        steps:
+            # 1. On télécharge le code du projet sur la machine virtuelle
+            -   name: Checkout du code
+                uses: actions/checkout@v4
+
+            # 2. On installe PHP sur la machine avec les extensions nécessaires
+            -   name: Setup PHP
+                uses: shivammathur/setup-php@v2
+                with:
+                    php-version: '8.2' # Aligne cette version sur ton projet
+                    extensions: mbstring, xml, ctype, iconv, intl
+
+            # 3. On vérifie que le fichier composer.json n'a pas d'erreur
+            -   name: Valider le fichier Composer
+                run: composer validate --strict
+
+            # 4. On installe les dépendances PHP (sans installer les outils de dev pour aller plus vite)
+            -   name: Installer les dépendances
+                run: composer install --prefer-dist --no-progress --no-suggest
+
+            # 5. 🔒 SÉCURITÉ : On vérifie qu'aucune dépendance n'a de faille de sécurité connue
+            -   name: Check des failles de sécurité (Audit)
+                run: composer audit
+
+            # 6. 🍃 ÉCO-CONCEPTION (Syntaxe) : On vérifie que les fichiers de config YAML sont parfaits
+            -   name: Lint des fichiers YAML
+                run: php bin/console lint:yaml config/
+
+            # 7. ♿ ACCESSIBILITÉ & UI : On vérifie que tes templates Twig n'ont pas d'erreurs de syntaxe
+            -   name: Lint des templates Twig
+                run: php bin/console lint:twig templates/
