@@ -69,6 +69,10 @@
 /assets/vendor/
 ###< symfony/asset-mapper ###
 
+/node_modules/
+/test-results/
+/playwright-report/
+
 .env
 .env.test
 .env.dev
