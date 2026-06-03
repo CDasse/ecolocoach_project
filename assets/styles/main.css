@@ -78,6 +78,10 @@ body {
     flex-direction: column;
 }
 
+body:has(dialog[open]) {
+    overflow: hidden;
+}
+
 h1 {
     font-size: var(--font-size-extra-large);
     font-weight: var(--font-weight-semibold);

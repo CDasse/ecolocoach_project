@@ -110,49 +110,30 @@ document.addEventListener('DOMContentLoaded', () => {
 
 /*--------------------------------------------------------------------------------*/
 /*---------------------------- FLASH MESSAGE MODAL -------------------------------*/
-
 /*--------------------------------------------------------------------------------*/
 
-function closePopup() {
-    const overlay = document.getElementById('overlay-popup');
-    overlay.classList.add('hidden');
-}
-
-
 /**
- * It allows users to naturally close the challenge popup by tapping anywhere outside the
- * text content, preventing them from being forced to hunt down the close cross button.
+ * Manages the flash message notification modal lifecycle using the native HTML Dialog API.
+ * If Twig renders flash messages on page load, the modal automatically opens.
+ * Includes close-button dismissal and click-outside backdrop detection.
  */
 document.addEventListener('DOMContentLoaded', () => {
-    const overlay = document.getElementById('overlay-popup');
-    if (overlay) {
-        overlay.addEventListener('click', function (event) {
-            if (event.target === overlay) {
-                closePopup();
-            }
-        });
-    }
-});
-
-
-/**
- * It allows users to naturally close the modal popup by tapping anywhere outside the
- * text content, preventing them from being forced to hunt down the close cross button.
- */
-document.addEventListener('DOMContentLoaded', () => {
-    const flashOverlay = document.getElementById('flash-overlay-popup');
+    const flashDialog = document.getElementById('flash-dialog');
     const flashCloseBtn = document.getElementById('flash-close-btn');
 
-    if (flashOverlay) {
+    if (flashDialog) {
+
+        flashDialog.showModal();
+
         if (flashCloseBtn) {
             flashCloseBtn.addEventListener('click', () => {
-                flashOverlay.classList.add('hidden');
+                flashDialog.close();
             });
         }
 
-        flashOverlay.addEventListener('click', (event) => {
-            if (event.target === flashOverlay) {
-                flashOverlay.classList.add('hidden');
+        flashDialog.addEventListener('click', (event) => {
+            if (event.target === flashDialog) {
+                flashDialog.close();
             }
         });
     }
