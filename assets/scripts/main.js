@@ -40,9 +40,9 @@ document.addEventListener('DOMContentLoaded', () => {
         button.addEventListener('click', () => {
             answerButtons.forEach(btn => btn.classList.remove('active'));
 
-            this.classList.add('active');
+            button.classList.add('active');
 
-            hiddenInput.value = this.dataset.value;
+            hiddenInput.value = button.dataset.value;
 
             validateBtn.classList.remove('btn-validation-disabled');
             validateBtn.disabled = false;
