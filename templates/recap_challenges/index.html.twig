@@ -34,7 +34,7 @@
                                 <p>{{ challenge.description }}</p>
 
                                 <button class="btn-read-more"
-                                        onclick="openPopup('{{ path('challenge_pop_up', {uid: challenge.uid}) }}')">
+                                        data-url="{{ path('challenge_pop_up', {uid: challenge.uid}) }}">
                                     Voir plus →
                                 </button>
                             </div>
@@ -64,7 +64,7 @@
                                 <p>{{ challenge.description }}</p>
 
                                 <button class="btn-read-more"
-                                        onclick="openPopup('{{ path('challenge_pop_up', {uid: challenge.uid}) }}')">
+                                        data-url="{{ path('challenge_pop_up', {uid: challenge.uid}) }}">
                                     Voir plus →
                                 </button>
                             </div>
@@ -93,7 +93,7 @@
                                 <p>{{ challenge.description }}</p>
 
                                 <button class="btn-read-more"
-                                        onclick="openPopup('{{ path('challenge_pop_up', {uid: challenge.uid}) }}')">
+                                        data-url="{{ path('challenge_pop_up', {uid: challenge.uid}) }}">
                                     Voir plus →
                                 </button>
                             </div>
@@ -111,10 +111,8 @@
             </a>
         </div>
 
-        <div id="overlay-popup" class="overlay-popup hidden">
-            <div id="content-popup" class="content-popup">
-            </div>
-        </div>
+        <dialog id="challenge-dialog" class="challenge-dialog">
+        </dialog>
 
     </main>
 {% endblock %}

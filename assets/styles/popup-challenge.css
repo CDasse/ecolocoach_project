@@ -1,4 +1,4 @@
-.content-popup {
+.challenge-dialog {
     background-color: var(--color-white);
     border-radius: var(--radius-medium);
 
@@ -6,13 +6,21 @@
     max-width: 400px;
     max-height: 85vh;
 
+    margin: auto;
     padding: 0;
 
     position: relative;
     overflow-y: auto;
+}
 
+.challenge-dialog[open] {
     display: flex;
     flex-direction: column;
+}
+
+.challenge-dialog::backdrop {
+    background-color: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(4px);
 }
 
 .popup-close-btn {
@@ -61,7 +69,7 @@
     flex-direction: column;
 }
 
-.content-popup .tags-group-container {
+.challenge-dialog .tags-group-container {
     display: flex;
     gap: 8px;
 
@@ -71,30 +79,30 @@
     box-sizing: border-box;
 }
 
-.content-popup h2.event-label {
+.challenge-dialog h2.event-label {
     padding: 0 24px;
     margin: 24px 0;
 }
 
-.content-popup p.event-description {
+.challenge-dialog p.event-description {
     padding: 0 24px;
     margin-bottom: 24px;
 }
 
-.content-popup .subgroup-card {
+.challenge-dialog .subgroup-card {
     width: 100%;
     padding: 24px;
     margin: 0;
     box-sizing: border-box;
 }
 
-.content-popup .subgroup-card p.event-label,
-.content-popup .subgroup-card p.event-description {
+.challenge-dialog .subgroup-card p.event-label,
+.challenge-dialog .subgroup-card p.event-description {
     padding: 0;
     margin-top: 0;
 }
 
-.content-popup .subgroup-card p.event-label {
+.challenge-dialog .subgroup-card p.event-label {
     text-align: center;
     margin-bottom: 8px;
     font-weight: var(--font-weight-semibold);
