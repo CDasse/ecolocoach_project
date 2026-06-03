@@ -200,7 +200,8 @@ p.event-description {
     box-shadow: none;
 }
 
-.btn-validation-disabled:hover {
+.btn-validation-disabled:hover,
+.btn-validation-disabled:focus {
     box-shadow: none;
     transform: none;
     cursor: default;

@@ -205,7 +205,8 @@
     align-self: flex-end;
 }
 
-.btn-read-more:hover {
+.btn-read-more:hover,
+.btn-read-more:focus {
     transform: translateX(4px);
 }
 

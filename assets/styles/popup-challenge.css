@@ -42,7 +42,8 @@
     justify-content: center;
 }
 
-.popup-close-btn:hover {
+.popup-close-btn:hover,
+.popup-close-btn:focus {
     transform: scale(1.05);
 }
 

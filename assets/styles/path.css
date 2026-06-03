@@ -40,7 +40,8 @@
     box-shadow: var(--color-green-600) 0 4px;
 }
 
-.btn-guide:hover, .btn-guide:focus {
+.btn-guide:hover,
+.btn-guide:focus {
     box-shadow: var(--color-green-600) 0 2px;
     transform: translateY(2px);
     outline: none;
@@ -171,7 +172,8 @@
     box-shadow: var(--color-golden-600) 0 4px;
 }
 
-.btn-primary-golden:hover, .btn-primary-golden:focus {
+.btn-primary-golden:hover,
+.btn-primary-golden:focus {
     box-shadow: var(--color-golden-600) 0 2px;
     transform: translateX(var(--x-offset, 0px)) translateY(2px);
     outline: none;
@@ -183,7 +185,8 @@
     transform: translateX(var(--x-offset, 0px)) translateY(4px);
 }
 
-.btn-primary-green:hover, .btn-primary-green:focus {
+.btn-primary-green:hover,
+.btn-primary-green:focus {
     box-shadow: var(--color-green-600) 0 2px;
     transform: translateX(var(--x-offset, 0px)) translateY(2px);
     outline: none;

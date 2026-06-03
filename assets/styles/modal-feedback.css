@@ -46,7 +46,8 @@
     height: 24px;
 }
 
-.modal-close-cross:hover img {
+.modal-close-cross:hover img,
+.modal-close-cross:focus img {
     transform: scale(1.1);
 }
 
