@@ -2,7 +2,7 @@
     "name": "playwright-ecolocoach",
     "version": "1.0.0",
     "scripts": {
-        "test": "playwright test",
+        "test": "./run-tests.sh",
         "test:headed": "playwright test --headed",
         "test:debug": "playwright test --debug --workers=1",
         "test:record": "playwright codegen --browser=chromium",

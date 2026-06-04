@@ -2,7 +2,7 @@
   "cookies": [
     {
       "name": "main_auth_profile_token",
-      "value": "cb3ed0",
+      "value": "ff7111",
       "domain": "127.0.0.1",
       "path": "/",
       "expires": -1,
@@ -12,7 +12,7 @@
     },
     {
       "name": "PHPSESSID",
-      "value": "c7edb123a4b364f8c67f2bc36b517d64",
+      "value": "913a68224a55c79220aaaad8784818f4",
       "domain": "127.0.0.1",
       "path": "/",
       "expires": -1,
