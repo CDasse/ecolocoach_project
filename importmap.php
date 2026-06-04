@@ -25,4 +25,7 @@ return [
     '@hotwired/turbo' => [
         'version' => '8.0.23',
     ],
+    '@playwright/test' => [
+        'version' => '1.60.0',
+    ],
 ];
