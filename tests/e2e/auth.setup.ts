@@ -9,7 +9,7 @@ const authFile = 'playwright/.auth/user.json';
  * and saves the session state (cookies and local storage) into a temporary file.
  * * Subsequent tests will reuse this saved state to start already authenticated.
  */
-setup('Connexion à EcoloCoach sur le compte d\'Elia', async ({page}) => {
+setup('Authenticate as Elia Chelet', async ({page}) => {
     await page.goto('/');
     await page.getByRole('link', {name: 'Me connecter'}).click();
     await page.getByRole('textbox', {name: 'Email'}).fill('elia@gmail.fr');

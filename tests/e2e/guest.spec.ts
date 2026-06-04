@@ -2,7 +2,11 @@ import {expect, test} from '@playwright/test';
 
 test.use({storageState: {cookies: [], origins: []}});
 
-test('Échec de connexion avec un mauvais mot de passe', async ({page}) => {
+/**
+ * Verifies that the login form correctly rejects invalid credentials
+ * and displays an explicit error message.
+ */
+test('Should fail login with an incorrect password', async ({page}) => {
     await page.goto('/');
     await page.getByRole('link', {name: 'Me connecter'}).click();
 
@@ -13,7 +17,12 @@ test('Échec de connexion avec un mauvais mot de passe', async ({page}) => {
     await expect(page.getByText('Identifiants incorrects.')).toBeVisible();
 });
 
-test('Inscription d\'un nouvel utilisateur', async ({page}) => {
+/**
+ * Validates the registration flow for a brand new user.
+ * Uses a timestamp to guarantee a unique username and email on every run,
+ * preventing database constraint conflicts.
+ */
+test('Should successfully register a new user', async ({page}) => {
     const uniqueId = Date.now();
     const uniqueEmail = `user_${uniqueId}@gmail.com`;
     const uniqueUsername = `User_${uniqueId}`;
