@@ -83,7 +83,7 @@ class EventPart extends BaseEntity
         return $this;
     }
 
-    public function getPictureAlt(): ?string
+    public function getPicAlt(): ?string
     {
         return $this->pictureAlt;
     }

@@ -6,7 +6,7 @@
 
     {% for part in event_parts %}
         {% if part.eventPartType.name == 'PICTURE' %}
-            <img class="popup-top-picture" src="/{{ part.picturePath }}" alt="{{ part.pictureAlt }}">
+            <img class="popup-top-picture" src="/{{ part.picturePath }}" alt="{{ part.picAlt }}">
         {% endif %}
     {% endfor %}
 

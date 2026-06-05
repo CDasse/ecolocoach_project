@@ -12,6 +12,8 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class EventRepository extends ServiceEntityRepository
 {
+    private const string LEVEL_CONDITION = 'e.level = :level';
+
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Event::class);
@@ -23,13 +25,12 @@ class EventRepository extends ServiceEntityRepository
     public function findOneEventInLevel(Level $level, int $sequenceNumber): ?Event
     {
         return $this->createQueryBuilder('e')
-            ->andWhere('e.level = :level')
+            ->andWhere(self::LEVEL_CONDITION)
             ->andWhere('e.sequenceNumber = :sequenceNumber')
             ->setParameter('level', $level)
             ->setParameter('sequenceNumber', $sequenceNumber)
             ->getQuery()
-            ->getOneOrNullResult()
-            ;
+            ->getOneOrNullResult();
     }
 
     /**
@@ -39,7 +40,7 @@ class EventRepository extends ServiceEntityRepository
     public function findEventsInLevel(Level $level): array
     {
         return $this->createQueryBuilder('e')
-            ->andWhere('e.level = :level')
+            ->andWhere(self::LEVEL_CONDITION)
             ->setParameter('level', $level)
             ->orderBy('e.sequenceNumber', 'ASC')
             ->getQuery()
@@ -53,7 +54,7 @@ class EventRepository extends ServiceEntityRepository
     public function findNextEvent(Event $currentEvent): ?Event
     {
         return $this->createQueryBuilder('e')
-            ->andWhere('e.level = :level')
+            ->andWhere(self::LEVEL_CONDITION)
             ->andWhere('e.sequenceNumber = :sequenceNumber')
             ->setParameter('level', $currentEvent->getLevel())
             ->setParameter('sequenceNumber', $currentEvent->getSequenceNumber() + 1)

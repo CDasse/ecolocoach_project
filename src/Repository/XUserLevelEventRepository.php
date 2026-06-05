@@ -18,6 +18,8 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class XUserLevelEventRepository extends ServiceEntityRepository
 {
+    private const string USER_CONDITION = 'x.targetUser = :user';
+
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, XUserLevelEvent::class);
@@ -30,7 +32,7 @@ class XUserLevelEventRepository extends ServiceEntityRepository
     public function findUserActiveProgression(User $user): ?XUserLevelEvent
     {
         return $this->createQueryBuilder('x')
-            ->andWhere('x.targetUser = :user')
+            ->andWhere(self::USER_CONDITION)
             ->andWhere('x.eventStatus = :status')
             ->setParameter('user', $user)
             ->setParameter('status', EventStatus::ACTIVE)
@@ -45,7 +47,7 @@ class XUserLevelEventRepository extends ServiceEntityRepository
     public function findProgression(User $user, Event $event): ?XUserLevelEvent
     {
         return $this->createQueryBuilder('x')
-            ->andWhere('x.targetUser = :user')
+            ->andWhere(self::USER_CONDITION)
             ->andWhere('x.event = :event')
             ->setParameter('user', $user)
             ->setParameter('event', $event)
@@ -65,28 +67,23 @@ class XUserLevelEventRepository extends ServiceEntityRepository
             e.co2Impact AS co2Impact,
             MAX(eprt_label.label) AS title,
             MAX(eprt_pic.picturePath) AS picture,
-            MAX(eprt_pic.pictureAlt) AS pictureAlt,
+            MAX(eprt_pic.pictureAlt) AS picAlt,
             MAX(eprt_desc.description) AS description
         ')
             ->innerJoin('x.event', 'e', 'WITH', 'e.eventType = :eventType')
             ->innerJoin(EventPage::class, 'ep', 'WITH', 'ep.event = e.id')
-
             ->leftJoin(EventPart::class, 'eprt_label', 'WITH', 'eprt_label.eventPage = ep.id AND eprt_label.eventPartType = :typeLabel')
             ->leftJoin(EventPart::class, 'eprt_pic', 'WITH', 'eprt_pic.eventPage = ep.id AND eprt_pic.eventPartType = :typePic')
             ->leftJoin(EventPart::class, 'eprt_desc', 'WITH', 'eprt_desc.eventPage = ep.id AND eprt_desc.eventPartType = :typeDesc')
-
-            ->andWhere('x.targetUser = :user')
+            ->andWhere(self::USER_CONDITION)
             ->andWhere('x.eventStatus = :status')
-
             ->groupBy('e.id')
-
             ->setParameter('user', $user)
             ->setParameter('status', $eventStatus)
             ->setParameter('eventType', EventType::DEFI)
             ->setParameter('typeLabel', EventPartType::LABEL)
             ->setParameter('typePic', EventPartType::PICTURE)
             ->setParameter('typeDesc', EventPartType::DESCRIPTION)
-
             ->getQuery()
             ->getResult();
     }
