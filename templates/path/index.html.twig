@@ -1,6 +1,7 @@
 {% extends '_layouts/in_app.html.twig' %}
 
 {% block title %}Mon parcours | EcoloCoach{% endblock %}
+
 {% block header_title %}
     <h1 class="co2-counter-pill">
         <span class="co2-amount">
@@ -13,6 +14,7 @@
 
 {% block content %}
     <main>
+
         {% if is_path_completed %}
             <div class="success-card">
                 <h2>Félicitations !</h2>
@@ -34,36 +36,46 @@
                 </div>
             {% endif %}
 
-            {% set middle_index = (events_of_level|length / 2)|round(0, 'ceil') %}
-
             <div class="level-container">
+
+                {% set lesson_count = 0 %}
+                {% set challenge_count = 0 %}
+                {% set middle_index = (events_of_level|length / 2)|round(0, 'ceil') %}
 
                 <div class="level-section section-left-mascot">
                     <div class="mascot-wrapper">
                         <img src="{{ user_current_level.mascot1 }}" alt="Mascotte guide">
                     </div>
+
                     <div class="events-wrapper">
                         {% for event in events_of_level|slice(0, middle_index) %}
 
+                            {% if event.eventType.value == "défi" %}
+                                {% set challenge_count = challenge_count + 1 %}
+                                {% set current_number = challenge_count %}
+                            {% else %}
+                                {% set lesson_count = lesson_count + 1 %}
+                                {% set current_number = lesson_count %}
+                            {% endif %}
+
+                            {# Calcul mathématique des courbes de boutons #}
                             {% set total = loop.length %}
                             {% set mid = (total - 1) / 2 %}
-                            {% set dist = loop.index0 - mid %}
-                            {% if dist < 0 %}{% set dist = -dist %}{% endif %}
+                            {% set dist = (loop.index0 - mid)|abs %}
                             {% set x_offset = mid > 0 ? 25 - (80 * dist / mid) : 15 %}
-
-                            {% set current_number = events_of_level|slice(0, loop.index)|filter(e => e.eventType.value == event.eventType.value)|length %}
 
                             {% if event.sequenceNumber > user_current_event.sequenceNumber %}
                                 <span class="event-btn locked" style="--x-offset: {{ x_offset }}px;">
-                                    <img src="{{ asset('/uploads/icons/lock.svg') }}" alt="" class="btn-icon">
+                                    <img src="{{ asset('/uploads/icons/lock.svg') }}"
+                                         alt=""
+                                         class="btn-icon">
                                     {{ event.eventType.value }} {{ current_number }}
                                 </span>
                             {% else %}
                                 <a href="{{ path('event', {'uid': event.uid, 'pageNumber': 1}) }}"
                                    class="event-btn {{ user_current_event == event ? 'current-event' : '' }}
-                                                 {{ event.eventType.value == "défi" ? 'btn-primary-golden' : 'btn-primary-green' }}"
-                                   style="--x-offset: {{ x_offset }}px;"
-                                >
+                                        {{ event.eventType.value == "défi" ? 'btn-primary-golden' : 'btn-primary-green' }}"
+                                   style="--x-offset: {{ x_offset }}px;">
                                     {% if event.eventType.value == "défi" %}
                                         <img src="{{ asset('/uploads/icons/challenge.svg') }}" alt="" class="btn-icon">
                                     {% else %}
@@ -84,10 +96,17 @@
                     <div class="events-wrapper">
                         {% for event in events_of_level|slice(middle_index) %}
 
+                            {% if event.eventType.value == "défi" %}
+                                {% set challenge_count = challenge_count + 1 %}
+                                {% set current_number = challenge_count %}
+                            {% else %}
+                                {% set lesson_count = lesson_count + 1 %}
+                                {% set current_number = lesson_count %}
+                            {% endif %}
+
                             {% set total = loop.length %}
                             {% set mid = (total - 1) / 2 %}
-                            {% set dist = loop.index0 - mid %}
-                            {% if dist < 0 %}{% set dist = -dist %}{% endif %}
+                            {% set dist = (loop.index0 - mid)|abs %}
                             {% set x_offset = mid > 0 ? 25 - (80 * dist / mid) : 15 %}
 
                             {% set current_number = events_of_level|slice(0, middle_index + loop.index)|filter(e => e.eventType.value == event.eventType.value)|length %}

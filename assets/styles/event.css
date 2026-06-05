@@ -38,6 +38,10 @@ progress::-moz-progress-bar {
 /*---------------------------------- LESSON --------------------------------------*/
 /*--------------------------------------------------------------------------------*/
 
+.event-main-wrapper {
+    display: contents;
+}
+
 .event-content {
     padding: 24px;
     display: flex;
@@ -57,6 +61,7 @@ progress::-moz-progress-bar {
 .event-question {
     margin: 16px 0 8px 0;
     text-align: center;
+    text-transform: none;
 }
 
 .event-answers {
