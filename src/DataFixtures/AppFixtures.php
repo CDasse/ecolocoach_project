@@ -140,14 +140,15 @@ class AppFixtures extends Fixture
         // Type LEÇON : ['type' => 'lesson', 'data' => [ [Q1, Choices1, Right1, Expl1], [Q2, Choices2, Right2, Expl2] ]]
         // Type DÉFI  : ['type' => 'defi', 'co2' => X, 'data' => [impact, thématique, titre, desc, astuce_q, astuce_r]]
 
-//        TODO : Personnaliser les alt des images
+        $default_alt = "Eolienne dans un ciel nuageux.";
+
         $rawEventsData = [
             // ==================== NIVEAU 1 : MA PETITE PLANÈTE ====================
             1 => [
                 'type' => 'lesson',
                 'picture_alts' => [
-                    "Gros plan sur un avion de ligne au décollage traversant un nuage de condensation.",
-                    "Une personne à vélo circulant joyeusement sur une piste cyclable sécurisée en ville."
+                    "Scooter rouge garé dans une rue.",
+                    "Scooter rouge garé dans une rue."
                 ],
                 'data' => [
                     ['Quel type de transport émet le plus de CO2 par personne au kilomètre ?', ['L\'avion', 'Le train électrique', 'La voiture thermique seule', 'Le bus de ville'], 'L\'avion', 'L\'avion reste le moyen de transport le plus émetteur à cause de la combustion de kérosène en haute altitude.'],
@@ -157,8 +158,8 @@ class AppFixtures extends Fixture
             2 => [
                 'type' => 'lesson',
                 'picture_alts' => [
-                    "Gros plan sur un avion de ligne au décollage traversant un nuage de condensation.",
-                    "Une personne à vélo circulant joyeusement sur une piste cyclable sécurisée en ville."
+                    "Légumes de toutes les couleurs regroupés sur un fond blanc.",
+                    "Légumes de toutes les couleurs regroupés sur un fond blanc."
                 ],
                 'data' => [
                     ['Quel légume consommé en hiver en France a l\'empreinte carbone la plus élevée ?', ['Le poireau local', 'La tomate sous serre chauffée', 'La carotte de saison', 'Le chou-fleur'], 'La tomate sous serre chauffée', 'Une tomate produite en hiver sous serre chauffée peut émettre jusqu\'à 10 fois plus de CO2 qu\'une tomate produite en été en plein champ.'],
@@ -168,14 +169,14 @@ class AppFixtures extends Fixture
             3 => [
                 'type' => 'defi',
                 'co2' => 4.5,
-                'picture_alt' => "Gros plan sur un avion de ligne au décollage traversant un nuage de condensation.",
+                'picture_alt' => "Assiette végétarienne remplie d'aliments",
                 'data' => ['Faible', 'Alimentation', 'Une journée 100% végétarienne', 'Aujourd\'hui, remplacez la viande et le poisson par des légumineuses (lentilles, pois chiches) et des légumes de saison.', 'Quel est l\'impact collectif de la viande ?', 'L\'élevage est responsable de près de 15% des émissions mondiales de gaz à effet de serre. Supprimer la viande un jour par semaine réduit drastiquement votre impact.']
             ],
             4 => [
                 'type' => 'lesson',
                 'picture_alts' => [
-                    "Gros plan sur un avion de ligne au décollage traversant un nuage de condensation.",
-                    "Une personne à vélo circulant joyeusement sur une piste cyclable sécurisée en ville."
+                    $default_alt,
+                    $default_alt
                 ],
                 'data' => [
                     ['En France, quelle est la principale source de consommation d\'énergie dans un logement ?', ['Les appareils électroménagers', 'L\'éclairage', 'Le chauffage', 'L\'eau chaude sanitaire'], 'Le chauffage', 'Le chauffage représente en moyenne 60% de la consommation énergétique d\'un foyer français.'],
@@ -185,14 +186,14 @@ class AppFixtures extends Fixture
             5 => [
                 'type' => 'defi',
                 'co2' => 12.0,
-                'picture_alt' => "Gros plan sur un avion de ligne au décollage traversant un nuage de condensation.",
+                'picture_alt' => "Vélo accroché avec une ville en arrière-plan.",
                 'data' => ['Moyen', 'Transport', 'Lâcher la voiture pour les trajets de moins de 3km', 'Réalisez tous vos petits déplacements de la journée à pied, en vélo ou en transports en commun.', 'Pourquoi cibler les petits trajets ?', 'En ville, 40% des trajets effectués en voiture font moins de 3 km. Ce sont pourtant les kilomètres les plus polluants car le moteur n\'a pas le temps de chauffer.']
             ],
             6 => [
                 'type' => 'lesson',
                 'picture_alts' => [
-                    "Gros plan sur un avion de ligne au décollage traversant un nuage de condensation.",
-                    "Une personne à vélo circulant joyeusement sur une piste cyclable sécurisée en ville."
+                    "Rayonnage dans un supermarché.",
+                    "Rayonnage dans un supermarché."
                 ],
                 'data' => [
                     ['Qu\'est-ce que l\'éco-score d\'un produit de grande consommation ?', ['Un indicateur de prix', 'Une note sur l\'impact environnemental global', 'Un label de qualité gustative', 'Une mesure du taux de sucre'], 'Une note sur l\'impact environnemental global', 'L\'éco-score prend en compte tout le cycle de vie du produit (production, emballage, transport) pour évaluer son impact sur la planète.'],
@@ -202,8 +203,8 @@ class AppFixtures extends Fixture
             7 => [
                 'type' => 'lesson',
                 'picture_alts' => [
-                    "Gros plan sur un avion de ligne au décollage traversant un nuage de condensation.",
-                    "Une personne à vélo circulant joyeusement sur une piste cyclable sécurisée en ville."
+                    "Poubelle bleue avec le symbole de tri inscrit dessus.",
+                    "Poubelle bleue avec le symbole de tri inscrit dessus."
                 ],
                 'data' => [
                     ['Combien de fois peut-on recycler le verre à l\'infini ?', ['2 fois', '10 fois', 'À l\'infini', 'Ce n\'est pas recyclable'], 'À l\'infini', 'Le verre se recycle à 100% et à l\'infini sans perte de qualité, ce qui économise des matières premières et de l\'énergie de fusion.'],
@@ -213,14 +214,14 @@ class AppFixtures extends Fixture
             8 => [
                 'type' => 'defi',
                 'co2' => 8.2,
-                'picture_alt' => "Gros plan sur un avion de ligne au décollage traversant un nuage de condensation.",
+                'picture_alt' => "Main tenant une télécommande avec une télévision en arrière plan.",
                 'data' => ['Faible', 'Énergie', 'Chasse aux veilles électroniques', 'Faites le tour de chez vous ce soir et débranchez ou éteignez via multiprise tous les appareils en veille (TV, box internet, consoles, PC).', 'Quel est l\'impact invisible des veilles ?', 'Les appareils en veille représentent environ 10% de la facture d\'électricité d\'un foyer français sans apporter aucune valeur d\'usage.']
             ],
             9 => [
                 'type' => 'lesson',
                 'picture_alts' => [
-                    "Gros plan sur un avion de ligne au décollage traversant un nuage de condensation.",
-                    "Une personne à vélo circulant joyeusement sur une piste cyclable sécurisée en ville."
+                    "Cuisine d'un appartement comportant des appareils électroménagers.",
+                    "Cuisine d'un appartement comportant des appareils électroménagers."
                 ],
                 'data' => [
                     ['Quel appareil ménager consomme généralement le plus d\'eau chaude ?', ['Le lave-vaisselle', 'Le lave-linge', 'La douche / baignoire', 'La bouilloire'], 'La douche / baignoire', 'L\'eau chaude sanitaire des douches et des bains représente la majeure partie de l\'utilisation d\'eau chaude d\'une maison.'],
@@ -230,8 +231,8 @@ class AppFixtures extends Fixture
             10 => [
                 'type' => 'lesson',
                 'picture_alts' => [
-                    "Gros plan sur un avion de ligne au décollage traversant un nuage de condensation.",
-                    "Une personne à vélo circulant joyeusement sur une piste cyclable sécurisée en ville."
+                    "Compost contenant des fruits en décomposition.",
+                    "Compost contenant des fruits en décomposition."
                 ],
                 'data' => [
                     ['Quel est l\'avantage principal du compostage des biodéchets ?', ['Ça prend de la place', 'Réduire le volume de la poubelle et créer du terreau', 'Attirer des animaux dangereux', 'Faire joli dans la cuisine'], 'Réduire le volume de la poubelle et créer du terreau', 'Le compostage permet d\'alléger nos poubelles d\'un tiers de leur poids et d\'éviter l\'incinération inutile d\'eau.'],
@@ -243,8 +244,8 @@ class AppFixtures extends Fixture
             11 => [
                 'type' => 'lesson',
                 'picture_alts' => [
-                    "Gros plan sur un avion de ligne au décollage traversant un nuage de condensation.",
-                    "Une personne à vélo circulant joyeusement sur une piste cyclable sécurisée en ville."
+                    $default_alt,
+                    $default_alt
                 ],
                 'data' => [
                     ['Quelle est l\'empreinte carbone moyenne actuelle d\'un citoyen français par an ?', ['2 tonnes', '5 tonnes', '9 tonnes', '25 tonnes'], '9 tonnes', 'L\'empreinte moyenne en France tourne autour de 9 tonnes d\'équivalent CO2 par an si l\'on inclut les produits importés.'],
@@ -254,14 +255,14 @@ class AppFixtures extends Fixture
             12 => [
                 'type' => 'defi',
                 'co2' => 35.0,
-                'picture_alt' => "Gros plan sur un avion de ligne au décollage traversant un nuage de condensation.",
+                'picture_alt' => "Piles de bocaux en verre contenant des aliments secs.",
                 'data' => ['Fort', 'Consommation', 'Semaine sans aucun achat de plastique', 'N\'achetez aucun aliment, boisson ou objet emballé dans du plastique à usage unique pendant 7 jours.', 'Pourquoi le plastique est-il un enjeu climatique ?', '99% du plastique mondial est fabriqué à partir de combustibles fossiles (pétrole). Sa production et son incinération libèrent d\'immenses quantités de carbone.']
             ],
             13 => [
                 'type' => 'lesson',
                 'picture_alts' => [
-                    "Gros plan sur un avion de ligne au décollage traversant un nuage de condensation.",
-                    "Une personne à vélo circulant joyeusement sur une piste cyclable sécurisée en ville."
+                    $default_alt,
+                    $default_alt
                 ],
                 'data' => [
                     ['Quel secteur d\'activité génère le plus d\'émissions de gaz à effet de serre en France ?', ['Les transports', 'Le numérique', 'L\'agriculture', 'L\'industrie textile'], 'Les transports', 'Le secteur des transports est le premier émetteur en France, représentant environ 30% des émissions nationales, majoritairement dues aux voitures individuelles.'],
@@ -271,8 +272,8 @@ class AppFixtures extends Fixture
             14 => [
                 'type' => 'lesson',
                 'picture_alts' => [
-                    "Gros plan sur un avion de ligne au décollage traversant un nuage de condensation.",
-                    "Une personne à vélo circulant joyeusement sur une piste cyclable sécurisée en ville."
+                    $default_alt,
+                    $default_alt
                 ],
                 'data' => [
                     ['Qu\'est-ce que l\'énergie grise d\'un équipement numérique ou électronique ?', ['Une énergie provenant du charbon', 'L\'énergie cachée consommée lors de sa fabrication et de son transport', 'L\'énergie consommée quand l\'écran est éteint', 'Une électricité de mauvaise qualité'], 'L\'énergie cachée consommée lors de sa fabrication et de son transport', 'La fabrication d\'un smartphone ou d\'un ordinateur concentre près de 80% de son impact écologique total avant même que vous ne l\'allumiez.'],
@@ -282,14 +283,14 @@ class AppFixtures extends Fixture
             15 => [
                 'type' => 'defi',
                 'co2' => 15.0,
-                'picture_alt' => "Gros plan sur un avion de ligne au décollage traversant un nuage de condensation.",
+                'picture_alt' => "Machine à laver dont le tombeau est ouvert.",
                 'data' => ['Moyen', 'Énergie', 'Laver son linge à 30°C maximum', 'Faites toutes vos machines de la semaine en mode Éco ou à 30°C grand maximum, et zappez totalement le sèche-linge.', 'Quelle est la consommation d\'une machine à laver ?', 'Près de 80% de l\'électricité consommée par un cycle de lavage sert uniquement à chauffer l\'eau. Laver à basse température préserve vos vêtements et l\'énergie.']
             ],
             16 => [
                 'type' => 'lesson',
                 'picture_alts' => [
-                    "Gros plan sur un avion de ligne au décollage traversant un nuage de condensation.",
-                    "Une personne à vélo circulant joyeusement sur une piste cyclable sécurisée en ville."
+                    $default_alt,
+                    $default_alt
                 ],
                 'data' => [
                     ['Quel type de chauffage résidentiel émet le plus de CO2 par kWh ?', ['La pompe à chaleur', 'Le chauffage au fioul', 'Le chauffage au bois certifié', 'Le radiateur électrique standard'], 'Le chauffage au fioul', 'Le fioul est un dérivé direct du pétrole. C\'est l\'une des énergies de chauffage les plus carbonées et polluantes du marché.'],
@@ -299,8 +300,8 @@ class AppFixtures extends Fixture
             17 => [
                 'type' => 'lesson',
                 'picture_alts' => [
-                    "Gros plan sur un avion de ligne au décollage traversant un nuage de condensation.",
-                    "Une personne à vélo circulant joyeusement sur une piste cyclable sécurisée en ville."
+                    $default_alt,
+                    $default_alt
                 ],
                 'data' => [
                     ['Quelle quantité d\'eau virtuelle faut-il pour fabriquer un seul jean neuf ?', ['10 litres', '500 litres', '2 000 litres', '7 000 à 10 000 litres'], '7 000 à 10 000 litres', 'De la culture du coton très intensive en eau jusqu\'aux teintures, un jean neuf cache un immense sac à dos écologique liquide.'],
@@ -310,14 +311,14 @@ class AppFixtures extends Fixture
             18 => [
                 'type' => 'defi',
                 'co2' => 20.5,
-                'picture_alt' => "Gros plan sur un avion de ligne au décollage traversant un nuage de condensation.",
+                'picture_alt' => "Voiture avec quatre meeples dessus au dessus d'un plateau de jeu.",
                 'data' => ['Moyen', 'Transport', 'Pratiquer le covoiturage ou l\'éco-conduite', 'Pour vos déplacements obligatoires en voiture, embarquez un passager ou réduisez votre vitesse de 10km/h sur autoroute.', 'Quel gain avec l\'éco-conduite ?', 'Rouler à 110 km/h au lieu de 130 km/h réduit votre consommation de carburant de 20% tout en limitant le stress au volant.']
             ],
             19 => [
                 'type' => 'lesson',
                 'picture_alts' => [
-                    "Gros plan sur un avion de ligne au décollage traversant un nuage de condensation.",
-                    "Une personne à vélo circulant joyeusement sur une piste cyclable sécurisée en ville."
+                    $default_alt,
+                    $default_alt
                 ],
                 'data' => [
                     ['Quel mode de chauffage de l\'eau chaude sanitaire est le plus écologique ?', ['Le chauffe-eau électrique à effet joule', 'Le chauffe-eau solaire thermique', 'Le cumulus au gaz classique', 'La chaudière à charbon'], 'Le chauffe-eau solaire thermique', 'Les panneaux solaires thermiques captent directement les rayons du soleil pour chauffer votre eau, utilisant une énergie gratuite et 100% renouvelable.'],
@@ -327,8 +328,8 @@ class AppFixtures extends Fixture
             20 => [
                 'type' => 'lesson',
                 'picture_alts' => [
-                    "Gros plan sur un avion de ligne au décollage traversant un nuage de condensation.",
-                    "Une personne à vélo circulant joyeusement sur une piste cyclable sécurisée en ville."
+                    $default_alt,
+                    $default_alt
                 ],
                 'data' => [
                     ['Quel est l\'impact environnemental majeur de la déforestation liée à l\'agriculture industrielle ?', ['Elle produit trop d\'oxygène', 'Elle libère le carbone stocké et détruit les puits de carbone', 'Elle refroidit la planète', 'Elle accélère la pluie'], 'Elle libère le carbone stocké et détruit les puits de carbone', 'Les arbres sont de fantastiques éponges à carbone. Les brûler ou les couper libère d\'énormes volumes de CO2 dans l\'atmosphère.'],
@@ -340,8 +341,8 @@ class AppFixtures extends Fixture
             21 => [
                 'type' => 'lesson',
                 'picture_alts' => [
-                    "Gros plan sur un avion de ligne au décollage traversant un nuage de condensation.",
-                    "Une personne à vélo circulant joyeusement sur une piste cyclable sécurisée en ville."
+                    $default_alt,
+                    $default_alt
                 ],
                 'data' => [
                     ['Quelle est la principale cause de l\'effondrement actuel de la biodiversité mondiale ?', ['Le changement climatique seul', 'La perte et la fragmentation des habitats naturels', 'L\'apparition de nouvelles maladies', 'L\'érosion naturelle'], 'La perte et la fragmentation des habitats naturels', 'L\'artificialisation des sols, l\'urbanisation et l\'agriculture intensive détruisent directement les lieux de vie des espèces sauvages.'],
@@ -351,8 +352,8 @@ class AppFixtures extends Fixture
             22 => [
                 'type' => 'lesson',
                 'picture_alts' => [
-                    "Gros plan sur un avion de ligne au décollage traversant un nuage de condensation.",
-                    "Une personne à vélo circulant joyeusement sur une piste cyclable sécurisée en ville."
+                    $default_alt,
+                    $default_alt
                 ],
                 'data' => [
                     ['Pourquoi les abeilles et autres insectes pollinisateurs sont-ils indispensables ?', ['Pour fabriquer uniquement du miel de luxe', 'Ils assurent la reproduction de 80% des plantes à fleurs et cultures', 'Ils n\'ont aucune utilité réelle', 'Pour faire fuir les moustiques'], 'Ils assurent la reproduction de 80% des plantes à fleurs et cultures', 'Sans les pollinisateurs, la majeure partie de notre alimentation mondiale (fruits, légumes, oléagineux) s\'effondrerait immédiatement.'],
@@ -362,14 +363,14 @@ class AppFixtures extends Fixture
             23 => [
                 'type' => 'defi',
                 'co2' => 5.0,
-                'picture_alt' => "Gros plan sur un avion de ligne au décollage traversant un nuage de condensation.",
+                'picture_alt' => "Sac biodégradable contenant des pommes.",
                 'data' => ['Faible', 'Consommation', 'Acheter un produit labellisé éco-responsable (FSC ou MSC)', 'Aujourd\'hui, achetez un produit en bois/papier labellisé FSC (gestion durable des forêts) ou du poisson labellisé MSC (pêche durable).', 'Que signifient ces labels ?', 'Ils garantissent le respect de critères environnementaux stricts pour ne pas surexploiter les forêts et les océans de notre globe.']
             ],
             24 => [
                 'type' => 'lesson',
                 'picture_alts' => [
-                    "Gros plan sur un avion de ligne au décollage traversant un nuage de condensation.",
-                    "Une personne à vélo circulant joyeusement sur une piste cyclable sécurisée en ville."
+                    $default_alt,
+                    $default_alt
                 ],
                 'data' => [
                     ['Quel impact majeur a la surpêche sur les écosystèmes marins ?', ['Elle nettoie le fond de l\'eau', 'Elle perturbe toute la chaîne alimentaire marine et vide les océans', 'Elle permet aux poissons de nager plus vite', 'Elle n\'a aucun impact à long terme'], 'Elle perturbe toute la chaîne alimentaire marine et vide les océans', 'La surpêche capture les poissons plus vite qu\'ils ne se reproduisent, menaçant de disparition des prédateurs essentiels comme les requins ou les thons.'],
@@ -379,14 +380,14 @@ class AppFixtures extends Fixture
             25 => [
                 'type' => 'defi',
                 'co2' => 50.0,
-                'picture_alt' => "Gros plan sur un avion de ligne au décollage traversant un nuage de condensation.",
+                'picture_alt' => "Assiette contenant des restes de nourriture.",
                 'data' => ['Fort', 'Alimentation', 'Zéro déchet alimentaire pendant une semaine', 'Planifiez vos repas à l\'avance, achetez les bonnes quantités et cuisinez absolument tous vos restes pour ne rien jeter.', 'Quel est le coût écologique du gaspillage ?', 'Si le gaspillage alimentaire mondial était un pays, il serait le troisième plus grand émetteur de gaz à effet de serre au monde derrière la Chine et les USA.']
             ],
             26 => [
                 'type' => 'lesson',
                 'picture_alts' => [
-                    "Gros plan sur un avion de ligne au décollage traversant un nuage de condensation.",
-                    "Une personne à vélo circulant joyeusement sur une piste cyclable sécurisée en ville."
+                    $default_alt,
+                    $default_alt
                 ],
                 'data' => [
                     ['Qu\'est-ce qu\'une espèce invasive (EEE) ?', ['Une espèce locale très amicale', 'Une espèce introduite qui menace l\'équilibre de la biodiversité locale', 'Un animal qui migre normalement en hiver', 'Un dinosaure disparu'], 'Une espèce introduite qui menace l\'équilibre de la biodiversité locale', 'Les espèces exotiques envahissantes (comme le frelon asiatique) entrent en concurrence directe avec les espèces indigènes et déstabilisent les écosystèmes.'],
@@ -396,8 +397,8 @@ class AppFixtures extends Fixture
             27 => [
                 'type' => 'lesson',
                 'picture_alts' => [
-                    "Gros plan sur un avion de ligne au décollage traversant un nuage de condensation.",
-                    "Une personne à vélo circulant joyeusement sur une piste cyclable sécurisée en ville."
+                    $default_alt,
+                    $default_alt
                 ],
                 'data' => [
                     ['Quel rôle crucial jouent les zones humides (marais, tourbières) pour la planète ?', ['Elles ne servent qu\'à attirer les moustiques', 'Ce sont de formidables filtres à eau et des puits de carbone massifs', 'Elles assèchent les sols de façon dangereuse', 'Elles produisent du pétrole'], 'Ce sont de formidables filtres à eau et des puits de carbone massifs', 'Les zones humides stockent deux fois plus de carbone que toutes les forêts du monde réunies et régulent naturellement les inondations.', 'Qu\'est-ce qui menace le plus les zones humides aujourd\'hui ?', 'L\'assèchement pour l\'extension agricole et l\'urbanisation a causé la perte de 85% des zones humides mondiales depuis l\'ère industrielle.'],
@@ -407,14 +408,14 @@ class AppFixtures extends Fixture
             28 => [
                 'type' => 'defi',
                 'co2' => 15.2,
-                'picture_alt' => "Gros plan sur un avion de ligne au décollage traversant un nuage de condensation.",
+                'picture_alt' => "Arbre à huile de palme vu de dessous.",
                 'data' => ['Moyen', 'Consommation', 'Boycott des produits contenant de l\'huile de palme', 'Vérifiez les étiquettes de vos produits (gâteaux, cosmétiques) et évitez soigneusement l\'huile de palme non certifiée.', 'Pourquoi boycotter l\'huile de palme ?', 'Sa culture ultra-intensive est la première cause de déforestation en Asie du Sud-Est, détruisant l\'habitat d\'espèces menacées comme les orangs-outans.']
             ],
             29 => [
                 'type' => 'lesson',
                 'picture_alts' => [
-                    "Gros plan sur un avion de ligne au décollage traversant un nuage de condensation.",
-                    "Une personne à vélo circulant joyeusement sur une piste cyclable sécurisée en ville."
+                    $default_alt,
+                    $default_alt
                 ],
                 'data' => [
                     ['Quel pourcentage de la surface de la Terre est couvert par les océans ?', ['30%', '50%', '71%', '95%'], '71%', 'Les océans couvrent plus de 70% de notre globe, d\'où le nom célèbre de Planète Bleue.'],
@@ -424,8 +425,8 @@ class AppFixtures extends Fixture
             30 => [
                 'type' => 'lesson',
                 'picture_alts' => [
-                    "Gros plan sur un avion de ligne au décollage traversant un nuage de condensation.",
-                    "Une personne à vélo circulant joyeusement sur une piste cyclable sécurisée en ville."
+                    $default_alt,
+                    $default_alt
                 ],
                 'data' => [
                     ['Qu\'appelle-t-on les services écosystémiques fournis par la nature ?', ['Des factures payées aux parcs naturels', 'Les bénéfices gratuits que l\'humanité tire des écosystèmes (eau potable, pollinisation, air pur)', 'Des applications mobiles pour les animaux', 'Des guides touristiques éco-responsables'], 'Les bénéfices gratuits que l\'humanité tire des écosystèmes (eau potable, pollinisation, air pur)', 'La nature nous fournit gratuitement des services indispensables à notre survie économique et physique, sans lesquels aucune société humaine ne pourrait tenir.'],
