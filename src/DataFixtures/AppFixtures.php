@@ -16,6 +16,7 @@ use App\Enum\EventStatus;
 use App\Enum\EventType;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
+use Random\RandomException;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class AppFixtures extends Fixture
@@ -670,7 +671,11 @@ class AppFixtures extends Fixture
         }
 
         // Répartition aléatoire pour les défis historiques :
-        $dice = rand(1, 10);
+        try {
+            $dice = random_int(1, 10);
+        } catch (RandomException) {
+            $dice = 1;
+        }
 
         if ($dice <= 4) {
             return EventStatus::FINISHED; // Défi accompli avec succès !

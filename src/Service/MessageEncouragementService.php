@@ -4,6 +4,7 @@ namespace App\Service;
 
 use App\Entity\MessageEncouragement;
 use App\Repository\MessageEncouragementRepository;
+use Random\RandomException;
 
 readonly class MessageEncouragementService
 {
@@ -28,7 +29,11 @@ readonly class MessageEncouragementService
             return null;
         }
 
-        $randomOffset = rand(0, $count - 1);
+        try {
+            $randomOffset = random_int(0, $count - 1);
+        } catch (RandomException) {
+            $randomOffset = 0;
+        }
         return $this->messageEncouragementRepository->findOneMessageEncouragement($randomOffset);
     }
 }
