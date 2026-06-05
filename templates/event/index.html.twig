@@ -6,93 +6,97 @@
 
     {% include 'event/_event_components/_header.html.twig' %}
 
-    {% set is_question_page = false %}
-    {% for part in event_parts %}
-        {% if part.eventPartType.name == 'ANSWER' and part.answers is not null %}
-            {% set is_question_page = true %}
-        {% endif %}
-    {% endfor %}
+    <main>
 
-    {% include 'event/_event_components/_answer_feedback.html.twig' %}
+        {% set is_question_page = false %}
+        {% for part in event_parts %}
+            {% if part.eventPartType.name == 'ANSWER' and part.answers is not null %}
+                {% set is_question_page = true %}
+            {% endif %}
+        {% endfor %}
 
-    {% if is_question_page and event.eventType.name == 'LESSON' %}
+        {% include 'event/_event_components/_answer_feedback.html.twig' %}
+
+        {% if is_question_page and event.eventType.name == 'LESSON' %}
         <form method="POST" action="{{ path('event', {'uid': event.uid, 'pageNumber': page_number + 1}) }}">
-    {% endif %}
+            {% endif %}
 
-    <div class="event-content">
-    {% set inside_tags = false %}
-    {% set inside_subgroup = false %}
+            <div class="event-content">
+                {% set inside_tags = false %}
+                {% set inside_subgroup = false %}
 
-    {% for part in event_parts %}
+                {% for part in event_parts %}
 
-    {% if inside_tags and part.eventPartType.name != 'TAG' %}
-    </div>
-    {% set inside_tags = false %}
-    {% endif %}
+                {% if inside_tags and part.eventPartType.name != 'TAG' %}
+            </div>
+            {% set inside_tags = false %}
+            {% endif %}
 
-    {% if inside_subgroup and part.eventPartType.name != 'SUBTITLE' and part.eventPartType.name != 'SUBDESCRIPTION' %}
-        </div>
-        {% set inside_subgroup = false %}
-    {% endif %}
+            {% if inside_subgroup and part.eventPartType.name != 'SUBTITLE' and part.eventPartType.name != 'SUBDESCRIPTION' %}
+                </div>
+                {% set inside_subgroup = false %}
+            {% endif %}
 
-    {% if part.eventPartType.name == 'PICTURE' %}
-        <img class="event-picture" src="/{{ part.picturePath }}" alt="{{ part.pictureAlt }}">
-    {% endif %}
+            {% if part.eventPartType.name == 'PICTURE' %}
+                <img class="event-picture" src="/{{ part.picturePath }}" alt="{{ part.pictureAlt }}">
+            {% endif %}
 
-    {% if part.eventPartType.name == 'TAG' %}
-    {% if not inside_tags %}
-    <div class="tags-group-container">
-    {% set inside_tags = true %}
-    {% endif %}
-    <span class="event-tag">{{ part.tag }}</span>
-    {% endif %}
+            {% if part.eventPartType.name == 'TAG' %}
+            {% if not inside_tags %}
+            <div class="tags-group-container">
+            {% set inside_tags = true %}
+            {% endif %}
+            <span class="event-tag">{{ part.tag }}</span>
+            {% endif %}
 
-    {% if part.eventPartType.name == 'LABEL' %}
-        <h2 class="event-label">{{ part.label }}</h2>
-    {% endif %}
+            {% if part.eventPartType.name == 'LABEL' %}
+                <h2 class="event-label">{{ part.label }}</h2>
+            {% endif %}
 
-    {% if part.eventPartType.name == 'DESCRIPTION' %}
-        <p class="event-description">{{ part.description }}</p>
-    {% endif %}
+            {% if part.eventPartType.name == 'DESCRIPTION' %}
+                <p class="event-description">{{ part.description }}</p>
+            {% endif %}
 
-    {% if part.eventPartType.name == 'QUESTION' %}
-        <h3 class="event-question">{{ part.question }}</h3>
-    {% endif %}
+            {% if part.eventPartType.name == 'QUESTION' %}
+                <h3 class="event-question">{{ part.question }}</h3>
+            {% endif %}
 
-    {% if part.eventPartType.name == 'ANSWER' %}
-        <div class="event-answers">
-            <input type="hidden" name="selected_answer" id="selected-answer-input" required>
-            {% for answer in part.answers %}
-                <button type="button" class="btn-secondary btn-secondary-green btn-answer"
-                        data-value="{{ answer }}">{{ answer }}</button>
-            {% endfor %}
-        </div>
-    {% endif %}
+            {% if part.eventPartType.name == 'ANSWER' %}
+                <div class="event-answers">
+                    <input type="hidden" name="selected_answer" id="selected-answer-input" required>
+                    {% for answer in part.answers %}
+                        <button type="button" class="btn-secondary btn-secondary-green btn-answer"
+                                data-value="{{ answer }}">{{ answer }}</button>
+                    {% endfor %}
+                </div>
+            {% endif %}
 
-    {% if part.eventPartType.name == 'SUBTITLE' %}
-    {% if inside_subgroup %}</div>{% endif %}
-    <div class="subgroup-card">
-    {% set inside_subgroup = true %}
-    <h3 class="event-label">{{ part.label }}</h3>
-    {% endif %}
+            {% if part.eventPartType.name == 'SUBTITLE' %}
+            {% if inside_subgroup %}</div>{% endif %}
+            <div class="subgroup-card">
+                {% set inside_subgroup = true %}
+                <h3 class="event-label">{{ part.label }}</h3>
+                {% endif %}
 
-    {% if part.eventPartType.name == 'SUBDESCRIPTION' %}
-        <p class="event-description">{{ part.description }}</p>
-    {% endif %}
+                {% if part.eventPartType.name == 'SUBDESCRIPTION' %}
+                    <p class="event-description">{{ part.description }}</p>
+                {% endif %}
 
-    {% endfor %}
-    {% if inside_tags %}</div>{% endif %}
-    {% if inside_subgroup %}</div>{% endif %}
-    </div>
+                {% endfor %}
+                {% if inside_tags %}</div>{% endif %}
+            {% if inside_subgroup %}</div>{% endif %}
+            </div>
 
-    {% if event.eventType.name == 'LESSON' %}
-        {% include 'event/_event_components/_lesson_navigation.html.twig' %}
-    {% else %}
-        {% include 'event/_event_components/_challenge_actions.html.twig' %}
-    {% endif %}
+            {% if event.eventType.name == 'LESSON' %}
+                {% include 'event/_event_components/_lesson_navigation.html.twig' %}
+            {% else %}
+                {% include 'event/_event_components/_challenge_actions.html.twig' %}
+            {% endif %}
 
-    {% if is_question_page %}
+            {% if is_question_page %}
         </form>
-    {% endif %}
+        {% endif %}
+
+    </main>
 
 {% endblock %}

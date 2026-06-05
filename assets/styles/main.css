@@ -229,15 +229,17 @@ p {
     margin-top: 32px;
 }
 
-.future-feature-card h3 {
+.future-feature-card h2 {
     color: var(--color-golden-900);
+    text-transform: none;
+
     margin-top: 0;
     display: flex;
     align-items: center;
     gap: 8px;
 }
 
-.future-feature-card h3::before {
+.future-feature-card h2::before {
     content: "🌱";
     font-size: 1.2em;
 }

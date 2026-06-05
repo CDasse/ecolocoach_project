@@ -7,11 +7,15 @@
 {% endblock %}
 
 {% block body %}
+
     <div class="error-page-container">
         <div class="error-card">
             <div class="error-illustration">🌱</div>
+
             <h1 class="error-code">{{ status_code }}</h1>
+
             <h2>Un petit caillou sur le chemin...</h2>
+
             <p>Une erreur inattendue s'est produite lors du traitement de ta requête. Ne t'inquiète pas, ton impact
                 carbone est sauf !</p>
 
@@ -20,4 +24,5 @@
             </a>
         </div>
     </div>
+
 {% endblock %}

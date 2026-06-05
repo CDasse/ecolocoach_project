@@ -3,12 +3,12 @@
 {% block title %}Connexion | EcoloCoach{% endblock %}
 
 {% block content %}
-    <div class="auth-page-container">
+    <main class="auth-page-container">
 
         <a href="{{ path('home') }}" class="back-home">
             ← Retour à l'accueil
         </a>
-        
+
         <div class="auth-card">
             <h1>Connexion</h1>
 
@@ -21,21 +21,32 @@
 
                 {% if app.user %}
                     <div class="already-connected-section">
-                        <p>Tu es connecté en tant que <strong>{{ app.user.userIdentifier }}</strong>.</p>
+                        <p>Tu es connecté en tant que
+                            <strong>{{ app.user.userIdentifier }}</strong>.
+                        </p>
                         <a href="{{ logout_path() }}">Se déconnecter</a>
                     </div>
                 {% endif %}
 
                 <div class="form-group">
                     <label for="username">Email</label>
-                    <input type="email" value="{{ last_username }}" name="_username" id="username" class="auth-input"
-                           autocomplete="email" required autofocus>
+                    <input type="email" value="{{ last_username }}"
+                           name="_username"
+                           id="username"
+                           class="auth-input"
+                           autocomplete="email"
+                           required
+                           autofocus>
                 </div>
 
                 <div class="form-group">
                     <label for="password">Mot de passe</label>
-                    <input type="password" name="_password" id="password" class="auth-input"
-                           autocomplete="current-password" required>
+                    <input type="password"
+                           name="_password"
+                           id="password"
+                           class="auth-input"
+                           autocomplete="current-password"
+                           required>
                 </div>
 
                 <input type="hidden" name="_csrf_token" data-controller="csrf-protection"
@@ -53,5 +64,5 @@
                 </div>
             </form>
         </div>
-    </div>
+    </main>
 {% endblock %}

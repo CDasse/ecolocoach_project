@@ -1,56 +1,64 @@
 {% set current_route = app.current_route %}
 
 <h2>EcoloCoach</h2>
-<ul>
-    <li>
-        <a href="{{ path('path') }}"
-           class="btn-primary
+<nav class="main-menu" aria-label="Menu principal">
+    <ul>
+        <li>
+            <a href="{{ path('path') }}"
+               class="btn-primary
                   btn-primary-green
-                  {{ "path" in current_route ? 'active' : '' }}"
-        >
-            <img src="{{ asset('/uploads/icons/home.svg') }}" alt="" class="btn-icon">
-            Mon Parcours
-        </a>
-    </li>
-    <li>
-        <a href="{{ path('impact') }}"
-           class="btn-primary
+                  {{ "path" in current_route ? 'active' : '' }}">
+
+                <img src="{{ asset('/uploads/icons/home.svg') }}"
+                     alt=""
+                     class="btn-icon">
+                Mon Parcours
+            </a>
+        </li>
+        <li>
+            <a href="{{ path('impact') }}"
+               class="btn-primary
                   btn-primary-green
-                  {{ "impact" in current_route ? 'active' : '' }}"
-        >
-            <img src="{{ asset('/uploads/icons/co2.svg') }}" alt="" class="btn-icon">
-            Mon Impact
-        </a>
-    </li>
-    <li>
-        <a href="{{ path('community') }}"
-           class="btn-primary
+                  {{ "impact" in current_route ? 'active' : '' }}">
+
+                <img src="{{ asset('/uploads/icons/co2.svg') }}"
+                     alt=""
+                     class="btn-icon">
+                Mon Impact
+            </a>
+        </li>
+        <li>
+            <a href="{{ path('community') }}"
+               class="btn-primary
                   btn-primary-green
-                  {{ "community" in current_route ? 'active' : '' }}"
-        >
-            <img src="{{ asset('/uploads/icons/community.svg') }}" alt="" class="btn-icon">
-            Communauté
-        </a>
-    </li>
-    <li>
-        <a href="{{ path('profil') }}"
-           class="btn-primary
+                  {{ "community" in current_route ? 'active' : '' }}">
+
+                <img src="{{ asset('/uploads/icons/community.svg') }}"
+                     alt=""
+                     class="btn-icon">
+                Communauté
+            </a>
+        </li>
+        <li>
+            <a href="{{ path('profil') }}"
+               class="btn-primary
                   btn-primary-green
-                  {{ "profil" in current_route ? 'active' : '' }}"
-        >
-            <img src="{{ asset('/uploads/icons/profil.svg') }}" alt="" class="btn-icon">
-            Mon Profil
-        </a>
-    </li>
-    <li>
-        <h3 class="dialog-h3">{{ app.user.username }}</h3>
-    </li>
-    <li>
-        <a href="{{ path('app_logout') }}"
-           class="btn-primary
-                  btn-primary-red"
-        >
-            Se déconnecter
-        </a>
-    </li>
-</ul>
+                  {{ "profil" in current_route ? 'active' : '' }}">
+
+                <img src="{{ asset('/uploads/icons/profil.svg') }}"
+                     alt=""
+                     class="btn-icon">
+                Mon Profil
+            </a>
+        </li>
+        <li>
+            <span class="menu-username">{{ app.user.username }}</span>
+        </li>
+        <li>
+            <a href="{{ path('app_logout') }}"
+               class="btn-primary btn-primary-red">
+                Se déconnecter
+            </a>
+        </li>
+    </ul>
+</nav>

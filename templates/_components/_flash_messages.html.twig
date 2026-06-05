@@ -1,7 +1,10 @@
 {% set all_flashes = app.flashes %}
-{% set target_types = ['success', 'info', 'challenge_accepted', 'challenge_refused'] %}
-
+{% set target_types = ['success',
+    'info',
+    'challenge_accepted',
+    'challenge_refused'] %}
 {% set has_modals = false %}
+
 {% for type, messages in all_flashes %}
     {% if type in target_types and messages is not empty %}
         {% set has_modals = true %}
@@ -9,26 +12,31 @@
 {% endfor %}
 
 {% if has_modals %}
-    <dialog id="flash-dialog" class="feedback-dialog">
+    <dialog id="flash-dialog"
+            class="feedback-dialog"
+            aria-modal="true">
 
         <button type="button"
                 id="flash-close-btn"
                 class="modal-close-cross"
                 aria-label="Fermer la modale">
-            <img src="{{ asset('/uploads/icons/cross.svg') }}" alt="Fermer">
+            <img src="{{ asset('/uploads/icons/cross.svg') }}"
+                 alt="">
         </button>
 
-        <div class="modal-feedback-box">
+        <section class="modal-feedback-box">
             {% for type, messages in all_flashes %}
                 {% if type in target_types %}
                     {% for message in messages %}
 
-                        <div class="modal-feedback-text">
+                        <p class="modal-feedback-text">
                             {{ message|raw }}
-                        </div>
+                        </p>
 
-                        {% if type in ['challenge_accepted', 'challenge_refused'] %}
-                            <a href="{{ path('recap_challenges') }}" class="btn-primary btn-primary-green">
+                        {% if type in ['challenge_accepted',
+                            'challenge_refused'] %}
+                            <a href="{{ path('recap_challenges') }}"
+                               class="btn-primary btn-primary-green">
                                 Voir tous mes défis
                             </a>
                         {% endif %}
@@ -36,6 +44,6 @@
                     {% endfor %}
                 {% endif %}
             {% endfor %}
-        </div>
+        </section>
     </dialog>
 {% endif %}

@@ -7,7 +7,8 @@
 {% block content %}
     <main class="impact-page-container">
 
-        <section class="impact-stats-section">
+        <section class="impact-stats-section"
+                 aria-label="Statistiques d'impact">
             <div class="stat-card">
                 <div class="stat-main">
                     <span class="stat-value">{{ app.user.co2Impact | format_co2 }}</span>

@@ -15,16 +15,23 @@
     <header>
         {% block header_title %}{% endblock %}
 
-        <nav role="navigation" aria-label="Menu principal">
-            <button type="button" aria-haspopup="dialog" aria-label="Ouvrir le menu principal"
-                    aria-controls="dialog-burger-menu" class="open-menu-button">
-                <img src="{{ asset("/uploads/icons/burger_menu.svg") }}" alt="Menu">
+        <nav aria-label="Menu principal">
+            <button class="open-menu-button"
+                    type="button"
+                    aria-haspopup="dialog"
+                    aria-label="Ouvrir le menu principal"
+                    aria-controls="dialog-burger-menu">
+                <img src="{{ asset("/uploads/icons/burger_menu.svg") }}" alt="">
             </button>
         </nav>
-        <dialog aria-modal="true" tabindex="-1" id="dialog-burger-menu">
-            <button type="button" class="exit-menu-button">
-                <img src="{{ asset("/uploads/icons/cross.svg") }}" alt="Fermer le menu">
+
+        <dialog aria-modal="true" id="dialog-burger-menu">
+            <button class="exit-menu-button"
+                    type="button"
+                    aria-label="Fermer le menu">
+                <img src="{{ asset("/uploads/icons/cross.svg") }}" alt="">
             </button>
+
             {% include "_components/menu.html.twig" %}
         </dialog>
 

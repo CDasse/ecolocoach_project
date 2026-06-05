@@ -1,11 +1,11 @@
-{# TODO: ajouter la confirmation d'inscription par mail lorsque l'application sera utilisée #}
+{# TODO: ajouter la confirmation d'inscription par mail quand l'application sera utilisée #}
 
 {% extends '_layouts/standard.html.twig' %}
 
 {% block title %}Inscription | Ecolocoach{% endblock %}
 
 {% block content %}
-    <div class="auth-page-container">
+    <main class="auth-page-container">
 
         <a href="{{ path('home') }}" class="back-home">
             ← Retour à l'accueil
@@ -24,24 +24,28 @@
 
             <div class="form-group">
                 {{ form_label(registrationForm.username, "Nom d'utilisateur") }}
-                {{ form_widget(registrationForm.username, {'attr': {'class': 'auth-input', 'placeholder': 'Ex : JasmineLake'}}) }}
+                {{ form_widget(registrationForm.username,
+                    {'attr': {'class': 'auth-input', 'placeholder': 'Ex : JasmineLake'}}) }}
                 {{ form_errors(registrationForm.username) }}
             </div>
 
             <div class="form-group">
                 {{ form_label(registrationForm.email, 'Email') }}
-                {{ form_widget(registrationForm.email, {'attr': {'class': 'auth-input', 'placeholder': 'jasmine.lake@email.fr'}}) }}
+                {{ form_widget(registrationForm.email,
+                    {'attr': {'class': 'auth-input', 'placeholder': 'jasmine.lake@email.fr'}}) }}
                 {{ form_errors(registrationForm.email) }}
             </div>
 
             <div class="form-group">
                 {{ form_label(registrationForm.plainPassword, 'Mot de passe') }}
-                {{ form_widget(registrationForm.plainPassword, {'attr': {'class': 'auth-input'}}) }}
+                {{ form_widget(registrationForm.plainPassword,
+                    {'attr': {'class': 'auth-input'}}) }}
                 {{ form_errors(registrationForm.plainPassword) }}
             </div>
 
             <div class="form-group-checkbox">
-                {{ form_widget(registrationForm.agreeTerms, {'attr': {'class': 'auth-checkbox'}}) }}
+                {{ form_widget(registrationForm.agreeTerms,
+                    {'attr': {'class': 'auth-checkbox'}}) }}
                 {{ form_label(registrationForm.agreeTerms, 'J\'accepte les conditions générales.') }}
                 {{ form_errors(registrationForm.agreeTerms) }}
             </div>
@@ -58,5 +62,5 @@
             </div>
             {{ form_end(registrationForm) }}
         </div>
-    </div>
+    </main>
 {% endblock %}
