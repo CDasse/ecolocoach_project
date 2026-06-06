@@ -30,6 +30,7 @@ jobs:
                     echo "APP_ENV=test" > .env
                     echo "APP_SECRET=test-placeholder-secret-32chars!!" >> .env
                     echo "DEFAULT_URI=http://127.0.0.1:8000" >> .env
+                    echo "DATABASE_URL=sqlite:///%kernel.project_dir%/var/data.db" >> .env
 
             -   name: Cache Composer dependencies
                 uses: actions/cache@v4
@@ -70,6 +71,7 @@ jobs:
                     echo "APP_ENV=test" > .env
                     echo "APP_SECRET=test-secret" >> .env
                     echo "DEFAULT_URI=http://127.0.0.1:8000" >> .env
+                    echo "DATABASE_URL=sqlite:///%kernel.project_dir%/var/data.db" >> .env
 
             -   name: Install PHP dependencies
                 run: composer install --prefer-dist --no-scripts --no-progress
