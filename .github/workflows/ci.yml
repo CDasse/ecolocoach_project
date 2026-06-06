@@ -7,8 +7,100 @@ on:
         branches: [ main ]
 
 jobs:
+    # ==========================================
+    # JOB 1 : TESTS UNITAIRES (PHPUNIT)
+    # ==========================================
+    test:
+        name: Run Unit Tests
+        runs-on: ubuntu-latest
+
+        steps:
+            -   name: Checkout code
+                uses: actions/checkout@v4
+
+            -   name: Setup PHP
+                uses: shivammathur/setup-php@v2
+                with:
+                    php-version: '8.4'
+                    extensions: ctype, iconv, intl
+                    coverage: none
+
+            -   name: Create .env for testing
+                run: |
+                    echo "APP_ENV=test" > .env
+                    echo "APP_SECRET=test-placeholder-secret-32chars!!" >> .env
+
+            -   name: Cache Composer dependencies
+                uses: actions/cache@v4
+                with:
+                    path: vendor
+                    key: composer-test-${{ hashFiles('composer.lock') }}
+                    restore-keys: composer-test-
+
+            -   name: Install dependencies (with dev tools)
+                run: composer install --no-interaction --prefer-dist --no-scripts
+
+            -   name: Execute PHPUnit tests
+                run: vendor/bin/phpunit
+
+    # ==========================================
+    # JOB 2 : TESTS E2E (PLAYWRIGHT + BDD)
+    # ==========================================
+    test-e2e:
+        name: Run Playwright E2E Tests
+        runs-on: ubuntu-latest
+        steps:
+            -   name: Checkout code
+                uses: actions/checkout@v4
+
+            -   name: Setup Node.js
+                uses: actions/setup-node@v4
+                with:
+                    node-version: '20'
+
+            -   name: Setup PHP
+                uses: shivammathur/setup-php@v2
+                with:
+                    php-version: '8.4'
+                    extensions: ctype, iconv, intl, pdo_sqlite
+
+            -   name: Create .env for testing
+                run: |
+                    echo "APP_ENV=test" > .env
+                    echo "APP_SECRET=test-secret" >> .env
+
+            -   name: Install PHP dependencies
+                run: composer install --prefer-dist --no-scripts --no-progress
+
+            -   name: Setup Database and Fixtures
+                run: |
+                    php bin/console doctrine:database:create --env=test --if-not-exists
+                    php bin/console doctrine:migrations:migrate -n --env=test
+                    php bin/console doctrine:fixtures:load -n --env=test
+
+            -   name: Compile assets for E2E
+                run: |
+                    php bin/console importmap:install
+                    php bin/console asset-map:compile
+
+            -   name: Install NPM dependencies
+                run: npm install
+
+            -   name: Install Playwright Browsers
+                run: npx playwright install --with-deps
+
+            -   name: Run Playwright tests
+                run: |
+                    php -S 127.0.0.1:8000 -t public &
+                    sleep 3
+                    npx playwright test
+
+    # ==========================================
+    # JOB 3 : BUILD (PREPARATION PRODUCTION)
+    # ==========================================
     build:
         name: Build artifact
+        needs: [ test, test-e2e ]
         runs-on: ubuntu-latest
 
         steps:
