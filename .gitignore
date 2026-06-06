@@ -71,11 +71,16 @@
 
 /node_modules/
 /test-results/
+phpunit.dist.xml
+playwright/.auth/
 /playwright-report/
+
+.DS_Store
+.importmap.php.swp
 
 .env
 .env.test
 .env.dev
 .idea
-phpunit.dist.xml
-playwright/.auth/
+
+
