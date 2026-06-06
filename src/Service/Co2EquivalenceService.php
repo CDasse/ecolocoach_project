@@ -93,7 +93,7 @@ class Co2EquivalenceService
             $minValue = 1;
 
             if ($calculatedValue >= $minValue && $calculatedValue <= $data["max_value"]) {
-                $formattedValue = number_format($calculatedValue, 0, ",", " ");
+                $formattedValue = number_format($calculatedValue, 1, ",", " ");
 
                 $eligibleComparaison[] = [
                     'icon' => $data['icon'],
