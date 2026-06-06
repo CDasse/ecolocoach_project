@@ -78,7 +78,8 @@ jobs:
 
             -   name: Setup Database and Fixtures
                 run: |
-                    php bin/console doctrine:database:create --env=test --if-not-exists
+                    mkdir -p var
+                    touch var/data.db
                     php bin/console doctrine:migrations:migrate -n --env=test
                     php bin/console doctrine:fixtures:load -n --env=test
 
