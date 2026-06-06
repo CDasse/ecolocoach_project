@@ -60,6 +60,7 @@ jobs:
                 uses: actions/setup-node@v4
                 with:
                     node-version: '20'
+                    cache: 'npm'
 
             -   name: Setup PHP
                 uses: shivammathur/setup-php@7c071dfe9dc99bdf297fa79cb49ea005b9fcadbc
@@ -103,11 +104,31 @@ jobs:
                     npx playwright test
 
     # ==========================================
-    # JOB 3 : BUILD (PREPARATION PRODUCTION)
+    # JOB 3 : SONARCLOUD
+    # ==========================================
+    sonarcloud:
+        name: SonarCloud Scan
+        runs-on: ubuntu-latest
+        needs: [ test, test-e2e ]
+
+        steps:
+            -   name: Checkout code
+                uses: actions/checkout@v4
+                with:
+                    fetch-depth: 0
+
+            -   name: SonarCloud Scan
+                uses: SonarSource/sonarcloud-github-action@master
+                env:
+                    GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+                    SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+
+    # ==========================================
+    # JOB 4 : BUILD (PREPARATION PRODUCTION)
     # ==========================================
     build:
         name: Build artifact
-        needs: [ test, test-e2e ]
+        needs: [ test, test-e2e, sonarcloud ]
         runs-on: ubuntu-latest
 
         steps:
