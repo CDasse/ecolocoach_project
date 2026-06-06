@@ -124,7 +124,7 @@ dialog ul {
 
     display: flex;
     flex-direction: column;
-    align-items: stretch;
+    align-items: center;
     gap: 24px;
     flex-grow: 1;
 }
