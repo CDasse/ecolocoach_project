@@ -1,5 +1,26 @@
 {% extends '_layouts/in_app.html.twig' %}
 
+{% macro render_event_button(event, current_number, user_current_event, x_offset_value) %}
+    {% if event.sequenceNumber > user_current_event.sequenceNumber %}
+        <span class="event-btn locked" style="--x-offset: {{ x_offset_value }}px;">
+            <img src="{{ asset('/uploads/icons/lock.svg') }}" alt="" class="btn-icon">
+            {{ event.eventType.value }} {{ current_number }}
+        </span>
+    {% else %}
+        <a href="{{ path('event', {'uid': event.uid, 'pageNumber': 1}) }}"
+           class="event-btn {{ user_current_event == event ? 'current-event' : '' }}
+                  {{ event.eventType.value == "défi" ? 'btn-primary-golden' : 'btn-primary-green' }}"
+           style="--x-offset: {{ x_offset_value }}px;">
+            {% if event.eventType.value == "défi" %}
+                <img src="{{ asset('/uploads/icons/challenge.svg') }}" alt="" class="btn-icon">
+            {% else %}
+                <img src="{{ asset('/uploads/icons/lesson.svg') }}" alt="" class="btn-icon">
+            {% endif %}
+            {{ event.eventType.value }} {{ current_number }}
+        </a>
+    {% endif %}
+{% endmacro %}
+
 {% block title %}Mon parcours | EcoloCoach{% endblock %}
 
 {% block header_title %}
@@ -13,6 +34,9 @@
 {% endblock %}
 
 {% block content %}
+
+    {% import _self as macros %}
+
     <main>
 
         {% if is_path_completed %}
@@ -40,7 +64,8 @@
 
                 {% set lesson_count = 0 %}
                 {% set challenge_count = 0 %}
-                {% set middle_index = (events_of_level|length / 2)|round(0, 'ceil') %}
+                {% set total_events = events_of_level|length %}
+                {% set middle_index = (total_events / 2)|round(0, 'ceil') %}
 
                 <div class="level-section section-left-mascot">
                     <div class="mascot-wrapper">
@@ -48,47 +73,10 @@
                     </div>
 
                     <div class="events-wrapper">
-                        {% for event in events_of_level|slice(0, middle_index) %}
 
-                            {% if event.eventType.value == "défi" %}
-                                {% set challenge_count = challenge_count + 1 %}
-                                {% set current_number = challenge_count %}
-                            {% else %}
-                                {% set lesson_count = lesson_count + 1 %}
-                                {% set current_number = lesson_count %}
-                            {% endif %}
+                        {% for event in events_of_level %}
 
-                            {#
-                            Curve path layout calculation:
-                            Computes a dynamic horizontal pixel offset (--x-offset) based on the item's
-                            distance from the middle of the list to arrange buttons in a curved timeline.
-                            #}
-                            {% set total = loop.length %}
-                            {% set mid = (total - 1) / 2 %}
-                            {% set dist = (loop.index0 - mid)|abs %}
-                            {% set x_offset = mid > 0 ? 25 - (80 * dist / mid) : 15 %}
-
-                            {% if event.sequenceNumber > user_current_event.sequenceNumber %}
-                                <span class="event-btn locked" style="--x-offset: {{ x_offset }}px;">
-                                    <img src="{{ asset('/uploads/icons/lock.svg') }}"
-                                         alt=""
-                                         class="btn-icon">
-                                    {{ event.eventType.value }} {{ current_number }}
-                                </span>
-                            {% else %}
-                                <a href="{{ path('event', {'uid': event.uid, 'pageNumber': 1}) }}"
-                                   class="event-btn {{ user_current_event == event ? 'current-event' : '' }}
-                                        {{ event.eventType.value == "défi" ? 'btn-primary-golden' : 'btn-primary-green' }}"
-                                   style="--x-offset: {{ x_offset }}px;">
-                                    {% if event.eventType.value == "défi" %}
-                                        <img src="{{ asset('/uploads/icons/challenge.svg') }}" alt="" class="btn-icon">
-                                    {% else %}
-                                        <img src="{{ asset('/uploads/icons/lesson.svg') }}" alt="" class="btn-icon">
-                                    {% endif %}
-                                    {{ event.eventType.value }} {{ current_number }}
-                                </a>
-                            {% endif %}
-                        {% endfor %}
+                        {% if loop.index0 == middle_index %}
                     </div>
                 </div>
 
@@ -98,47 +86,35 @@
 
                 <div class="level-section section-right-mascot">
                     <div class="events-wrapper">
-                        {% for event in events_of_level|slice(middle_index) %}
+                        {% endif %}
 
-                            {% if event.eventType.value == "défi" %}
-                                {% set challenge_count = challenge_count + 1 %}
-                                {% set current_number = challenge_count %}
-                            {% else %}
-                                {% set lesson_count = lesson_count + 1 %}
-                                {% set current_number = lesson_count %}
-                            {% endif %}
+                        {% if event.eventType.value == "défi" %}
+                            {% set challenge_count = challenge_count + 1 %}
+                            {% set current_number = challenge_count %}
+                        {% else %}
+                            {% set lesson_count = lesson_count + 1 %}
+                            {% set current_number = lesson_count %}
+                        {% endif %}
 
-                            {#
-                            Curve path layout calculation:
-                            Computes a dynamic horizontal pixel offset (--x-offset) based on the item's
-                            distance from the middle of the list to arrange buttons in a curved timeline.
-                            #}
-                            {% set total = loop.length %}
-                            {% set mid = (total - 1) / 2 %}
-                            {% set dist = (loop.index0 - mid)|abs %}
-                            {% set x_offset = mid > 0 ? 25 - (80 * dist / mid) : 15 %}
+                        {# Curve path layout calculation:
+                        Computes a dynamic horizontal pixel offset (--x-offset) based on the item's
+                        distance from the middle of the list to arrange buttons in a curved timeline. #}
+                        {% set is_first_half = loop.index0 < middle_index %}
+                        {% set slice_total = is_first_half ? middle_index : (total_events - middle_index) %}
+                        {% set local_index = is_first_half ? loop.index0 : (loop.index0 - middle_index) %}
 
-                            {% if event.sequenceNumber > user_current_event.sequenceNumber %}
-                                <span class="event-btn locked" style="--x-offset: {{ -x_offset }}px;">
-                                    <img src="{{ asset('/uploads/icons/lock.svg') }}" alt="" class="btn-icon">
-                                    {{ event.eventType.value }} {{ current_number }}
-                                </span>
-                            {% else %}
-                                <a href="{{ path('event', {'uid': event.uid, 'pageNumber': 1}) }}"
-                                   class="event-btn {{ user_current_event == event ? 'current-event' : '' }}
-                                                 {{ event.eventType.value == "défi" ? 'btn-primary-golden' : 'btn-primary-green' }}"
-                                   style="--x-offset: {{ -x_offset }}px;"
-                                >
-                                    {% if event.eventType.value == "défi" %}
-                                        <img src="{{ asset('/uploads/icons/challenge.svg') }}" alt="" class="btn-icon">
-                                    {% else %}
-                                        <img src="{{ asset('/uploads/icons/lesson.svg') }}" alt="" class="btn-icon">
-                                    {% endif %}
-                                    {{ event.eventType.value }} {{ current_number }}
-                                </a>
-                            {% endif %}
+                        {% set mid = (slice_total - 1) / 2 %}
+                        {% set dist = (local_index - mid)|abs %}
+                        {% set base_x_offset = mid > 0 ? 25 - (80 * dist / mid) : 15 %}
+
+                        {% set final_x_offset = is_first_half ? base_x_offset : -base_x_offset %}
+
+                        {{ macros.render_event_button(event, current_number, user_current_event, final_x_offset) }}
+
                         {% endfor %}
+
                     </div>
+
                     <div class="mascot-wrapper">
                         <img src="{{ user_current_level.mascot2 }}" alt="Mascotte célébration">
                     </div>
@@ -169,15 +145,11 @@
         {% endif %}
 
         <div class="future-feature-card">
-
             <h2>Bientôt : Des Parcours Sur-Mesure</h2>
-
             <p>Parce que chaque éco-citoyen est différent,
                 un quiz d'évaluation initial vous sera bientôt proposé à l'inscription.
                 Il nous permettra de vous orienter vers le parcours d'accompagnement
                 le plus adapté à votre mode de vie.</p>
-
         </div>
     </main>
-
 {% endblock %}
