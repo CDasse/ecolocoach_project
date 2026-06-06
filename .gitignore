@@ -71,7 +71,6 @@
 
 /node_modules/
 /test-results/
-phpunit.dist.xml
 playwright/.auth/
 /playwright-report/
 
