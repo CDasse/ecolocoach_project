@@ -1,9 +1,16 @@
+{# TODO : mettre de la pagination lorsque les parcours prendront de l'ampleur et que le nombre de défis grandira #}
+
 {% extends '_layouts/in_app.html.twig' %}
 
 {% block title %}Mes défis | Ecolocoach{% endblock %}
-{% block header_title %}<h1>Mes défis</h1>{% endblock %}
 
-{# TODO : mettre de la pagination lorsque les parcours prendront de l'ampleur et que le nombre de défis grandira #}
+{% block meta_description %}
+    Fais le point sur tes actions.
+    Retrouve l'historique complet de tes défis EcoloCoach :
+    ceux en cours, ceux terminés avec succès et ceux laissés de côté.
+{% endblock %}
+
+{% block header_title %}<h1>Mes défis</h1>{% endblock %}
 
 {% block content %}
     <main class="impact-page-container">

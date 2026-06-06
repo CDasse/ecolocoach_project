@@ -21,6 +21,11 @@
     {% endif %}
 {% endmacro %}
 
+{% block meta_description %}
+    Retrouve ton parcours d'accompagnement EcoloCoach.
+    Poursuis tes leçons, relève de nouveaux défis écologiques et avance pas à pas vers un mode de vie plus écologique.
+{% endblock %}
+
 {% block title %}Mon parcours | EcoloCoach{% endblock %}
 
 {% block header_title %}
@@ -52,7 +57,11 @@
                         <h2>Niveau {{ user_current_level.sequenceNumber }}</h2>
                         <p class="level-subtitle">{{ user_current_level.name }}</p>
                     </div>
-                    <a href="{{ path('level') }}" class="btn-guide">GUIDE</a>
+                    <a href="{{ path('level') }}"
+                       class="btn-guide"
+                       aria-label="Consulter le guide du parcours">
+                        GUIDE
+                    </a>
                 </div>
             {% else %}
                 <div class="info-card">
