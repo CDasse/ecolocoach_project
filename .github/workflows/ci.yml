@@ -104,6 +104,14 @@ jobs:
                     npx wait-on http://127.0.0.1:8000
                     npx playwright test
 
+            -   name: Upload Playwright report
+                uses: actions/upload-artifact@v4
+                if: always()
+                with:
+                    name: playwright-report
+                    path: playwright-report/
+                    retention-days: 7
+
     # ==========================================
     # JOB 3 : GREEN-IT ANALYSIS
     # ==========================================
