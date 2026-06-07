@@ -133,6 +133,7 @@ jobs:
                     echo "APP_SECRET=test-secret-pour-la-ci-github!!" >> .env
                     echo "DEFAULT_URI=http://127.0.0.1:8000" >> .env
                     echo "DATABASE_URL=sqlite:///%kernel.project_dir%/var/data.db" >> .env
+                    echo "MESSENGER_TRANSPORT_DSN=in-memory://" >> .env
 
             -   name: Cache Composer dependencies
                 uses: actions/cache@v4
