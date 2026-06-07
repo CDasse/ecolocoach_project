@@ -1,0 +1,8 @@
+-   name: 'Home'
+    url: 'http://127.0.0.1:8000/'
+
+-   name: 'Login'
+    url: 'http://127.0.0.1:8000/login'
+
+-   name: 'Inscription'
+    url: 'http://127.0.0.1:8000/register'
