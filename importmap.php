@@ -16,4 +16,16 @@ return [
         'path' => './assets/scripts/main.js',
         'entrypoint' => true,
     ],
+    '@axe-core/playwright' => [
+        'version' => '4.11.3',
+    ],
+    'axe-core' => [
+        'version' => '4.11.4',
+    ],
+    '@playwright/test' => [
+        'version' => '1.60.0',
+    ],
+    'playwright/test' => [
+        'version' => '1.60.0',
+    ],
 ];
