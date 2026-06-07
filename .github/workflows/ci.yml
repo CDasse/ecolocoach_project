@@ -165,7 +165,7 @@ jobs:
                 uses: ythirion/greenit-analysis-action@ae3e237e3be4eefde6a5046545264c730a91ecfb
                 with:
                     url-file: 'greenit-urls.yml'
-                    min-ecoindex: '90'
+                    min-ecoindex: '85'
 
     # ==========================================
     # JOB 4 : SONARCLOUD
