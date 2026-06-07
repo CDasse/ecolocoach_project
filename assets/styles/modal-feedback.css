@@ -79,6 +79,12 @@
     padding-right: 20px;
 }
 
+.flash-illustration {
+    width: 150px;
+    height: auto;
+    margin-bottom: 16px;
+}
+
 .modal-feedback-box .btn-primary {
     display: flex;
     align-items: center;

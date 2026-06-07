@@ -60,7 +60,9 @@ final class EventProgressionController extends AbstractController
         // progression state for it.
         $hasMovesForward = $xUserLevelEventService->resolveAndActivateNextEventProgression($connectedUser, $event);
 
-        if (!$hasMovesForward) {
+        if ($hasMovesForward) {
+            $this->addFlash('level_up', 'Félicitations ! Vous avez débloqué le niveau suivant !');
+        } else {
             $this->addFlash('success', 'Félicitations ! Vous avez terminé le parcours d\'accompagnement dans votre transition écologique');
         }
 
