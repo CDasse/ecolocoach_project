@@ -30,7 +30,7 @@
                     {% for message in messages %}
 
                         <p class="modal-feedback-text">
-                            {{ message|raw }}
+                            {{ message|sanitize_html }}
                         </p>
 
                         {% if type in ['challenge_accepted',
