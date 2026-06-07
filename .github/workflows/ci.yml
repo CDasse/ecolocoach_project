@@ -52,6 +52,7 @@ jobs:
     test-e2e:
         name: Run Playwright E2E Tests
         runs-on: ubuntu-latest
+
         steps:
             -   name: Checkout code
                 uses: actions/checkout@v4
@@ -100,11 +101,73 @@ jobs:
             -   name: Run Playwright tests
                 run: |
                     php -S 127.0.0.1:8000 -t public &
-                    sleep 3
+                    npx wait-on http://127.0.0.1:8000
                     npx playwright test
 
     # ==========================================
-    # JOB 3 : SONARCLOUD
+    # JOB 3 : GREEN-IT ANALYSIS
+    # ==========================================
+    greenit:
+        name: GreenIT Analysis
+        runs-on: ubuntu-latest
+        needs: [ test, test-e2e ]
+
+        steps:
+            -   name: Checkout code
+                uses: actions/checkout@v4
+
+            -   name: Setup Node.js (Requis pour npx wait-on)
+                uses: actions/setup-node@v4
+                with:
+                    node-version: '20'
+
+            -   name: Setup PHP
+                uses: shivammathur/setup-php@7c071dfe9dc99bdf297fa79cb49ea005b9fcadbc
+                with:
+                    php-version: '8.4'
+                    extensions: ctype, iconv, intl, pdo_sqlite
+
+            -   name: Create .env for testing
+                run: |
+                    echo "APP_ENV=test" > .env
+                    echo "APP_SECRET=test-secret-pour-la-ci-github!!" >> .env
+                    echo "DEFAULT_URI=http://127.0.0.1:8000" >> .env
+                    echo "DATABASE_URL=sqlite:///%kernel.project_dir%/var/data.db" >> .env
+
+            -   name: Cache Composer dependencies
+                uses: actions/cache@v4
+                with:
+                    path: vendor
+                    key: composer-greenit-${{ hashFiles('composer.lock') }}
+                    restore-keys: composer-greenit-
+
+            -   name: Install dependencies
+                run: composer install --prefer-dist --no-scripts --no-progress
+
+            -   name: Setup Database
+                run: |
+                    mkdir -p var
+                    touch var/data.db
+                    php bin/console doctrine:schema:create --env=test
+
+            -   name: Compile assets for GreenIT
+                run: |
+                    php bin/console importmap:install
+                    php bin/console asset-map:compile
+
+            -   name: Start Symfony server & wait
+                run: |
+                    php -S 127.0.0.1:8000 -t public &
+                    npx wait-on http://127.0.0.1:8000
+
+            -   name: GreenIT Analysis
+                uses: ythirion/greenit-analysis-action@ae3e237e3be4eefde6a5046545264c730a91ecfb
+                with:
+                    url-file: 'greenit-urls.yml'
+                    min-ecoindex: '90'
+
+    # ==========================================
+    # JOB 4 : SONARCLOUD
     # ==========================================
     sonarcloud:
         name: SonarCloud Scan
@@ -124,11 +187,11 @@ jobs:
                     SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 
     # ==========================================
-    # JOB 4 : BUILD (PREPARATION PRODUCTION)
+    # JOB 5 : BUILD (PREPARATION PRODUCTION)
     # ==========================================
     build:
         name: Build artifact
-        needs: [ test, test-e2e, sonarcloud ]
+        needs: [ test, test-e2e, sonarcloud, greenit ]
         runs-on: ubuntu-latest
 
         steps:
@@ -186,34 +249,3 @@ jobs:
                     path: /tmp/ecolocoach-${{ github.sha }}.tar.gz
                     retention-days: 7
                     if-no-files-found: error
-
-    # ==========================================
-    # JOB 5 : GREEN-IT ANALYSIS
-    # ==========================================
-    greenit:
-        name: GreenIT Analysis
-        runs-on: ubuntu-latest
-        needs: build
-
-        steps:
-            -   name: Checkout code
-                uses: actions/checkout@v4
-
-            -   name: Setup PHP
-                uses: shivammathur/setup-php@7c071dfe9dc99bdf297fa79cb49ea005b9fcadbc
-                with:
-                    php-version: '8.4'
-
-            -   name: Install dependencies
-                run: composer install --prefer-dist --no-progress
-
-            -   name: Start Symfony server & wait
-                run: |
-                    php -S 127.0.0.1:8000 -t public &
-                    npx wait-on http://127.0.0.1:8000
-
-            -   name: GreenIT Analysis
-                uses: ythirion/greenit-analysis-action@0.1.0
-                with:
-                    url-file: 'greenit-urls.yaml'
-                    min-ecoindex: '90'
