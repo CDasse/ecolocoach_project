@@ -58,11 +58,13 @@ final class EventProgressionController extends AbstractController
         // Next Sequential Event Activation
         // Resolves the next chronological event in the user's path and initializes an 'ACTIVE'
         // progression state for it.
-        $hasMovesForward = $xUserLevelEventService->resolveAndActivateNextEventProgression($connectedUser, $event);
+        $progressionStatus = $xUserLevelEventService->resolveAndActivateNextEventProgression($connectedUser, $event);
 
-        if ($hasMovesForward) {
+        if ($progressionStatus == 'NEXT_LEVEL') {
             $this->addFlash('level_up', 'Félicitations ! Vous avez débloqué le niveau suivant !');
-        } else {
+        }
+
+        if ($progressionStatus == 'FINISHED') {
             $this->addFlash('success', 'Félicitations ! Vous avez terminé le parcours d\'accompagnement dans votre transition écologique');
         }
 

@@ -3,11 +3,9 @@
 namespace App\Service;
 
 use App\Entity\Event;
-use App\Entity\EventPart;
 use App\Entity\Level;
 use App\Entity\User;
 use App\Entity\XUserLevelEvent;
-use App\Enum\EventPartType;
 use App\Enum\EventStatus;
 use App\Repository\XUserLevelEventRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -41,23 +39,18 @@ readonly class XUserLevelEventService
         return $xUserLevelEvent?->getEvent();
     }
 
-    public function findProgression(User $user, Event $event): ?XUserLevelEvent
-    {
-        return $this->xUserLevelEventRepository->findProgression($user, $event);
-    }
-
     /**
      * Evaluates the user's current step context and dynamically unlocks either
      * the next sequential event or triggers the next level progression phase.
-     * Returns true if a new step was activated, false if the path is fully cleared.
+     * Returns a string status indicating the progression result.
      */
-    public function resolveAndActivateNextEventProgression(User $connectedUser, Event $currentEvent) :bool
+    public function resolveAndActivateNextEventProgression(User $connectedUser, Event $currentEvent): string
     {
         $nextEvent = $this->eventService->findNextEvent($currentEvent);
 
         if ($nextEvent) {
             $this->activateNextEventProgression($connectedUser, $nextEvent);
-            return true;
+            return 'NEXT_EVENT';
         }
 
         $currentLevel = $currentEvent->getLevel();
@@ -68,11 +61,11 @@ readonly class XUserLevelEventService
 
             if ($nextLevelEvent) {
                 $this->activateNextEventProgression($connectedUser, $nextLevelEvent);
-                return true;
+                return 'NEXT_LEVEL';
             }
         }
 
-        return false;
+        return 'FINISHED_PATH';
     }
 
     /**
@@ -91,6 +84,11 @@ readonly class XUserLevelEventService
 
             $this->entityManager->persist($newProgression);
         }
+    }
+
+    public function findProgression(User $user, Event $event): ?XUserLevelEvent
+    {
+        return $this->xUserLevelEventRepository->findProgression($user, $event);
     }
 
     public function findChallengesByStatus(User $user, EventStatus $eventStatus): array
