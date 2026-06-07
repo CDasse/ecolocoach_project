@@ -22,7 +22,6 @@
 .back-home:hover,
 .back-home:focus {
     transform: translateX(-15px);
-    outline: none;
 }
 
 .auth-card {

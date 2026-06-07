@@ -44,7 +44,6 @@
 .btn-guide:focus {
     box-shadow: var(--color-green-600) 0 2px;
     transform: translateY(2px);
-    outline: none;
 }
 
 .btn-guide:active {
@@ -176,7 +175,6 @@
 .btn-primary-golden:focus {
     box-shadow: var(--color-golden-600) 0 2px;
     transform: translateX(var(--x-offset, 0px)) translateY(2px);
-    outline: none;
 }
 
 .btn-primary-golden:active {
@@ -189,7 +187,6 @@
 .btn-primary-green:focus {
     box-shadow: var(--color-green-600) 0 2px;
     transform: translateX(var(--x-offset, 0px)) translateY(2px);
-    outline: none;
 }
 
 .btn-primary-green:active {

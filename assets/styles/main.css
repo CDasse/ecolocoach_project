@@ -163,7 +163,6 @@ p {
 .btn-secondary-green:hover, .btn-secondary-green:focus {
     box-shadow: var(--color-green-600) 0 2px;
     transform: translateY(2px);
-    outline: none;
 }
 
 .btn-primary-green:active,
@@ -203,7 +202,6 @@ p {
 .btn-primary-red:focus {
     box-shadow: var(--color-red-600) 0 2px;
     transform: translateY(2px);
-    outline: none;
 }
 
 .btn-primary-red:active {
