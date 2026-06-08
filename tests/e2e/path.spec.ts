@@ -80,7 +80,7 @@ async function viewChallenge1(page: Page) {
 }
 
 async function acceptChallenge1(page: Page) {
-    await page.getByRole('button', {name: 'Accepter ce défi !'}).click();
+    await page.getByRole('button', {name: 'Accepter'}).click();
 }
 
 async function viewChallengeOnImpactPage(page: Page) {
@@ -91,7 +91,7 @@ async function viewChallengeOnImpactPage(page: Page) {
 
 async function refuseChallenge1(page: Page) {
     await page.getByRole('button', {name: 'Voir plus ➔'}).click();
-    await page.getByRole('button', {name: 'Quitter ce défi'}).click();
+    await page.getByRole('button', {name: 'Quitter'}).click();
 }
 
 async function viewChallengeOnRecapPage(page: Page) {
@@ -110,7 +110,7 @@ async function closeCongrateModale(page: Page) {
 
 async function validateChallenge1(page: Page) {
     await page.getByRole('button', {name: 'Voir plus →'}).click();
-    await page.getByRole('button', {name: 'Défi validé !'}).click();
+    await page.getByRole('button', {name: 'Validé !'}).click();
     await page.getByRole('button', {name: 'Fermer la modale'}).click();
     await page.getByRole('link', {name: 'Retour à mon impact'}).click();
 }

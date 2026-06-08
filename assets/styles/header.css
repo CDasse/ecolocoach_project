@@ -62,8 +62,8 @@ header h1 {
 
 .exit-menu-button {
     position: absolute;
-    right: 24px;
-    height: 80px;
+    right: 16px;
+    height: 40px;
     display: flex;
     align-items: center;
 }
@@ -136,13 +136,18 @@ dialog ul li {
     max-width: 100%;
 }
 
-dialog ul li a.btn-primary-green {
+dialog ul li a.btn-primary-green,
+dialog ul li a.btn-primary-red {
     display: flex;
     width: 100%;
     min-width: 0;
     box-sizing: border-box;
     justify-content: flex-start;
     padding-left: 24px;
+}
+
+dialog ul li a.btn-primary-red {
+    justify-content: center;
 }
 
 .menu-username {
