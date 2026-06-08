@@ -19,7 +19,8 @@
         {% include 'event/_event_components/_answer_feedback.html.twig' %}
 
         {% if is_question_page and event.eventType.name == 'LESSON' %}
-        <form method="POST" action="{{ path('event', {'uid': event.uid, 'pageNumber': page_number + 1}) }}">
+        <form method="POST" action="{{ path('event', {'uid': event.uid, 'pageNumber': page_number + 1}) }}"
+              class="event-main-wrapper">
             {% endif %}
 
             <div class="event-content">

@@ -22,11 +22,11 @@ final class ChallengeLifecycleController extends AbstractController
     #[Route('/challenge/{uid}/{challengeStatus}', name: 'challenge_lifecycle', requirements: ['challengeStatus' => 'Terminé|Refusé|Accepté'], methods: ['POST'])]
     public function challengeLifecycle(
         #[MapEntity(mapping: ['uid' => 'uid'])]
-        Event $event,
-        EventStatus $challengeStatus,
+        Event                  $event,
+        EventStatus            $challengeStatus,
         EntityManagerInterface $entityManager,
         XUserLevelEventService $xUserLevelEventService,
-        Request $request,
+        Request                $request,
     ): Response
     {
         /** @var User $connectedUser */
@@ -75,7 +75,7 @@ final class ChallengeLifecycleController extends AbstractController
         // Dispatches reward points (CO2 metrics) and schedules localized flash feedback.
         if ($challengeStatus == EventStatus::ACCEPTED) {
             $this->addFlash('success',
-                '<strong>BRAVO !</strong> Tu viens d’accepter le défi. <br>On a hâte que tu vives cette expérience ! <br>
+                '<strong>BRAVO !</strong> Tu viens d’accepter le défi. On a hâte que tu vives cette expérience !
                             Tu peux retrouver tes défis en cours dans l’onglet “MON IMPACT” et les valider une fois réalisés.');
         }
 
@@ -87,12 +87,12 @@ final class ChallengeLifecycleController extends AbstractController
             $entityManager->persist($connectedUser);
 
             $this->addFlash('success',
-            '<strong>FELICITATIONS !</strong> Tu viens de réaliser le défi. <br>Ton taux de CO2 économisé vient d\'être mis à jour. <br>Continue comme ça !');
+                '<strong>FELICITATIONS !</strong> Tu viens de réaliser le défi. Ton taux de CO2 économisé vient d\'être mis à jour. Continue comme ça !');
         }
 
         if ($challengeStatus == EventStatus::REFUSED) {
             $this->addFlash('info',
-                "<strong>CE N'EST PAS GRAVE !</strong> <br>Que tu ne sois pas prêt.e ou que tu ne puisses pas réaliser ce défi, ce n’est pas grave. Beaucoup d’autres défis t’attendent ! <br>
+                "<strong>CE N'EST PAS GRAVE !</strong> Que tu ne sois pas prêt.e ou que tu ne puisses pas réaliser ce défi, ce n’est pas grave. Beaucoup d’autres défis t’attendent ! <br>
                         Si par la suite, tu souhaites retenter ce défi, rends-toi dans la liste de tes défis annulés.");
         }
 

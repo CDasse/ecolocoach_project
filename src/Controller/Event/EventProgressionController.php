@@ -77,13 +77,14 @@ final class EventProgressionController extends AbstractController
 
         if ($eventStatus == EventStatus::ACCEPTED) {
             $this->addFlash('challenge_accepted',
-                '<strong>BRAVO !</strong><br><br>Tu viens d’accepter le défi. On a hâte que tu vives cette expérience ! <br>
+                '<strong>BRAVO !</strong> Tu viens d’accepter le défi. On a hâte que tu vives cette expérience !
                             Tu peux retrouver tes défis en cours dans l’onglet “MON IMPACT” et les valider une fois réalisés.');
         }
 
         if ($eventStatus == EventStatus::REFUSED) {
             $this->addFlash('challenge_refused',
-                "<strong>CE N'EST PAS GRAVE !</strong><br><br>Que tu ne sois pas prêt.e ou que tu ne puisses pas réaliser ce défi, ce n’est pas grave. Beaucoup d’autres défis t’attendent !<br>
+                "<strong>CE N'EST PAS GRAVE !</strong> Que tu ne sois pas prêt.e ou que tu ne puisses pas réaliser ce défi,
+                        ce n’est pas grave. Beaucoup d’autres défis t’attendent !
                         Si par la suite, tu souhaites retenter ce défi, rends-toi dans la liste de tes défis annulés.");
         }
 

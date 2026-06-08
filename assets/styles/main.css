@@ -90,7 +90,7 @@ h1 {
 }
 
 h2 {
-    font-size: var(--font-size-large);
+    font-size: var(--font-size-medium);
     font-weight: var(--font-weight-semibold);
     text-transform: uppercase;
 }
@@ -129,14 +129,13 @@ p {
     align-items: center;
     justify-content: center;
     text-align: center;
-    text-transform: uppercase;
     gap: 16px;
 
     width: auto;
     min-width: 300px;
-    padding: 16px 24px;
+    padding: 12px 24px;
 
-    font-size: var(--font-size-large);
+    font-size: var(--font-size-medium);
     font-weight: var(--font-weight-semibold);
     text-decoration: none;
 
@@ -145,7 +144,6 @@ p {
 }
 
 .btn-secondary {
-    text-transform: none;
     font-size: var(--font-size-medium);
     font-weight: var(--font-weight-medium);
 }
@@ -181,13 +179,12 @@ p {
     color: var(--color-green-1000);
     box-shadow: none;
     border: none;
-
-    pointer-events: none;
 }
 
+.active:hover,
 .active:focus {
     box-shadow: none;
-    transform: none;
+    transform: translateY(0px);
 }
 
 .btn-primary-red {

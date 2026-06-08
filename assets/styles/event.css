@@ -6,8 +6,20 @@ header h1 {
     font-size: var(--font-size-large);
 }
 
+.back-page {
+    color: var(--color-green-800);
+    font-size: var(--font-size-small);
+    margin: 10px 0 0 15px;
+    text-decoration: none;
+}
+
+.back-page:hover,
+.back-page:focus {
+    transform: translateX(-5px);
+}
+
 .progress-container {
-    padding: 0 24px 16px 24px;
+    padding: 0 24px 0 24px;
 }
 
 progress {
@@ -43,7 +55,7 @@ progress::-moz-progress-bar {
 }
 
 .event-content {
-    padding: 24px;
+    padding: 24px 24px 0 24px;
     display: flex;
     flex-direction: column;
     gap: 16px;
@@ -52,22 +64,27 @@ progress::-moz-progress-bar {
 
 .event-picture {
     width: 100%;
-    height: auto;
+    max-height: 100px;
     border-radius: var(--radius-large);
     object-fit: cover;
     margin-bottom: 8px;
 }
 
 .event-question {
-    margin: 16px 0 8px 0;
+    margin: 0 0 8px 0;
     text-align: center;
     text-transform: none;
 }
 
 .event-answers {
-    display: flex;
-    flex-direction: column;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
     gap: 12px;
+}
+
+.btn-primary,
+.btn-secondary {
+    min-width: 10px;
 }
 
 .btn-answer.active {
@@ -184,16 +201,42 @@ p.event-description {
     margin: 0;
 }
 
+.challenge-status {
+    padding: 0 24px;
+}
+
 /*--------------------------------------------------------------------------------*/
 /*-------------------------------- NAVIGATION ------------------------------------*/
 /*--------------------------------------------------------------------------------*/
 
 .event-navigation {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+
     padding: 24px;
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
+}
+
+.challenge-navigation {
+    padding: 16px 24px 24px 24px;
+
+    position: sticky;
+    bottom: 0;
+
+    background-color: var(--color-white);
+    border-top: 1px solid var(--color-grey-300);
+
     margin-top: auto;
+    z-index: 10;
+}
+
+.challenge-navigation .btn-secondary {
+    background-color: var(--color-white);
+}
+
+.full-width {
+    grid-column: 1 / -1;
+    width: 100%;
 }
 
 .btn-validation-disabled,

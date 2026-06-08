@@ -7,6 +7,13 @@
 </header>
 
 {% if event.eventType.name == 'LESSON' %}
+    {% if page_number > 1 %}
+        <a href="{{ path('event', {'uid': event.uid, 'pageNumber': page_number - 1}) }}"
+           class="back-page">
+            ← Précédent
+        </a>
+    {% endif %}
+
     <div class="progress-container">
         <progress max="{{ total_pages }}" value="{{ page_number }}">Progression : {{ page_number }}
             /{{ total_pages }}</progress>

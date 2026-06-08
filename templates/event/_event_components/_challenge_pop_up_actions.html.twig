@@ -1,19 +1,20 @@
 <div class="popup-buttons-wrapper">
     {% if progression is not null and progression.eventStatus.value == 'Accepté' %}
 
-        <form method="POST" action="{{ path('challenge_lifecycle', {'uid': event.uid, 'challengeStatus': 'Terminé'}) }}"
-              class="form-full-width">
-            <button type="submit" class="btn-primary btn-primary-green">Défi validé !</button>
+        <form method="POST"
+              action="{{ path('challenge_lifecycle', {'uid': event.uid, 'challengeStatus': 'Terminé'}) }}">
+            <button type="submit" class="btn-primary btn-primary-green">Validé !</button>
         </form>
 
         <form method="POST" action="{{ path('challenge_lifecycle', {'uid': event.uid, 'challengeStatus': 'Refusé'}) }}">
-            <button type="submit" class="btn-primary btn-primary-red">Quitter ce défi</button>
+            <button type="submit" class="btn-secondary btn-secondary-green">Quitter</button>
         </form>
 
     {% elseif progression is not null and progression.eventStatus.value == 'Refusé' %}
 
         <form method="POST"
-              action="{{ path('challenge_lifecycle', {'uid': event.uid, 'challengeStatus': 'Accepté'}) }}">
+              action="{{ path('challenge_lifecycle', {'uid': event.uid, 'challengeStatus': 'Accepté'}) }}"
+              class="full-width">
             <button type="submit" class="btn-primary btn-primary-green">Accepter le défi</button>
         </form>
 

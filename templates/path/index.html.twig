@@ -53,15 +53,15 @@
 
             {% if user_current_level is not null %}
                 <div class="level-header-card">
+                    <a href="{{ path('level') }}"
+                       class="btn-guide"
+                       aria-label="Consulter le guide du parcours">
+                        ←
+                    </a>
                     <div class="level-header-titles">
                         <h2>Niveau {{ user_current_level.sequenceNumber }}</h2>
                         <p class="level-subtitle">{{ user_current_level.name }}</p>
                     </div>
-                    <a href="{{ path('level') }}"
-                       class="btn-guide"
-                       aria-label="Consulter le guide du parcours">
-                        GUIDE
-                    </a>
                 </div>
             {% else %}
                 <div class="info-card">

@@ -1,24 +1,27 @@
-<nav class="event-navigation">
-    {% if progression is not null and progression.eventStatus.value == 'En cours' %}
+{% if progression is not null and progression.eventStatus.value == 'En cours' %}
+    <nav class="event-navigation challenge-navigation"
+         aria-label="Navigation du challenge">
 
         <form method="POST" action="{{ path('event_finished', {'uid': event.uid, 'eventStatus': 'Accepté'}) }}">
-            <button type="submit" class="btn-primary btn-primary-green">Accepter ce défi !</button>
+            <button type="submit" class="btn-primary btn-primary-green">Accepter</button>
         </form>
 
         <form method="POST" action="{{ path('event_finished', {'uid': event.uid, 'eventStatus': 'Refusé'}) }}">
-            <button type="submit" class="btn-primary btn-primary-red">Refuser pour l'instant</button>
+            <button type="submit" class="btn-secondary btn-secondary-green">Refuser</button>
         </form>
+    </nav>
 
-    {% else %}
+{% else %}
 
-        <p class="challenge-status">
-            Statut du défi :
-            <strong>{{ progression is not null ? progression.eventStatus.value : 'Non commencé' }}</strong>
-        </p>
+    <p class="challenge-status">
+        Statut du défi :
+        <strong>{{ progression is not null ? progression.eventStatus.value : 'Non commencé' }}</strong>
+    </p>
 
-        <a href="{{ path('recap_challenges') }}" class="btn-primary btn-primary-green">Tous les défis</a>
+    <nav class="event-navigation challenge-navigation"
+         aria-label="Navigation du challenge">
+        <a href="{{ path('recap_challenges') }}" class="btn-primary btn-primary-green full-width">Tous les défis</a>
+    </nav>
 
-        <a href="{{ path('path') }}" class="btn-secondary btn-secondary-green">Retour au parcours</a>
+{% endif %}
 
-    {% endif %}
-</nav>

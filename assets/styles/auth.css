@@ -30,7 +30,7 @@
     border-radius: var(--radius-large);
 
     padding: 40px 32px;
-    max-width: 400px;
+    max-width: 440px;
     width: 100%;
     box-sizing: border-box;
 }
@@ -72,8 +72,7 @@
 
 .auth-input {
     width: 100%;
-    height: 48px;
-    padding: 0 16px;
+    padding: 12px 16px;
 
     border: 1px solid var(--color-grey-500);
     border-radius: var(--radius-medium);
@@ -82,6 +81,7 @@
     background-color: var(--color-grey-100);
 
     box-sizing: border-box;
+    line-height: 1.5;
 }
 
 .auth-input:focus {
@@ -147,4 +147,61 @@
 .form-group-checkbox label {
     cursor: pointer;
     user-select: none;
+}
+
+/*--------------------------------------------------------------------------------*/
+/*--------------------------- RESPONSIVE (DESKTOP) -------------------------------*/
+/*--------------------------------------------------------------------------------*/
+
+@media (min-width: 1024px) {
+
+    .auth-page-container {
+        position: relative;
+        min-height: 90vh;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 64px 24px;
+
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        gap: 120px;
+    }
+
+    .back-home {
+        position: absolute;
+        top: 40px;
+        left: 24px;
+        margin: 0;
+        font-weight: var(--font-weight-medium);
+    }
+
+    .auth-card {
+        max-width: 440px;
+        min-height: 800px;
+
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+
+        padding: 48px 40px;
+        box-sizing: border-box;
+    }
+
+    .auth-page-container::before {
+        content: "Chaque action compte,\A chaque pas transforme\A ton quotidien.\A\A Prêt à relever\A les défis d'aujourd'hui ?\A 🌿";
+        display: block;
+        white-space: pre-wrap;
+        
+        font-size: var(--font-size-extra-large);
+        line-height: 1.4;
+        font-weight: var(--font-weight-extra-bold);
+        color: var(--color-green-1000);
+
+        width: 450px;
+        flex-shrink: 0;
+
+        text-align: center;
+    }
 }

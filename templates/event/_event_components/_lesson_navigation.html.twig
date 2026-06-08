@@ -1,20 +1,18 @@
 <nav class="event-navigation">
 
     {% if page_number == total_pages %}
-        <form method="POST" action="{{ path('event_finished', {'uid': event.uid, 'eventStatus': 'Terminé'}) }}">
+        <form method="POST"
+              action="{{ path('event_finished', {'uid': event.uid, 'eventStatus': 'Terminé'}) }}"
+              class="full-width">
             <button type="submit" class="btn-primary btn-primary-green">Terminer</button>
         </form>
     {% elseif is_question_page %}
-        <button type="submit" id="btn-validate" class="btn-primary btn-primary-green btn-validation-disabled" disabled>
+        <button type="submit" id="btn-validate" class="btn-primary btn-primary-green btn-validation-disabled full-width"
+                disabled>
             Valider
         </button>
     {% else %}
         <a href="{{ path('event', {'uid': event.uid, 'pageNumber': page_number + 1}) }}"
-           class="btn-primary btn-primary-green">Continuer</a>
-    {% endif %}
-
-    {% if page_number > 1 %}
-        <a href="{{ path('event', {'uid': event.uid, 'pageNumber': page_number - 1}) }}"
-           class="btn-secondary btn-secondary-green">← Précédent</a>
+           class="full-width btn-primary btn-primary-green">Continuer</a>
     {% endif %}
 </nav>

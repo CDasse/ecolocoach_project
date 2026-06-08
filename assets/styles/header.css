@@ -8,7 +8,7 @@ header {
     justify-content: space-between;
     align-items: center;
 
-    padding: 24px;
+    padding: 16px 16px 16px 24px;
     width: 100vw;
     box-sizing: border-box;
 
@@ -127,6 +127,22 @@ dialog ul {
     align-items: center;
     gap: 24px;
     flex-grow: 1;
+
+    width: 100%;
+}
+
+dialog ul li {
+    width: 300px;
+    max-width: 100%;
+}
+
+dialog ul li a.btn-primary-green {
+    display: flex;
+    width: 100%;
+    min-width: 0;
+    box-sizing: border-box;
+    justify-content: flex-start;
+    padding-left: 24px;
 }
 
 .menu-username {
@@ -143,9 +159,4 @@ dialog ul {
     text-align: left;
     box-sizing: border-box;
     align-self: flex-start;
-}
-
-dialog ul li a.btn-primary-green {
-    justify-content: flex-start;
-    padding-left: 24px;
 }

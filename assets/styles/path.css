@@ -5,13 +5,15 @@
 .level-header-card {
     background-color: var(--color-green-200);
     border-radius: var(--radius-medium);
-    padding: 16px 24px;
+    padding: 12px 24px;
     margin-bottom: 32px;
 
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
+    justify-content: flex-start;
     align-items: center;
+
+    gap: 36px;
 }
 
 .level-header-titles h2 {
@@ -126,7 +128,6 @@
 .level-tip {
     width: 100%;
     text-align: center;
-    padding: 16px;
 
     border: 2px solid var(--color-green-500);
     border-radius: var(--radius-large);
@@ -153,7 +154,7 @@
     text-align: center;
 
     min-width: 80px;
-    padding: 16px 12px;
+    padding: 12px 12px;
     gap: 10px;
 
     border-radius: var(--radius-medium);
