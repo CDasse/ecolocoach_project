@@ -1,6 +1,6 @@
 footer {
     background-color: var(--color-green-300);
-    width: 100vw;
+    width: 100%;
     box-sizing: border-box;
     padding: 16px 24px;
 
@@ -13,11 +13,15 @@ footer nav ul {
     margin: 0;
 
     display: flex;
-    flex-direction: column;
-    justify-content: space-around;
+    flex-direction: row;
+    justify-content: space-between;
     align-items: center;
 
     gap: 16px;
+}
+
+footer nav ul li {
+    text-align: center;
 }
 
 .footer-a {
@@ -29,4 +33,24 @@ footer nav ul {
 .footer-a:hover,
 .footer-a:focus {
     text-decoration: underline;
+}
+
+/*--------------------------------------------------------------------------------*/
+/*--------------------------- RESPONSIVE (DESKTOP) -------------------------------*/
+/*--------------------------------------------------------------------------------*/
+
+@media (min-width: 1024px) {
+    footer {
+        padding: 24px 48px;
+    }
+
+    footer nav {
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+
+    footer nav ul {
+        justify-content: center;
+        gap: 64px;
+    }
 }
