@@ -220,3 +220,53 @@
     font-style: italic;
     margin: 0;
 }
+
+/*--------------------------------------------------------------------------------*/
+/*--------------------------- RESPONSIVE (DESKTOP) -------------------------------*/
+/*--------------------------------------------------------------------------------*/
+
+@media (min-width: 1024px) {
+
+    .stat-card {
+        flex-direction: row;
+        justify-content: center;
+        gap: 40px;
+    }
+
+    .stat-main,
+    .stat-equivalent {
+        flex: 1;
+        justify-content: center;
+    }
+
+    .stat-divider {
+        width: 2px;
+        height: 60px;
+        margin: 0;
+    }
+
+    .stat-equivalent {
+        flex-direction: row;
+        text-align: left;
+    }
+
+    .encouragement-badge {
+        width: 25vw;
+        align-self: center;
+    }
+
+    .challenges-list {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        gap: 24px;
+    }
+
+    .ongoing-challenges-section .btn-primary-green,
+    .return-impact {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: 0 auto;
+        width: 25vw;
+    }
+}

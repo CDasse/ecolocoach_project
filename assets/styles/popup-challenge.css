@@ -165,3 +165,24 @@
     grid-column: 1 / -1;
     width: 100%;
 }
+
+/*--------------------------------------------------------------------------------*/
+/*--------------------------- RESPONSIVE (DESKTOP) -------------------------------*/
+/*--------------------------------------------------------------------------------*/
+
+@media (min-width: 1024px) {
+
+    .challenge-dialog,
+    .feedback-dialog {
+        width: 40vw;
+        max-width: none;
+
+        margin: auto;
+
+        max-height: 80vh;
+    }
+
+    .popup-top-picture {
+        max-height: 300px;
+    }
+}
