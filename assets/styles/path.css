@@ -269,6 +269,10 @@
     transform: translateX(20px);
 }
 
+.mascot-wrapper img:hover {
+    transform: scale(1.08) rotate(4deg);
+}
+
 /*--------------------------------------------------------------------------------*/
 /*------------------------------- NEXT LEVEL -------------------------------------*/
 /*--------------------------------------------------------------------------------*/
@@ -339,4 +343,131 @@
 .next-level-icon svg {
     width: 100%;
     height: 100%;
+}
+
+
+/*--------------------------------------------------------------------------------*/
+/*--------------------------- RESPONSIVE (DESKTOP) -------------------------------*/
+/*--------------------------------------------------------------------------------*/
+
+@media (min-width: 1024px) {
+
+    body:has(.level-container) {
+        display: flex;
+        flex-direction: column;
+        height: 100vh;
+        overflow: hidden;
+        margin: 0;
+    }
+
+    body:has(.level-container) header,
+    body:has(.level-container) footer {
+        flex-shrink: 0;
+        position: relative;
+        z-index: 100;
+    }
+
+    main:has(.level-container) {
+        flex: 1;
+        min-height: 0;
+        overflow: hidden;
+
+        display: grid;
+        grid-template-columns: 350px 1fr;
+        grid-template-rows: auto auto 1fr;
+
+        gap: 24px 120px;
+        max-width: 1500px;
+        width: 100%;
+        margin: 0 auto;
+        padding: 40px 60px;
+        box-sizing: border-box;
+
+        position: relative;
+    }
+
+    main:has(.level-container)::after {
+        content: '';
+        position: absolute;
+        left: calc(60px + 350px + 60px);
+        top: 40px;
+        bottom: 40px;
+        width: 2px;
+        background-color: var(--color-green-500);
+        opacity: 0.2;
+    }
+
+    .level-header-card {
+        grid-column: 1;
+        grid-row: 1;
+        margin-bottom: 0;
+    }
+
+    .future-feature-card {
+        grid-column: 1;
+        grid-row: 2;
+        margin: 0;
+        padding: 24px;
+    }
+
+    .next-level-section {
+        grid-column: 1;
+        grid-row: 3;
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        background-color: transparent;
+        align-self: start;
+    }
+
+    .next-level-card {
+        background-color: transparent;
+        border: 2px solid var(--color-grey-300);
+    }
+
+    .level-container {
+        grid-column: 2;
+        grid-row: 1 / span 3;
+
+        overflow-y: auto;
+        height: 100%;
+        padding-right: 40px;
+        padding-bottom: 60px;
+        box-sizing: border-box;
+
+        scrollbar-width: thin;
+        scrollbar-color: var(--color-green-500) transparent;
+    }
+
+    .level-container::-webkit-scrollbar-track {
+        background: rgba(0, 0, 0, 0.05);
+        border-radius: 10px;
+    }
+
+    .level-container::-webkit-scrollbar-thumb {
+        background: var(--color-green-500);
+        border-radius: 4px;
+    }
+
+    .level-tip {
+        margin: 40px auto;
+        max-width: 85%;
+    }
+
+    .event-btn {
+        transform: translateX(calc(var(--x-offset, 0px) * 2.5));
+        min-width: 200px;
+        padding: 16px 24px;
+        font-size: var(--font-size-medium);
+    }
+
+    .btn-primary-golden:hover, .btn-primary-golden:focus,
+    .btn-primary-green:hover, .btn-primary-green:focus {
+        transform: translateX(calc(var(--x-offset, 0px) * 2.5)) translateY(2px);
+    }
+
+    .mascot-wrapper img {
+        width: 180px;
+        transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
 }

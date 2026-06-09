@@ -263,3 +263,111 @@ p.event-description {
 .event-navigation form button {
     width: 100%;
 }
+
+/*--------------------------------------------------------------------------------*/
+/*--------------------------- RESPONSIVE (DESKTOP) -------------------------------*/
+/*--------------------------------------------------------------------------------*/
+
+@media (min-width: 1024px) {
+
+    .progress-container {
+        width: 100%;
+        max-width: 1300px;
+        margin: 0 auto;
+        padding: 24px;
+        box-sizing: border-box;
+        position: relative;
+        z-index: 10;
+    }
+
+    .event-content {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+
+        padding-left: calc(50% + 40px);
+        min-height: 55vh;
+        max-width: 1200px;
+        margin: 0 auto;
+        gap: 20px;
+    }
+
+    .event-picture {
+        position: absolute;
+        left: 25%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+
+        width: auto;
+        height: auto;
+        max-width: 35%;
+        max-height: 70vh;
+
+        object-fit: contain;
+        border-radius: var(--radius-large);
+    }
+
+    .tags-group-container,
+    .subgroup-card {
+        width: 100%;
+        margin-left: 0;
+        border-radius: var(--radius-large);
+    }
+
+    .event-navigation {
+        display: flex;
+        justify-content: center;
+        padding: 40px 0;
+    }
+
+    .event-navigation .full-width {
+        width: 280px;
+        margin: 0 auto;
+    }
+
+    .feedback-card {
+        width: 100%;
+        max-width: 800px;
+        margin: 0 auto;
+        box-sizing: border-box;
+        border-radius: var(--radius-large);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    .challenge-navigation {
+        position: relative;
+        bottom: auto;
+        border-top: none;
+        background-color: transparent;
+        padding: 40px 0;
+
+        gap: 32px;
+    }
+
+    .challenge-navigation form {
+        width: 280px;
+        margin: 0;
+    }
+
+    .challenge-navigation form button {
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    .challenge-status {
+        text-align: center;
+        margin: 40px auto 0 auto;
+        font-size: var(--font-size-medium);
+    }
+
+    .tags-group-container {
+        border: none;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .subgroup-card {
+        border: none;
+    }
+}

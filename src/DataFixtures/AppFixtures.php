@@ -153,7 +153,7 @@ class AppFixtures extends Fixture
                 ],
                 'data' => [
                     ['Quel type de transport émet le plus de CO2 par personne au kilomètre ?', ['L\'avion', 'Le train électrique', 'La voiture thermique seule', 'Le bus de ville'], 'L\'avion', 'L\'avion reste le moyen de transport le plus émetteur à cause de la combustion de kérosène en haute altitude.'],
-                    ['Quelle alternative quotidienne est la plus efficace sur moins de 5km ?', ['Le vélo ou la marche', 'Le covoiturage', 'Le scooter thermique', 'La trottinette électrique'], 'Le vélo ou la marche', "Le vélo et la marche n\'émettent aucun gaz à effet de serre à l'usage et améliorent en plus votre santé physique !"]
+                    ['Quelle alternative quotidienne est la plus efficace sur moins de 5km ?', ['Le vélo ou la marche', 'Le covoiturage', 'Le scooter thermique', 'La trottinette électrique'], 'Le vélo ou la marche', "Le vélo et la marche n'émettent aucun gaz à effet de serre à l'usage et améliorent en plus votre santé physique !"]
                 ]
             ],
             2 => [
