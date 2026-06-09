@@ -249,8 +249,8 @@ class AppFixtures extends Fixture
                     $default_alt
                 ],
                 'data' => [
-                    ['Quelle est l\'empreinte carbone moyenne actuelle d\'un citoyen français par an ?', ['2 tonnes', '5 tonnes', '9 tonnes', '25 tonnes'], '9 tonnes', 'L\'empreinte moyenne en France tourne autour de 9 tonnes d\'équivalent CO2 par an si l\'on inclut les produits importés.'],
-                    ['Pour respecter l\'Accord de Paris, à combien doit-on réduire cette empreinte d\'ici 2050 ?', ['À 5 tonnes', 'À 2 tonnes', 'À 0 tonne', 'À 7 tonnes'], 'À 2 tonnes', 'L\'objectif universel des accords sur le climat est de converger vers 2 tonnes maximum par personne pour stabiliser le réchauffement sous +1,5°C.']
+                    ['Quelle est l\'empreinte carbone moyenne d\'un français par an ?', ['2 tonnes', '5 tonnes', '9 tonnes', '15 tonnes'], '9 tonnes', "L'empreinte carbone mesure la quantité de gaz à effet de serre (GES) émis par nos activités sur une année.\n\n L'empreinte moyenne en France est de 9 tonnes de CO2 par an.\n\n Cette moyenne est calculée en prenant en compte notamment l'alimentation, les transport, le logement, les services publics et le numérique."],
+                    ['Pour respecter l\'Accord de Paris, à combien doit-on réduire cette empreinte d\'ici 2050 ?', ['0 tonne', '2 tonnes', '5 tonnes', '7 tonnes'], '2 tonnes', "Afin de limiter la hausse du réchauffement climatique en dessous de 2 degrés, l'objectif des accords sur le climat est de converger vers 2 tonnes d'émission de CO2 maximum, par an, par personne.\n\n Rendez-vous au prochain défi pour calculer ton empreinte carbone et identifier les actions les plus efficaces pour la réduire."]
                 ]
             ],
             12 => [

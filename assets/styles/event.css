@@ -172,6 +172,7 @@ h2.event-label {
 
 p.event-description {
     margin: 0 0 14px 0;
+    white-space: pre-line;
 }
 
 .subgroup-card {
