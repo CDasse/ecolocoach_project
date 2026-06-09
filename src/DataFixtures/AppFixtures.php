@@ -60,7 +60,7 @@ class AppFixtures extends Fixture
         $manager->persist($tipAlim);
 
         $tip2Tonnes = new Tip();
-        $tip2Tonnes->setContent("L'objectif mondial est d'atteindre une empreinte de 2 tonnes de CO2 maximum par personne et par an d'ici 2050 pour limiter le réchauffement climatique.");
+        $tip2Tonnes->setContent("L'objectif mondial est d'atteindre une empreinte de 2 tonnes de CO2 maximum, par personne et par an, d'ici 2050, pour limiter le réchauffement climatique.");
         $manager->persist($tip2Tonnes);
 
         $tipBio = new Tip();
@@ -84,17 +84,17 @@ class AppFixtures extends Fixture
         $level1->setTip($tipAlim);
         $level1->setPath($path);
         $level1->setSequenceNumber(1);
-        $level1->setMascot1("uploads/mascots/manchot_1.webp");
-        $level1->setMascot2("uploads/mascots/manchot_3.webp");
+        $level1->setMascot1("uploads/mascots/panda_roux_1.webp");
+        $level1->setMascot2("uploads/mascots/panda_roux_2.webp");
         $manager->persist($level1);
 
         $level2 = new Level();
-        $level2->setName("2tonnes");
+        $level2->setName("2Tonnes");
         $level2->setTip($tip2Tonnes);
         $level2->setPath($path);
         $level2->setSequenceNumber(2);
-        $level2->setMascot1("uploads/mascots/panda_roux_1.webp");
-        $level2->setMascot2("uploads/mascots/panda_roux_2.webp");
+        $level2->setMascot1("uploads/mascots/manchot_1.webp");
+        $level2->setMascot2("uploads/mascots/manchot_3.webp");
         $manager->persist($level2);
 
         $level3 = new Level();
@@ -111,7 +111,7 @@ class AppFixtures extends Fixture
         // ------------------------------------------------------------------
         $elia = new User();
         $elia->setUsername("Elia Chelet");
-        $elia->setEmail("elia@gmail.fr");
+        $elia->setEmail("elia@mail.fr");
         $elia->setLogo("uploads/logos/elia.png");
         $elia->setPassword($this->passwordHasher->hashPassword($elia, "elia"));
         $elia->setPath($path);
@@ -119,7 +119,7 @@ class AppFixtures extends Fixture
 
         $emile = new User();
         $emile->setUsername("Emile Teneflen");
-        $emile->setEmail("emile@gmail.fr");
+        $emile->setEmail("emile@mail.fr");
         $emile->setLogo("uploads/logos/emile.png");
         $emile->setPassword($this->passwordHasher->hashPassword($emile, "emile"));
         $emile->setPath($path);
@@ -127,7 +127,7 @@ class AppFixtures extends Fixture
 
         $coline = new User();
         $coline->setUsername("Coline Arisarj");
-        $coline->setEmail("coline@gmail.fr");
+        $coline->setEmail("coline@mail.fr");
         $coline->setLogo("uploads/logos/coline.png");
         $coline->setPassword($this->passwordHasher->hashPassword($coline, "coline"));
         $coline->setPath($path);
@@ -148,12 +148,12 @@ class AppFixtures extends Fixture
             1 => [
                 'type' => 'lesson',
                 'picture_alts' => [
-                    "Scooter rouge garé dans une rue.",
-                    "Scooter rouge garé dans une rue."
+                    "Nuage de CO2 libéré par le tuyau d'une usine.",
+                    "Empreinte d'une paire de chaussure dans le sable."
                 ],
                 'data' => [
-                    ['Quel type de transport émet le plus de CO2 par personne au kilomètre ?', ['L\'avion', 'Le train électrique', 'La voiture thermique seule', 'Le bus de ville'], 'L\'avion', 'L\'avion reste le moyen de transport le plus émetteur à cause de la combustion de kérosène en haute altitude.'],
-                    ['Quelle alternative quotidienne est la plus efficace sur moins de 5km ?', ['Le vélo ou la marche', 'Le covoiturage', 'Le scooter thermique', 'La trottinette électrique'], 'Le vélo ou la marche', "Le vélo et la marche n'émettent aucun gaz à effet de serre à l'usage et améliorent en plus votre santé physique !"]
+                    ['Quelle est l\'empreinte carbone moyenne d\'un français par an ?', ['2 tonnes', '5 tonnes', '9 tonnes', '15 tonnes'], '9 tonnes', "L'empreinte carbone mesure la quantité de gaz à effet de serre (GES) émis par nos activités sur une année.\n\n L'empreinte moyenne en France est de 9 tonnes de CO2 par an.\n\n Cette moyenne est calculée en prenant en compte notamment l'alimentation, les transport, le logement, les services publics et le numérique."],
+                    ['Pour respecter l\'Accord de Paris, à combien doit-on réduire cette empreinte d\'ici 2050 ?', ['0 tonne', '2 tonnes', '5 tonnes', '7 tonnes'], '2 tonnes', "Afin de limiter la hausse du réchauffement climatique en dessous de 2 degrés, l'objectif des accords sur le climat est de converger vers 2 tonnes d'émission de CO2 maximum, par an, par personne.\n\n Rendez-vous au prochain défi pour calculer ton empreinte carbone et identifier les actions les plus efficaces pour la réduire."]
                 ]
             ],
             2 => [
@@ -169,9 +169,9 @@ class AppFixtures extends Fixture
             ],
             3 => [
                 'type' => 'defi',
-                'co2' => 4.5,
-                'picture_alt' => "Assiette végétarienne remplie d'aliments",
-                'data' => ['Faible', 'Alimentation', 'Une journée 100% végétarienne', 'Aujourd\'hui, remplacez la viande et le poisson par des légumineuses (lentilles, pois chiches) et des légumes de saison.', 'Quel est l\'impact collectif de la viande ?', 'L\'élevage est responsable de près de 15% des émissions mondiales de gaz à effet de serre. Supprimer la viande un jour par semaine réduit drastiquement votre impact.']
+                'co2' => 5.0,
+                'picture_alt' => "Calculatrice posée à côté d'un carnet ouvert et d'un stylo dans l'herbe.",
+                'data' => ['Fort', 'Sensibilisation', 'Calculer son empreinte carbone', "Rends-toi sur nosgestesclimat.fr ou 2tonnes.org et réponds au questionnaire pour mesurer ton empreinte carbone annuelle.\n\n Le calculateur carbone permet de comprendre quels sont nos usages qui contribuent le plus au changement climatique et de saisir les actions qui auraient le plus d'impact pour le réduire.", 'Pourquoi mesurer economise-t-il 5 kg de CO2 ?', "Le calcul en lui même n'économise rien mais les études (comme celles de l'ADEME) montrent que cette prise de conscience génère une baisse statistique d'environ 1 à 2 % des émissions annuelles d'un individu."]
             ],
             4 => [
                 'type' => 'lesson',
@@ -186,9 +186,9 @@ class AppFixtures extends Fixture
             ],
             5 => [
                 'type' => 'defi',
-                'co2' => 12.0,
-                'picture_alt' => "Vélo accroché avec une ville en arrière-plan.",
-                'data' => ['Moyen', 'Transport', 'Lâcher la voiture pour les trajets de moins de 3km', 'Réalisez tous vos petits déplacements de la journée à pied, en vélo ou en transports en commun.', 'Pourquoi cibler les petits trajets ?', 'En ville, 40% des trajets effectués en voiture font moins de 3 km. Ce sont pourtant les kilomètres les plus polluants car le moteur n\'a pas le temps de chauffer.']
+                'co2' => 24.0,
+                'picture_alt' => "Chargeur de téléphone débranché de son adaptateur sur un sol en bois.",
+                'data' => ['Faible', 'Energie', 'Débrancher les chargeurs et les veilles', "Fais le tour de ton logement et débranche tous les chargeurs inutilisés ainsi que les appareils électroniques laissés en veille.\n\n Tu peux également utiliser des multiprises à interrupteur pour tout couper d'un seul geste le moment venu.", 'Quel est le vrai coût des appareils en veille ?', "Les veilles consomment inutilement entre 300 et 500 kWh par an dans un foyer français, ce qui pèse lourd sur la facture sans aucun bénéfice d'usage."]
             ],
             6 => [
                 'type' => 'lesson',
@@ -214,9 +214,9 @@ class AppFixtures extends Fixture
             ],
             8 => [
                 'type' => 'defi',
-                'co2' => 8.2,
-                'picture_alt' => "Main tenant une télécommande avec une télévision en arrière plan.",
-                'data' => ['Faible', 'Énergie', 'Chasse aux veilles électroniques', 'Faites le tour de chez vous ce soir et débranchez ou éteignez via multiprise tous les appareils en veille (TV, box internet, consoles, PC).', 'Quel est l\'impact invisible des veilles ?', 'Les appareils en veille représentent environ 10% de la facture d\'électricité d\'un foyer français sans apporter aucune valeur d\'usage.']
+                'co2' => 25.0,
+                'picture_alt' => "Quatre poubelles de couleur (jaune, bleue, rouge, vert) alignées sur un trottoir.",
+                'data' => ['Moyen', 'Déchets', 'Trier rigoureusement ses déchets', "Installe des poubelles séparées chez toi et respecte les consignes de tri de ta commune pour le verre, le carton et les emballages.\n\n Si tu as un doute, tu peux vérifier les logos sur les emballages.", 'Pourquoi le tri est-il si important pour le climat ?', "Le recyclage évite l'incinération polluante et l'extraction de matières premières vierges, ce qui économise de grandes quantités d'énergie industrielle.\n\n De plus, trier correctement permet de réduire la quantité de déchets enfouis qui génèrent du méthane en se décomposant."]
             ],
             9 => [
                 'type' => 'lesson',
@@ -245,8 +245,8 @@ class AppFixtures extends Fixture
             11 => [
                 'type' => 'lesson',
                 'picture_alts' => [
-                    $default_alt,
-                    $default_alt
+                    "Nuage de CO2 libéré par le tuyau d'une usine.",
+                    "Empreinte d'une paire de chaussure dans le sable."
                 ],
                 'data' => [
                     ['Quelle est l\'empreinte carbone moyenne d\'un français par an ?', ['2 tonnes', '5 tonnes', '9 tonnes', '15 tonnes'], '9 tonnes', "L'empreinte carbone mesure la quantité de gaz à effet de serre (GES) émis par nos activités sur une année.\n\n L'empreinte moyenne en France est de 9 tonnes de CO2 par an.\n\n Cette moyenne est calculée en prenant en compte notamment l'alimentation, les transport, le logement, les services publics et le numérique."],
@@ -255,9 +255,9 @@ class AppFixtures extends Fixture
             ],
             12 => [
                 'type' => 'defi',
-                'co2' => 35.0,
-                'picture_alt' => "Piles de bocaux en verre contenant des aliments secs.",
-                'data' => ['Fort', 'Consommation', 'Semaine sans aucun achat de plastique', 'N\'achetez aucun aliment, boisson ou objet emballé dans du plastique à usage unique pendant 7 jours.', 'Pourquoi le plastique est-il un enjeu climatique ?', '99% du plastique mondial est fabriqué à partir de combustibles fossiles (pétrole). Sa production et son incinération libèrent d\'immenses quantités de carbone.']
+                'co2' => 14.0,
+                'picture_alt' => "Belle assiette composée exclusivement de légumes, céréales et légumineuses.",
+                'data' => ['Moyen', 'Alimentation', 'Un jour végétarien par semaine (pendant 1 mois)', "Pendant 4 semaines, remplace la viande et le poisson d'une journée entière par des protéines végétales savoureuses.\n\n Tu peux cuisiner par exemple des lentilles, des pois chiches ou des haricots associés à des céréales pour obtenir un repas complet et équilibré.", 'Quel est l\'impact de l\'élevage ?', "Un jour sans viande économise environ 3 à 4 kg de CO2.\n\n L'élevage bovin intensif est très émetteur de méthane et nécessite d'immenses surfaces agricoles, ce qui favorise malheureusement la déforestation."]
             ],
             13 => [
                 'type' => 'lesson',
@@ -283,9 +283,9 @@ class AppFixtures extends Fixture
             ],
             15 => [
                 'type' => 'defi',
-                'co2' => 15.0,
-                'picture_alt' => "Machine à laver dont le tombeau est ouvert.",
-                'data' => ['Moyen', 'Énergie', 'Laver son linge à 30°C maximum', 'Faites toutes vos machines de la semaine en mode Éco ou à 30°C grand maximum, et zappez totalement le sèche-linge.', 'Quelle est la consommation d\'une machine à laver ?', 'Près de 80% de l\'électricité consommée par un cycle de lavage sert uniquement à chauffer l\'eau. Laver à basse température préserve vos vêtements et l\'énergie.']
+                'co2' => 80.0,
+                'picture_alt' => "Flocage d'un vélo sur une route goudronnée.",
+                'data' => ['Fort', 'Transport', 'Trajets courts (< 2 km) à pied ou à vélo', "Engage-toi à réaliser tous tes déplacements de moins de 2 kilomètres en mobilité douce plutôt qu'en voiture individuelle.\n\n Que ce soit pour aller à la boulangerie, emmener les enfants à l'école ou faire de petits achats, privilégie la marche ou le vélo.", 'Pourquoi les premiers kilomètres polluent-ils le plus ?', "Un moteur thermique consomme énormément de carburant et émet bien plus de gaz à effet de serre à froid, lors de ses tout premiers kilomètres.\n\n En supprimant ces micro-trajets polluants, tu réduis drastiquement ton empreinte carbone tout en prenant soin de ta santé physique."]
             ],
             16 => [
                 'type' => 'lesson',
@@ -311,9 +311,9 @@ class AppFixtures extends Fixture
             ],
             18 => [
                 'type' => 'defi',
-                'co2' => 20.5,
-                'picture_alt' => "Voiture avec quatre meeples dessus au dessus d'un plateau de jeu.",
-                'data' => ['Moyen', 'Transport', 'Pratiquer le covoiturage ou l\'éco-conduite', 'Pour vos déplacements obligatoires en voiture, embarquez un passager ou réduisez votre vitesse de 10km/h sur autoroute.', 'Quel gain avec l\'éco-conduite ?', 'Rouler à 110 km/h au lieu de 130 km/h réduit votre consommation de carburant de 20% tout en limitant le stress au volant.']
+                'co2' => 3.0,
+                'picture_alt' => "Chemin de randonnée traversant une forêt naturelle verdoyante.",
+                'data' => ['Faible', 'Biodiversité', 'Visiter une réserve ou un parc naturel', "Prends le temps d'aller te promener dans un espace naturel protégé, comme un Parc Naturel Régional ou un site géré par le Conservatoire d'Espaces Naturels (CEN).\n\n Renseigne-toi sur les sentiers balisés et observe la faune et la flore locales sans laisser de traces.", 'Quel est le lien avec le climat ?', "Soutenir et fréquenter ces espaces permet de valoriser et de financer la préservation de la biodiversité locale et des écosystèmes.\n\n De plus, ces zones sauvages agissent comme de véritables puits de carbone naturels qui s'avèrent indispensables pour réguler le climat mondial."]
             ],
             19 => [
                 'type' => 'lesson',
@@ -363,9 +363,9 @@ class AppFixtures extends Fixture
             ],
             23 => [
                 'type' => 'defi',
-                'co2' => 5.0,
-                'picture_alt' => "Sac biodégradable contenant des pommes.",
-                'data' => ['Faible', 'Consommation', 'Acheter un produit labellisé éco-responsable (FSC ou MSC)', 'Aujourd\'hui, achetez un produit en bois/papier labellisé FSC (gestion durable des forêts) ou du poisson labellisé MSC (pêche durable).', 'Que signifient ces labels ?', 'Ils garantissent le respect de critères environnementaux stricts pour ne pas surexploiter les forêts et les océans de notre globe.']
+                'co2' => 55.0,
+                'picture_alt' => "Penderie contenant des vêtements, en noir et blanc.",
+                'data' => ['Forte', 'Consommation', 'Boycotter la Fast-Fashion pendant 6 mois', "N'achète aucun vêtement neuf issu de l'industrie de la mode classique pendant les six prochains mois.\n\n En cas de besoin réel, tourne-toi vers des alternatives durables comme le don, la réparation de tes propres vêtements, le troc ou les friperies de seconde main.", 'L\'industrie textile pollue-t-elle tant que ça ?', "La mode émet plus de gaz à effet de serre que les vols internationaux et le trafic maritime réunis à cause d'une surproduction mondiale aberrante.\n\n Boycotter le neuf permet de freiner l'extraction de ressources, les teintures chimiques toxiques et les transports à répétition."]
             ],
             24 => [
                 'type' => 'lesson',
@@ -380,9 +380,9 @@ class AppFixtures extends Fixture
             ],
             25 => [
                 'type' => 'defi',
-                'co2' => 50.0,
-                'picture_alt' => "Assiette contenant des restes de nourriture.",
-                'data' => ['Fort', 'Alimentation', 'Zéro déchet alimentaire pendant une semaine', 'Planifiez vos repas à l\'avance, achetez les bonnes quantités et cuisinez absolument tous vos restes pour ne rien jeter.', 'Quel est le coût écologique du gaspillage ?', 'Si le gaspillage alimentaire mondial était un pays, il serait le troisième plus grand émetteur de gaz à effet de serre au monde derrière la Chine et les USA.']
+                'co2' => 45.0,
+                'picture_alt' => "Plan de travail rempli de fruits et légumes frais.",
+                'data' => ['Moyen', 'Alimentation', 'Consommer local et de saison', "Achète uniquement des fruits et légumes de saison qui sont cultivés dans ta région pour privilégier au maximum les circuits courts.\n\n Rends-toi sur les marchés locaux ou utilise des abonnements à des paniers de producteurs pour faire tes provisions hebdomadaires.", 'Pourquoi fuir les légumes hors saison ?', "Cultiver une tomate sous serre chauffée en hiver en France produit environ 10 fois plus de gaz à effet de serre qu'une tomate de saison en plein champ."]
             ],
             26 => [
                 'type' => 'lesson',
@@ -408,9 +408,9 @@ class AppFixtures extends Fixture
             ],
             28 => [
                 'type' => 'defi',
-                'co2' => 15.2,
-                'picture_alt' => "Arbre à huile de palme vu de dessous.",
-                'data' => ['Moyen', 'Consommation', 'Boycott des produits contenant de l\'huile de palme', 'Vérifiez les étiquettes de vos produits (gâteaux, cosmétiques) et évitez soigneusement l\'huile de palme non certifiée.', 'Pourquoi boycotter l\'huile de palme ?', 'Sa culture ultra-intensive est la première cause de déforestation en Asie du Sud-Est, détruisant l\'habitat d\'espèces menacées comme les orangs-outans.']
+                'co2' => 15.0,
+                'picture_alt' => "Personne écrivant sur un tableau transparent.",
+                'data' => ['Moyen', 'Sensibilisation', 'Participer à un atelier climat ou un MOOC', "Inscris-toi à un atelier collaboratif comme la Fresque du Climat ou l'atelier 2tonnes, ou suis un MOOC gratuit en ligne sur la transition écologique.\n\n Prends quelques heures pour te former et échanger avec d'autres citoyens engagés.", 'La connaissance a-t-elle un impact CO2 ?', "Oui, car comprendre les ordres de grandeur du climat permet de décupler l'efficacité de tes actions futures en te concentrant sur ce qui compte vraiment."]
             ],
             29 => [
                 'type' => 'lesson',
@@ -543,23 +543,13 @@ class AppFixtures extends Fixture
                         $p3->setRightAnswer($dataBlock[2]);
                         $manager->persist($p3);
                     } else {
-                        // Page Réponse/Explication : 2 parties
+                        // Page Réponse/Explication : 1 partie
                         $p1 = new EventPart();
                         $p1->setEventPage($page);
                         $p1->setSequenceNumber(1);
-                        $p1->setEventPartType(EventPartType::PICTURE);
-                        // Même visuel que la question associée pour la continuité
-                        $p1->setPicturePath("uploads/events/lesson_" . $id . "_p" . ($p - 1) . $img_format);
-                        $altIndex = ($p === 2) ? 0 : 1;
-                        $p1->setPictureAlt($info['picture_alts'][$altIndex]);
+                        $p1->setEventPartType(EventPartType::DESCRIPTION);
+                        $p1->setDescription($dataBlock[3]);
                         $manager->persist($p1);
-
-                        $p2 = new EventPart();
-                        $p2->setEventPage($page);
-                        $p2->setSequenceNumber(2);
-                        $p2->setEventPartType(EventPartType::DESCRIPTION);
-                        $p2->setDescription($dataBlock[3]);
-                        $manager->persist($p2);
                     }
                 }
             }
