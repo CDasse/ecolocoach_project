@@ -12,7 +12,7 @@ const authFile = 'playwright/.auth/user.json';
 setup('Authenticate as Elia Chelet', async ({page}) => {
     await page.goto('/');
     await page.getByRole('link', {name: 'Me connecter'}).click();
-    await page.getByRole('textbox', {name: 'Email'}).fill('elia@gmail.fr');
+    await page.getByRole('textbox', {name: 'Email'}).fill('elia@mail.fr');
     await page.getByRole('textbox', {name: 'Mot de passe'}).fill('elia');
     await page.getByRole('button', {name: 'Se connecter'}).click();
 

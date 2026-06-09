@@ -24,19 +24,19 @@ test('End-to-end user workflow within the application', async ({page}) => {
 
     await completeLesson2(page);
     await viewChallenge1(page);
-    await expect(page.getByRole('heading', {name: 'Une journée 100% végétarienne'})).toBeVisible();
+    await expect(page.getByRole('heading', {name: 'Calculer son empreinte carbone'})).toBeVisible();
 
     await acceptChallenge1(page);
     await expect(page.getByText('BRAVO !')).toBeVisible();
 
     await viewChallengeOnImpactPage(page);
-    await expect(page.getByRole('heading', {name: 'Une journée 100% végétarienne'})).toBeVisible();
+    await expect(page.getByRole('heading', {name: 'Calculer son empreinte carbone'})).toBeVisible();
 
     await refuseChallenge1(page);
     await expect(page.getByText('CE N\'EST PAS GRAVE !')).toBeVisible();
 
     await viewChallengeOnRecapPage(page);
-    await expect(page.getByRole('heading', {name: 'Une journée 100% végétarienne'})).toBeVisible();
+    await expect(page.getByRole('heading', {name: 'Calculer son empreinte carbone'})).toBeVisible();
 
     await acceptChallenge1again(page);
     await expect(page.getByText('BRAVO !')).toBeVisible();
@@ -44,20 +44,20 @@ test('End-to-end user workflow within the application', async ({page}) => {
     await closeCongrateModale(page);
     await expect(page.getByText('0,0 kg')).toBeVisible();
     await validateChallenge1(page);
-    await expect(page.getByText('4,50 kg')).toBeVisible();
+    await expect(page.getByText('5,00 kg')).toBeVisible();
 
 });
 
 
 async function completeLesson1Part1(page: Page) {
     await page.getByRole('link', {name: 'leçon 1'}).click();
-    await page.getByRole('button', {name: 'L\'avion'}).click();
+    await page.getByRole('button', {name: '9 tonnes'}).click();
     await page.getByRole('button', {name: 'Valider'}).click();
 }
 
 async function completeLesson1Part2(page: Page) {
     await page.getByRole('link', {name: 'Continuer'}).click();
-    await page.getByRole('button', {name: 'Le covoiturage'}).click();
+    await page.getByRole('button', {name: '0 tonne'}).click();
     await page.getByRole('button', {name: 'Valider'}).click();
 }
 
