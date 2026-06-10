@@ -2,7 +2,7 @@ name: SonarCloud Scan
 
 on:
     workflow_run:
-        workflows: [ "Tests" ]
+        workflows: [ "Green IT" ]
         types:
             - completed
     workflow_dispatch:

@@ -2,7 +2,7 @@ name: Build & Package
 
 on:
     workflow_run:
-        workflows: [ "Green IT", "SonarCloud Scan" ]
+        workflows: [ "SonarCloud Scan" ]
         types:
             - completed
     workflow_dispatch:

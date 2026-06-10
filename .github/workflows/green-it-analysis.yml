@@ -62,7 +62,7 @@ jobs:
                     npx wait-on http://127.0.0.1:8000
 
             -   name: GreenIT Analysis
-                uses: ythirion/greenit-analysis-action@ae3e237e3be4eefde6a5046545264c730a91ecfb
+                uses: ythirion/greenit-analysis-action@68a0f01cac7966edcaaa40cbac43d90eea3d4d0a
                 with:
                     url-file: 'greenit-urls.yml'
                     min-ecoindex: '85'
