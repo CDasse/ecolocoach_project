@@ -18,8 +18,29 @@ jobs:
                 with:
                     fetch-depth: 0
 
+            -   name: Setup PHP
+                uses: shivammathur/setup-php@7c071dfe9dc99bdf297fa79cb49ea005b9fcadbc
+                with:
+                    php-version: '8.4'
+                    coverage: xdebug
+
+            -   name: Install dependencies
+                run: composer install --no-progress --prefer-dist
+
+            -   name: Run PHPUnit with coverage
+                run: |
+                    ./vendor/bin/phpunit \
+                      --coverage-clover=coverage/clover.xml \
+                      --log-junit=coverage/test-results.xml
+                env:
+                    XDEBUG_MODE: coverage
+
             -   name: SonarCloud Scan
                 uses: SonarSource/sonarqube-scan-action@713881670b6b3676cda39549040e2d88c70d582e
                 env:
                     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
                     SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+                with:
+                    args: >
+                        -Dsonar.php.coverage.reportPaths=coverage/clover.xml
+                        -Dsonar.php.tests.reportPath=coverage/test-results.xml
