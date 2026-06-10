@@ -1,0 +1,68 @@
+name: Green IT
+
+on:
+    workflow_run:
+        workflows: [ "Tests" ]
+        types:
+            - completed
+    workflow_dispatch:
+
+jobs:
+    greenit:
+        if: ${{ github.event.workflow_run.conclusion == 'success' }}
+        runs-on: ubuntu-latest
+
+        steps:
+            -   name: Checkout code
+                uses: actions/checkout@v6
+
+            -   name: Setup Node.js (Requis pour npx wait-on)
+                uses: actions/setup-node@v6
+                with:
+                    node-version: '24'
+
+            -   name: Setup PHP
+                uses: shivammathur/setup-php@7c071dfe9dc99bdf297fa79cb49ea005b9fcadbc
+                with:
+                    php-version: '8.4'
+                    extensions: ctype, iconv, intl, pdo_sqlite
+
+            -   name: Create .env for testing
+                run: |
+                    echo "APP_ENV=test" > .env
+                    echo "APP_SECRET=test-secret-pour-la-ci-github!!" >> .env
+                    echo "DEFAULT_URI=http://127.0.0.1:8000" >> .env
+                    echo "DATABASE_URL=sqlite:///%kernel.project_dir%/var/data.db" >> .env
+                    echo "MESSENGER_TRANSPORT_DSN=in-memory://" >> .env
+
+            -   name: Cache Composer dependencies
+                uses: actions/cache@v5
+                with:
+                    path: vendor
+                    key: composer-greenit-${{ hashFiles('composer.lock') }}
+                    restore-keys: composer-greenit-
+
+            -   name: Install dependencies
+                run: composer install --prefer-dist --no-scripts --no-progress
+
+            -   name: Setup Database
+                run: |
+                    mkdir -p var
+                    touch var/data.db
+                    php bin/console doctrine:schema:create --env=test
+
+            -   name: Compile assets for GreenIT
+                run: |
+                    php bin/console importmap:install
+                    php bin/console asset-map:compile
+
+            -   name: Start Symfony server & wait
+                run: |
+                    php -S 127.0.0.1:8000 -t public &
+                    npx wait-on http://127.0.0.1:8000
+
+            -   name: GreenIT Analysis
+                uses: ythirion/greenit-analysis-action@ae3e237e3be4eefde6a5046545264c730a91ecfb
+                with:
+                    url-file: 'greenit-urls.yml'
+                    min-ecoindex: '85'
