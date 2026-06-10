@@ -24,6 +24,21 @@ jobs:
                     php-version: '8.4'
                     coverage: xdebug
 
+            -   name: Create .env for testing
+                run: |
+                    echo "APP_ENV=test" > .env
+                    echo "APP_SECRET=test-secret-pour-la-ci-github!!" >> .env
+                    echo "DEFAULT_URI=http://127.0.0.1:8000" >> .env
+                    echo "DATABASE_URL=sqlite:///%kernel.project_dir%/var/data.db" >> .env
+                    echo "MESSENGER_TRANSPORT_DSN=in-memory://" >> .env
+
+            -   name: Cache Composer dependencies
+                uses: actions/cache@v5
+                with:
+                    path: vendor
+                    key: composer-sonar-${{ hashFiles('composer.lock') }}
+                    restore-keys: composer-sonar-
+
             -   name: Install dependencies
                 run: composer install --no-progress --prefer-dist
 
