@@ -67,10 +67,10 @@ async function finishLesson1(page: Page) {
 
 async function completeLesson2(page: Page) {
     await page.getByRole('link', {name: 'leçon 2'}).click();
-    await page.getByRole('button', {name: 'Le poireau local'}).click();
+    await page.getByRole('button', {name: 'Verre'}).click();
     await page.getByRole('button', {name: 'Valider'}).click();
     await page.getByRole('link', {name: 'Continuer'}).click();
-    await page.getByRole('button', {name: 'Uniquement pour le style'}).click();
+    await page.getByRole('button', {name: '1 an'}).click();
     await page.getByRole('button', {name: 'Valider'}).click();
     await page.getByRole('button', {name: 'Terminer'}).click();
 }
