@@ -1,4 +1,4 @@
-name: Build and Package
+name: Package and Deploy
 
 on:
     workflow_run:
@@ -67,3 +67,16 @@ jobs:
                     path: /tmp/ecolocoach-${{ github.sha }}.tar.gz
                     retention-days: 7
                     if-no-files-found: error
+
+    deploy:
+        needs: build
+        runs-on: ubuntu-latest
+
+        steps:
+            -   name: Deploy on Alwaysdata
+                uses: appleboy/ssh-action@0ff4204d59e8e51228ff73bce53f80d53301dee2
+                with:
+                    host: "ssh-ecolocoach.alwaysdata.net"
+                    username: "ecolocoach"
+                    key: ${{ secrets.SSH_PRIVATE_KEY }}
+                    script: "/home/ecolocoach/deploy.sh"
