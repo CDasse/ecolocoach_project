@@ -82,4 +82,6 @@ playwright/.auth/
 .env.dev
 .idea
 
+/var/*.db
+
 

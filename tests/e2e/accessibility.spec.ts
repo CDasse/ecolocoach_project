@@ -8,6 +8,7 @@ async function assertAccessibilityFor(page: Page, url: string, tags: string[]) {
 
     const accessibilityScanResults = await new AxeBuilder({page})
         .withTags(tags)
+        .exclude('.sf-toolbar')
         .analyze();
 
     expect(accessibilityScanResults.violations).toEqual([]);
