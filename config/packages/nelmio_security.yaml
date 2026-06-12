@@ -19,15 +19,10 @@ nelmio_security:
             - 'no-referrer'
             - 'strict-origin-when-cross-origin'
 
-    # HSTS (Strict Transport Security)
-    forced_ssl:
-        hsts_max_age: 31536000
-        hsts_subdomains: true
-        hsts_preload: true
-
     # Content Security Policy (CSP)
     csp:
-        policies:
+        enabled: true
+        enforce:
             default-src: [ "'self'" ]
             script-src: [ "'self'", "'unsafe-inline'" ]
             style-src: [ "'self'", "'unsafe-inline'" ]

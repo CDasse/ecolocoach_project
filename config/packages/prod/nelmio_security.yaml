@@ -1,0 +1,6 @@
+nelmio_security:
+    # HSTS (Strict Transport Security) activé UNIQUEMENT en production
+    forced_ssl:
+        hsts_max_age: 31536000
+        hsts_subdomains: true
+        hsts_preload: true
