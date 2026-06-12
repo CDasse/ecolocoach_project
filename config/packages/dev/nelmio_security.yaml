@@ -1,10 +1,11 @@
-# Content Security Policy (CSP)
-csp:
-    enabled: true
-    enforce:
-        default-src: [ "'self'" ]
-        script-src: [ "'self'", "'unsafe-inline'" ]
-        object-src: [ "'none'" ]
-        style-src: [ "'self'", "'unsafe-inline'" ]
-        img-src: [ "'self'", "data:", "https://bff.ecoindex.fr" ]
-        frame-ancestors: [ "'none'" ]
+nelmio_security:
+    # Content Security Policy (CSP)
+    csp:
+        enabled: true
+        enforce:
+            default-src: [ "'self'" ]
+            script-src: [ "'self'", "'unsafe-inline'" ]
+            object-src: [ "'none'" ]
+            style-src: [ "'self'", "'unsafe-inline'" ]
+            img-src: [ "'self'", "data:", "https://bff.ecoindex.fr" ]
+            frame-ancestors: [ "'none'" ]
