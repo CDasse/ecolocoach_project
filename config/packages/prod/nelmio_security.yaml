@@ -4,3 +4,14 @@ nelmio_security:
         hsts_max_age: 31536000
         hsts_subdomains: true
         hsts_preload: true
+
+    # Content Security Policy (CSP)
+    csp:
+        enabled: true
+        enforce:
+            default-src: [ "'self'" ]
+            script-src: [ "'self'" ]
+            style-src: [ "'self'", "'unsafe-inline'" ]
+            object-src: [ "'none'" ]
+            img-src: [ "'self'", "data:", "https://bff.ecoindex.fr" ]
+            frame-ancestors: [ "'none'" ]

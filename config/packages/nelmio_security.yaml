@@ -24,7 +24,7 @@ nelmio_security:
         enabled: true
         enforce:
             default-src: [ "'self'" ]
-            script-src: [ "'self'" ]
+            script-src: [ "'self'", "'unsafe-inline'" ]
             object-src: [ "'none'" ]
             style-src: [ "'self'", "'unsafe-inline'" ]
             img-src: [ "'self'", "data:", "https://bff.ecoindex.fr" ]
