@@ -1,0 +1,35 @@
+nelmio_security:
+    # prevents framing of the entire site
+    clickjacking:
+        paths:
+            '^/.*': DENY
+
+    # disables content type sniffing for script resources
+    content_type:
+        nosniff: true
+
+    # Send a full URL in the `Referer` header when performing a same-origin request,
+    # only send the origin of the document to secure destination (HTTPS->HTTPS),
+    # and send no header to a less secure destination (HTTPS->HTTP).
+    # If `strict-origin-when-cross-origin` is not supported, use `no-referrer` policy,
+    # no referrer information is sent along with requests.
+    referrer_policy:
+        enabled: true
+        policies:
+            - 'no-referrer'
+            - 'strict-origin-when-cross-origin'
+
+    # HSTS (Strict Transport Security)
+    forced_ssl:
+        hsts_max_age: 31536000
+        hsts_subdomains: true
+        hsts_preload: true
+
+    # Content Security Policy (CSP)
+    csp:
+        policies:
+            default-src: [ "'self'" ]
+            script-src: [ "'self'", "'unsafe-inline'" ]
+            style-src: [ "'self'", "'unsafe-inline'" ]
+            img-src: [ "'self'", "data:", "https://bff.ecoindex.fr" ]
+            frame-ancestors: [ "'none'" ]
