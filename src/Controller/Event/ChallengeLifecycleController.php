@@ -93,7 +93,7 @@ final class ChallengeLifecycleController extends AbstractController
         if ($challengeStatus == EventStatus::REFUSED) {
             $this->addFlash('info',
                 "<strong>CE N'EST PAS GRAVE !</strong> Que tu ne sois pas prêt.e ou que tu ne puisses pas réaliser ce défi, ce n’est pas grave. Beaucoup d’autres défis t’attendent ! <br>
-                        Si par la suite, tu souhaites retenter ce défi, rends-toi dans la liste de tes défis annulés.");
+                        Si par la suite, tu souhaites retenter ce défi, rends-toi dans la liste de tes défis laissés de côté.");
         }
 
         $entityManager->flush();

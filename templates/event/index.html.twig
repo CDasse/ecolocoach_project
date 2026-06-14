@@ -10,9 +10,13 @@
     <main class="event-main-wrapper">
 
         {% set is_question_page = false %}
+        {% set has_picture = false %}
         {% for part in event_parts %}
             {% if part.eventPartType.name == 'ANSWER' and part.answers is not null %}
                 {% set is_question_page = true %}
+            {% endif %}
+            {% if part.eventPartType.name == 'PICTURE' %}
+                {% set has_picture = true %}
             {% endif %}
         {% endfor %}
 
@@ -23,7 +27,7 @@
               class="event-main-wrapper">
             {% endif %}
 
-            <div class="event-content">
+            <div class="event-content {% if has_picture %}has-picture{% else %}no-picture{% endif %}">
                 {% set inside_tags = false %}
                 {% set inside_subgroup = false %}
 

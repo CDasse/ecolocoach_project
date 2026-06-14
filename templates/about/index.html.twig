@@ -1,0 +1,115 @@
+{% extends '_layouts/standard.html.twig' %}
+
+{% block title %}EcoloCoach | À propos{% endblock %}
+
+{% block meta_description %}
+    Découvre les origines d'EcoloCoach, un projet étudiant. D'une problématique environnementale à la réalisation d'un site web...
+{% endblock %}
+
+{% block content %}
+    <div class="home-container">
+
+        <section class="hero-section">
+            <span class="hero-badge">Projet Étudiant</span>
+
+            <h1>Devenons ensemble plus écolo, parce que chaque geste compte ! 🌿</h1>
+
+            <div class="hero-subtitle">
+                <p>
+                    Avez-vous déjà eu envie d'adopter des comportements plus respectueux de l'environnement, sans
+                    vraiment savoir
+                    par où commencer, ou en manquant parfois de motivation sur la durée ?
+                </p>
+                <p>
+                    <strong>Rassurez-vous, vous n'êtes pas seul.</strong>
+                </p>
+                <p>
+                    Selon l'ADEME, près de 90 % des Français se disent préoccupés par les questions environnementales,
+                    mais seuls 20 à 25 % d'entre eux parviennent à adapter significativement leur mode de vie.
+                    C'est de ce constat qu'est né <strong>Ecolocoach</strong> : l'envie de transformer de bonnes
+                    intentions en habitudes durables,
+                    sans que cela devienne une contrainte.
+                </p>
+            </div>
+        </section>
+
+        <section class="features-section">
+            <h2>Les coulisses du projet : Une aventure étudiante</h2>
+            <div class="hero-subtitle">
+                <p>
+                    Cette application web a été entièrement pensée et développée dans le cadre de ma première année de
+                    formation
+                    en tant que Développeuse Full Stack. Il s'agit de mon premier grand projet concret, où je mets en
+                    pratique tout ce que j'ai appris durant l'année
+                    (de la gestion de projet à la rédaction de code, en passant par l'éco-conception et
+                    l'accessibilité).
+                </p>
+                <p>
+                    <strong>Le site n'est pas encore complet, et c'est normal !</strong>
+                    Il s'agit d'une version initiale qui va s'enrichir, s'améliorer et se perfectionner au fil de mes
+                    apprentissages.
+                    C'est un projet vivant, développé de manière itérative.
+                </p>
+            </div>
+        </section>
+
+        <section class="features-section">
+            <h2>La feuille de route actuelle</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">🧭</div>
+                    <h3>Un parcours d'accompagnement</h3>
+                    <p>Des quiz interactifs pour comprendre les enjeux climatiques à votre rythme.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">⚡</div>
+                    <h3>Des défis concrets</h3>
+                    <p>Des challenges adaptés à votre niveau pour passer facilement à l'action au quotidien.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">📊</div>
+                    <h3>Visualisation de l'impact</h3>
+                    <p>Un tableau de bord pour mesurer l'impact positif réel de vos nouveaux gestes sur la planète.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="features-section">
+            <h2>Et demain ? Les fonctionnalités à venir</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">👥</div>
+                    <h3>L'écologie en équipe</h3>
+                    <p>Connectez-vous avec vos amis, créez des groupes et lancez-vous des défis collectifs avec suivi
+                        d'impact commun.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">🎯</div>
+                    <h3>Des parcours sur-mesure</h3>
+                    <p>Un quiz d'orientation initial analysera vos habitudes pour vous guider vers le programme le plus
+                        adapté à votre profil.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="cta-section">
+            <div class="cta-card">
+                {% if app.user %}
+                    <h2>Heureux de t'avoir dans l'aventure, {{ app.user.username }} !</h2>
+                    <p>Prêt.e à relever de nouveaux défis aujourd'hui ?</p>
+                    <a href="{{ path('path') }}" class="btn-primary btn-primary-green">Accéder à mon espace</a>
+                {% else %}
+                    <h2>Prêt.e à commencer l'aventure ?</h2>
+                    <p>
+                        Rejoins-nous gratuitement et commence à ton rythme.
+                    </p>
+                    <a href="{{ path('app_register') }}" class="btn-primary btn-primary-green">Créer mon compte</a>
+                {% endif %}
+            </div>
+        </section>
+
+    </div>
+{% endblock %}

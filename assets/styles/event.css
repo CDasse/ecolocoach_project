@@ -287,11 +287,27 @@ p.event-description {
         flex-direction: column;
         justify-content: center;
 
-        padding-left: calc(50% + 40px);
         min-height: 55vh;
         max-width: 1200px;
         margin: 0 auto;
         gap: 20px;
+    }
+
+    .event-content.has-picture {
+        padding-left: calc(50% + 40px);
+    }
+
+    .event-content.no-picture {
+        padding-left: 24px;
+        padding-right: 24px;
+        max-width: 800px;
+        align-items: center;
+        text-align: center;
+    }
+
+    .event-content.no-picture .event-answers {
+        width: 100%;
+        max-width: 600px;
     }
 
     .event-picture {

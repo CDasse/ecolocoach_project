@@ -149,7 +149,7 @@ class AppFixtures extends Fixture
                 "Empreinte d'une paire de chaussure dans le sable."
             ],
             'data' => [
-                ['Quelle est l\'empreinte carbone moyenne d\'un français par an ?', [$deuxTonnes, '5 tonnes', '9 tonnes', '15 tonnes'], '9 tonnes', "L'empreinte carbone mesure la quantité de gaz à effet de serre (GES) émis par nos activités sur une année.\n\n L'empreinte moyenne en France est de 9 tonnes de CO2 par an.\n\n Cette moyenne est calculée en prenant en compte notamment l'alimentation, les transport, le logement, les services publics et le numérique."],
+                ['Quelle est l\'empreinte carbone moyenne d\'un français par an ?', [$deuxTonnes, '5 tonnes', '9 tonnes', '15 tonnes'], '9 tonnes', "L'empreinte carbone mesure la quantité de gaz à effet de serre (GES) émis par nos activités sur une année.\n\n L'empreinte moyenne en France est de 9 tonnes de CO2 par an.\n\n Cette moyenne est calculée en prenant en compte notamment l'alimentation, les transports, le logement, les services publics et le numérique."],
                 ['Pour respecter l\'Accord de Paris, à combien doit-on réduire cette empreinte d\'ici 2050 ?', ['0 tonne', $deuxTonnes, '5 tonnes', '7 tonnes'], $deuxTonnes, "Afin de limiter la hausse du réchauffement climatique en dessous de 2 degrés, l'objectif des accords sur le climat est de converger vers 2 tonnes d'émission de CO2 maximum, par an, par personne.\n\n Rendez-vous au prochain défi pour calculer ton empreinte carbone et identifier les actions les plus efficaces pour la réduire."]
             ]
         ];
