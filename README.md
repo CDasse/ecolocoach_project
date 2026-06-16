@@ -309,8 +309,8 @@ Pour lancer les tests localement (unitaires, E2E, accessibilité) avec réinitia
 mpn run test
 ```
 
-> Un script bash a été rédigé afin d'implémenter la base de données fictive (via le fichier de fixtures)
-> avant et après les tests.
+> Un script bash a été rédigé afin d'implémenter la base de données fictive (via le fichier de fixtures) avant et après
+> les tests.
 
 ### ⚡ Performances & Expérience Utilisateur
 
