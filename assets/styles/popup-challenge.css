@@ -87,6 +87,7 @@
 .challenge-dialog p.event-description {
     padding: 0 24px;
     margin-bottom: 24px;
+    color: var(--color-green-800);
 }
 
 .challenge-dialog .subgroup-card {
